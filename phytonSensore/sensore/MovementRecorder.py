@@ -2,12 +2,16 @@
         Record movements.
 		USAGE: python mov_rec.py n_of_movement
 '''
-import smbus			#import SMBus module of I2C
+import smbus			#import SMBus module of			#libreria che include funzioni per interfacciarsi con il sensore usando il protocollo I2C
+
 import time         
-import collections
-import numpy as np
+import collections							#modulo che mette a dispositione diversi tipi di oggetti per incapsulare dati
+
+import numpy as np							# importo il modulo numpy al quale, all'interno del programma, si farà riferimento con np
+									# numPy è una libreria che permette di memorizzare array e matrici e eseguire funzioni matematiche complesse su di essi
+
 import csv
-import sys
+import sys								#modulo che contine una serie di variabili "di sistema" e una serie di funzioni per interagire con esso
 
 
 #some MPU6050 Registers and their Address
@@ -20,10 +24,14 @@ ACCEL_XOUT_H = 0x3B
 ACCEL_YOUT_H = 0x3D
 ACCEL_ZOUT_H = 0x3F
 GYRO_XOUT_H  = 0x43
-GYRO_YOUT_H  = 0x45
-GYRO_ZOUT_H  = 0x47
+GYRO_YOUT_H  = 0x45					
+GYRO_ZOUT_H  = 0x47							#indirizzi dei registri del sensore. Verranno utilizzati dalle funzioni di SMBus
 
 
+#-------------------------------------------
+#LAUGERO SPIEGAMI  |
+#	           V
+#-----------------------------------------------------
 def MPU_Init():
 	#write to sample rate register
 	bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
@@ -61,10 +69,10 @@ MPU_Init()
 
 print (" Reading Data of Gyroscope and Accelerometer")
 
-LenFifo = 10
+LenFifo = 10	#LAUGERO cosa sono queste variabili? (lunghezza di una coda first in first out?)
 Athr = 0.04
-AxFifo = collections.deque(LenFifo*[0], LenFifo)
-AyFifo = collections.deque(LenFifo*[0], LenFifo)
+AxFifo = collections.deque(LenFifo*[0], LenFifo) 	#crea una nuova coda utilizzando i dati passati
+AyFifo = collections.deque(LenFifo*[0], LenFifo)	# LenFifo*[0] crea un vettore di zeri. Il numero di zeri è contenuto nells variabile LenFifo
 AzFifo = collections.deque(LenFifo*[0], LenFifo)
 GxFifo = collections.deque(LenFifo*[0], LenFifo)
 GyFifo = collections.deque(LenFifo*[0], LenFifo)
@@ -73,7 +81,7 @@ GzFifo = collections.deque(LenFifo*[0], LenFifo)
 csvfile = open('movements.csv', 'ab')
 writer = csv.writer(csvfile)
 
-movement_class = sys.argv[1] 
+movement_class = sys.argv[1] 	
 if not(movement_class):
 	movement_class = 'UNK'
 

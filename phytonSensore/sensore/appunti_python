@@ -1,0 +1,7 @@
+python è un linguaggio bassamente tipizzato: non è necessario dichiarare variabili. 
+Ogni variabile è un OGGETTO. 
+
+un oggetto può essere istaziato con la sintassi: [nomeVariabile] = [classe]();
+
+
+

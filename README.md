@@ -5,8 +5,10 @@ DESCRIZIONE: pantaloni con sensori che permettono il riconoscimnto del movimento
 - raspberry Pi, 
 - (eventuale) rete neurale per rendere più veloce il riconoscimento dei movimenti, 
 - sensore accellerometro e giroscopio tre assi (MPU-6050 https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/).
-- (eventuale) interfaccia audio
-- java per interfaccia desktop
+- interfaccia audio
+- server amazon che esegua l'elaborazione dei dati
+- scheda 4G Raspberry per comunicazione con server
+- python (per software su server e raspberry)
 
 # dettagli implementazione
 Il prototipo realizzato riguarderà un pantalone da corsa con tre sensori MPU-6050 in prossimità dei seguenti punti del corpo:

@@ -26,6 +26,7 @@ from sklearn.ensemble import RandomForestClassifier	#RandomForestClassifier è u
 							#Ogni albero fornisce così la propria opinione. Il risultato dato in output da RandomForest sarà il risultato
 							#delle elaborazioni del vari alberi che ritornerà più frequente. 
 							#Per questo, maggiore è il numero di alberi, più accurata sarà la classificazione. 
+							#per spiegazioni ulteriori : https://www.youtube.com/watch?v=loNcrMjYh64
 import config
 import socket
 

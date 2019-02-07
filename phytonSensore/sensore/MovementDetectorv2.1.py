@@ -8,8 +8,24 @@ import collections
 import numpy as np
 import csv
 import sys
-import pandas as pd
-from sklearn.ensemble import RandomForestClassifier
+import pandas as pd		#libreria che permette di manipolare grandi moli di dati utilizzando istruzioni che possono dirsi simili alle clausole SQL di una select
+from sklearn.ensemble import RandomForestClassifier	#RandomForestClassifier è un algoritmo che ha questa funzione: dato in input un "record"
+							#composto da una serie di campi, l'algoritmo è in grado di definire a quale "classe"
+							#di record assomiglia di più. 
+							#Naturalmente, prima di far funzionare l'algoritmo in questo modo, bisogna creare una specie di "tabella"
+							#che contiene una classe per ogni riga. I campi della tabella sono gli stessi del record che verrà dato in 
+							#input all'algoritmo successivamente. Ogni riga della tabella contiene dei valori per ciascuno di questi campi
+							#e il nome della classe che identifica la corrispondente combinazione dei valori dei campi.
+							#Ma come funziona in pratica? RandomForest Classifier prevede che la tabella iniziale di cui si è parlato sopra
+							#venga divisa in più sottotabelle in modo casuale (le varie tabelle possono contenere le stesse classi oppure no).
+							#Ogni sottotabella è chiamata "albero" (tree). Ogni albero lavora in modo indipendente dagli altri e può
+							#essere creato un numero di alberi a piacere dal programmatore. 
+							#Quando all'algoritmo viene dato in input un record, questo viene dato in input ad ogni albero. Ogni albero,
+							#basandosi sulla sottotabella che possiede, attraverso un algoritmo DecisionTree dice secondo lui a quale classe
+							#appartiene il record. 
+							#Ogni albero fornisce così la propria opinione. Il risultato dato in output da RandomForest sarà il risultato
+							#delle elaborazioni del vari alberi che ritornerà più frequente. 
+							#Per questo, maggiore è il numero di alberi, più accurata sarà la classificazione. 
 import config
 import socket
 

@@ -27,11 +27,12 @@ from sklearn.ensemble import RandomForestClassifier	#RandomForestClassifier è u
 							#delle elaborazioni del vari alberi che ritornerà più frequente. 
 							#Per questo, maggiore è il numero di alberi, più accurata sarà la classificazione. 
 							#per spiegazioni ulteriori : https://www.youtube.com/watch?v=loNcrMjYh64
-import config
+
+import config						#libreria per leggere e scrivere su file del tipo chiave:valore
 import socket
 
 
-#some MPU6050 Registers and their Address
+#some MPU6050 Registers and their Address		#gli indirizzi dei registri del sensore su cui si andrà a leggere e scrivere
 PWR_MGMT_1   = 0x6B
 SMPLRT_DIV   = 0x19
 CONFIG       = 0x1A
@@ -64,7 +65,7 @@ def MPU_Init():
 def read_raw_data(addr):
 	#Accelero and Gyro value are 16-bit
         high = bus.read_byte_data(Device_Address, addr)
-        low = bus.read_byte_data(Device_Address, addr+1)
+        low = bus.read_byte_data(Device_Address, addr+1)		#LAUGERO perchè si fa addr+1?
     
         #concatenate higher and lower value
         value = ((high << 8) | low)

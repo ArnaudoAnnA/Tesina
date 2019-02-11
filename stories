@@ -1,4 +1,5 @@
-PRIORITA': 1    1) Rilevamento del movimento (Raspberry)
+PRIORITA': 1    PAOLO
+                1) Rilevamento del movimento (Raspberry)
                     1- Hardware realizzazione fisica tuta
                     2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C e Raspberry
                     3- Hardware Pulsanti
@@ -7,24 +8,29 @@ PRIORITA': 1    1) Rilevamento del movimento (Raspberry)
                     6- Software Multiplexer
                     7- Software Lettura movimenti
                 
+                MARCO
                 2) Memorizzazione movimenti (Server)
                     1- Creazione DB in MariaDB (Con tabella esercizi errati)
                     2- Insert di nuovi dataset in MariaDB
                     3- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB)
              
+                ANNA 
                 3) Registrazione Esercizio (Raspberry)
                     1- Software Pulsanti durante la registrazione (con timer)
                     
+                LAUGIO    
                 4) Confronto Movimenti (Server)
                     1- Algoritmo di IA per il confronto tra i dati in ingresso e quelli preregistrati
                     2- Assemblaggio dati sensori da dare in pasto a IA
                     3- Invio al Raspberry (esNum, %corretezza)   
-                    
+                
+                ANNA    
                 5) Confronto Movimenti  (Raspberry)
                     1- Interfaccia audio output all'utente 
                     (se l'esercizio stà venendo eseguito in modo giusto do un suono, se è sbagliato ne do un altro, 
                     in previsione di una versione che differenzi gli errori)   
-
+                
+                LAUGIO
                 6) Comunicazione 4G (Interpiattaforma)
                     1- Software Interfaccia 4G Raspberry
                     2- Software Interfaccia 4G Server
@@ -32,7 +38,8 @@ PRIORITA': 1    1) Rilevamento del movimento (Raspberry)
                     4- Ricezione Lato Server
                     5- Ricezione Lato Client Raspberry
                     6- Invio Lato Server
-
+                    
+                ANNA
                 7) Selezione Esercizio (Raspberry)
                     1- Interfaccia audio output all'utente
                     2- Software Pulsanti nella selezione degli esercizi

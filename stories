@@ -1,24 +1,24 @@
-1) Rilevamento del movimento //Raspberry
-    1- Hardware Collegamenti
-    2- Hardware Raspberry
-    3- Hardware Pulsanti
-    4- Hardware Audio
+1) Rilevamento del movimento //da Raspberry
+    1- Hardware realizzazione fisica tuta
+    2- Hardware Collegamenti tra sensori, multiplexer TCA9548A I2C e rasperry  
+    3- Hardware Pulsanti nella registarzione degli esercizi
+    4- Hardware Audio (altoparlante)
     5- Software (Python) Pulsanti
     5- Software (Python) Gestione Audio
-    7- Software (Python) Lettura movimenti
+    7- Software (Python) Lettura movimenti (con interfacciamento a multiplexer)
     8- Software (Python) Invio dati al server
     9- Ricezione Lato Server
 
 2) Memorizzazione movimenti
-    1- Creazione MarìaDB (Con tabella esercizi errati)
-    2- Insert (Python) MarìaDB
+    1- Creazione DB in MariaDB (Con tabella esercizi errati)
+    2- Insert di nuovi dataset in MariaDB (Python)
 
 3) Confronto Movimenti
-    1- Algoritmo di IA
+    1- Algoritmo di IA per il confronto tra i dati in ingresso e quelli preregistrati
     2- Assemblaggio dati sensori da dare in pasto a IA
-    3- Invio al Raspberry (esNum, %)
+    3- Invio al Raspberry (esNum, %corretezza)
    
 4) Selezione Esercizio
     1- Interfaccia audio output all'utente (in preisione di messaggio completo)
-    2- Software (Python) Pulsanti
+    2- Software (Python) Pulsanti nella selezione degli esercizi
     3- Software (Python) che carica in memoria tutti gli esercizi dal server all'avvio

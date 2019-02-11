@@ -3,10 +3,11 @@ PRIORITA': 1    PAOLO
                     1- Hardware realizzazione fisica tuta
                     2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C e Raspberry
                     3- Hardware Pulsanti
-                    4- Hardware Audio (altoparlante)
-                    5- Software Gestione Audio
-                    6- Software Multiplexer
-                    7- Software Lettura movimenti
+                    4- Hardware Scheda 4G
+                    5- Hardware Audio (altoparlante)
+                    6- Software Gestione Audio
+                    7- Software Multiplexer
+                    8- Software Lettura movimenti
                 
                 MARCO
                 2) Memorizzazione movimenti (Server)

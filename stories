@@ -10,7 +10,7 @@
     9- Ricezione Lato Server
 
 2) Memorizzazione movimenti
-    1- Creazione MarìaDB (Rivedere se fare tabella esercizi errati)
+    1- Creazione MarìaDB (Con tabella esercizi errati)
     2- Insert (Python) MarìaDB
 
 3) Confronto Movimenti
@@ -19,6 +19,6 @@
     3- Invio al Raspberry (esNum, %)
    
 4) Selezione Esercizio
-    1- Interfaccia audio output all'utente (messaggio completo o beep)
+    1- Interfaccia audio output all'utente (in preisione di messaggio completo)
     2- Software (Python) Pulsanti
     3- Software (Python) che carica in memoria tutti gli esercizi dal server all'avvio

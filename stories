@@ -26,7 +26,7 @@ PRIORITA': 1    PAOLO
                     3- Invio al Raspberry (esNum, %corretezza)   
                 
                 ANNA    
-                5) Feedback tuta (Raspberry)
+                5) Feedback Tuta (Raspberry)
                     1- Interfaccia audio output all'utente 
                     (se l'esercizio stà venendo eseguito in modo giusto do un suono, se è sbagliato ne do un altro, 
                     in previsione di una versione che differenzi gli errori)   

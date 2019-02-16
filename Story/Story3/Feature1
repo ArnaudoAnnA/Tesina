@@ -18,4 +18,9 @@ Il software è composto da una serie di event handlers che intercettano i seguen
                                 + inizio registrazione: STORY1
                                 + via al timer
 
-- click sul pulsante destro -> impostazione timer 
+- click sul pulsante destro -> impostazione timer:
+                               + +1 al contatore del timer
+                               + messaggio vocale che dice il nuovo valore del contatore
+                               
+                               richiesta di conferma:
+                               + significa conferma positiva: l'esercizio registrato viene inviato al server (STORY )

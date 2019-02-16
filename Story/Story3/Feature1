@@ -1,0 +1,21 @@
+FEATURE 1
+
+TEMPISTICHE:
+
+IMPLEMENTAZIONE: 
+
+Software che offre un'interfaccia utente durante la fase di precaricamento degli esercizi.
+Il software si appoggia sui tre pulsanti del pannello.
+
+Il software è composto da una serie di event handlers che intercettano i seguenti eventi:
+- click su pulsante centrale -> se il timer non è ancora stato impostato:
+                                + messaggio vocale che invita a impostare il timer
+                                + setto il timer a 0 
+                                
+                                durante impostazione timer:
+                                + messaggio vocale che annuncia l'inizio della registrazione
+                                + inizio conto alla rovescia che precede l'inizio della registrazione
+                                + inizio registrazione: STORY1
+                                + via al timer
+
+- click sul pulsante destro -> impostazione timer 

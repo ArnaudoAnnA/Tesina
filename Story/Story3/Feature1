@@ -1,8 +1,8 @@
 FEATURE 1
 
-TEMPISTICHE:
+TEMPISTICHE: 8 pomodori
 
-IMPLEMENTAZIONE: 
+IMPLEMENTAZIONE: python
 
 Software che offre un'interfaccia utente durante la fase di precaricamento degli esercizi.
 Il software si appoggia sui tre pulsanti del pannello.

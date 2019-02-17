@@ -1,8 +1,8 @@
 FEATURE 2, STORY 7
 
-TEMPISTICHE:
+TEMPISTICHE: 5 pomodori
 
-IMPLEMENTAZIONE: 
+IMPLEMENTAZIONE: python
 
 Software che gestisce l'input dell'utente durante la fase di selezionamento esercizio da eseguire.
 Siccome i dispositivi input sono tre pulsanti (tasto centrale, freccia destra, freccia sinistra)
@@ -28,6 +28,6 @@ scaricati da server
                                 
                               + richiamo i metodi della FEATURE 1 per dare un output audio relativo all'esercizio.
                               
- - click tasto freccia sinistra: + decremento di 1 il contatore dell'esercizio selezionato (es eseguo mod n
+- click tasto freccia sinistra: + decremento di 1 il contatore dell'esercizio selezionato (es eseguo mod n
                                    dove n è il numeto totale degli esercizi)
                                  + richiamo i metodi della FEATURE 1 per dare un output audio relativo all'esercizio.

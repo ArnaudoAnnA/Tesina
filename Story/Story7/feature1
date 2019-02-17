@@ -1,0 +1,12 @@
+FEATURE 1, STORY 7
+
+TEMPISTICHE: 3 pomodori
+
+IMPLEMENTAZIONE: python
+
+Software che gestisce l'output audio durante la selezione dell'esercizio da parte dell'utente.
+Nel momento in cui l'utente seleziona un esercizio, questa parte di programma cerca in memoria centrale
+i l'audio contenente la descrizione dell'esercizio e lo invia allo speaker.
+
+p.s. gli esercizi sono salvati in RAM sotto forma di array, nel quale l'indice è il numero assegnato
+     all'esercizio nella fase di precaricamento

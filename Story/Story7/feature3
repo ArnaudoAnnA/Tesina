@@ -5,6 +5,7 @@ TEMPISTICHE:
 IMPLEMENTAZIONE: 
 
 Software che si occupa dello scaricamento di tutti gli esercizi che ci sono su server.
-- Invio inizialmente una rihciesta al DB sul server che restituisca il numero di esercizi salvati su DB.
+- Invio inizialmente una rihciesta al DB sul server (STORY 6) che restituisca il numero di esercizi salvati su DB.
 - Creo una struttura in memoria adatta a contenenere, per ogni esercizio: numero, descrizione, (durata?).
-- Attraverso un ciclo iterativo invio una serie di interrogazioni al DB su server (una per esercizio) che restituiscano i dati dell'esercizio.
+- Attraverso un ciclo iterativo invio una serie di interrogazioni al DB su server (STORY 6) (una per esercizio) che restituiscano i 
+  dati dell'esercizio.

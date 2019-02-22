@@ -13,6 +13,7 @@ scaricati da server
 
 
 -click tasto centrale:  primo click sul tasto centrale:
+                        + scarico tutti gli esercizi disponibili sul Db del server (FEATURE 3)
                         + messaggio vocale che invita a selezionare l'esercizio (opzionale)
                         + metto il flag "fase di selezione iniziata" a "true"
                         + imposto il contatore dell'esercizio selezionato a -1

@@ -18,6 +18,7 @@ PRIORITA': 1    PAOLO
                     1- Creazione DB in MariaDB (Con tabella esercizi errati)
                     2- Insert di nuovi dataset in MariaDB
                     3- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB)
+                    4- Middleware per invio interrogazioni al DB
              
                 ANNA 
                 3) Registrazione Esercizio (Raspberry)

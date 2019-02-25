@@ -16,8 +16,8 @@ PRIORITA': 1    PAOLO
                 MARCO
                 2) Memorizzazione movimenti (Server)
                     1- Creazione DB in MariaDB (Con tabella esercizi errati)
-                    2- Insert di nuovi dataset in MariaDB
-                    3- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB)
+                    2- Creazione dei file datiSensore (con annessa struttura di cartella)
+                    3- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB e file)
                     4- Middleware per invio interrogazioni al DB
              
                 ANNA 

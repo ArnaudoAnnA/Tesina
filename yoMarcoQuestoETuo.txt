@@ -1,0 +1,24 @@
+Struttura del file dataset:
+
+int time  = a
+double ax = b
+double ay = c
+double az = d
+double gx = e
+double gy = f
+double gz = g
+
+esempio:
+sizeof(int) = 4
+sizeof(double) = 8
+
+
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg
+aaaabbbbbbbbccccccccddddddddeeeeeeeeffffffffgggggggg

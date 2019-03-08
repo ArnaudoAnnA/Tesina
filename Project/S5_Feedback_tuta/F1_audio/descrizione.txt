@@ -1,1 +1,15 @@
+TEMPISTICHE: 5 pomodori
 
+
+
+IMPLEMENTAZIONE: python
+
+
+
+Software che gestisce l'interfaccia audio con l'utente durante l'esecuzione dell'esercizio.
+
+L'obiettivo è comunicare all'utente nel modo più chiaro possibile l'errore commesso.
+
+Nel momento in cui viene ricevuta la percentuale di correttezza dal server, il numero ricevuto
+
+dal server viene dato in output attraverso gli altoparlanti.

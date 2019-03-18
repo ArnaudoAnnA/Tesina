@@ -11,6 +11,7 @@ TEMPO_FINITO = -1
 import RPi.GPIO as GPIO 
 import time
 import os #utilizzo del modulo os: https://docs.python.org/2/library/os.html
+#in alternativa si può usare https://docs.python.org/2/library/pty.html#module-pty
 
 GPIO.setmode(GPIO.BCM) 								#specifico quale configurazione di pin intendo usare
 GPIO.setup(PIN_BOTTONE_SINISTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  #PUD_DOWN significa che, se non viene ricevuto nessun segnale da raspberry, l'input del pin è di default 0
@@ -100,5 +101,6 @@ def registra_esercizio():
 #--------------------------------------------------------------------------------------------------------------------------------------------------	
 #gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 #utilizzo del modulo os: https://docs.python.org/2/library/os.html
+#in alternativa si può usare https://docs.python.org/2/library/pty.html#module-pty
 def output_audio(messaggio):
 	

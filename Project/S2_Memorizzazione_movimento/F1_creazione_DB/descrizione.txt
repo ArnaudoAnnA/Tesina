@@ -1,1 +1,29 @@
 
+Creazione del database in MariaDB (ottenuto grazie ad Amazon).
+
+Il Database sarà formato dalle seguenti tabelle:
+
+1) Esercizio(nEsercizio, nomeEsercizio)
+2) VersioneEsercizio(nVersione, nEsercizio, descrizione, errore)
+3) Sensori(nSensore, posizione)
+4) DatiSensore(idDato, pathDato, nEsercizio, nSensore, nVersione)
+
+--------------------------------------------------
+1) Esercizio(nEsercizio, nomeEsercizio) 
+Questa tabella contiene il numero identificativo dell'esercizio e il nome dell'esercizio svolto.
+La chiave primaria è nEsercizio
+
+
+2) VersioneEsercizio(nVersione, nEsercizio, descrizione, errore)
+  Un esercizio può essere fatto più volte, e ciò significa che avrà più versioni.
+  La chiave primaria è nVersione
+  La chiave esterna è nEsercizio
+
+
+3) Sensori(nSensore, posizione)
+  Questa tabella contiene l'id del sensore utilizzato e la sua posizionw
+
+
+
+4) DatiSensore(idDato, pathDato, nEsercizio, nSensore, nVersione)
+nesercizioErr e' la chiaVE ESTERNA ALL'ESERCIZIO ERRATO

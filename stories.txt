@@ -1,54 +1,35 @@
-HO PARLATO CON CONRADI E SONO VENUTE UN FUORI UN PO' DI COSE DA CAMBIARE, OVVIAMENTE NE DISCUTEREMO TRA DI NOI E POI ANCHE
-CON IL SOMMO BIKERSIMONE
-                                                                                                vostro Paolo
-
 PRIORITA': 1    PAOLO
-                1) Rilevamento del movimento (Raspberry)
+                1) Rilevamento del movimento
                     1- Hardware realizzazione fisica tuta
-                    2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C e Raspberry
+                    2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C (?) e Raspberry
                     3- Hardware Pulsanti
-                    4- Hardware Scheda 4G
-                    5- Hardware Audio (altoparlante)
-                    6- Software Gestione Audio
-                    7- Software Multiplexer
-                    8- Software Lettura movimenti
+                    4- Hardware Audio (altoparlante)
+                    5- Software Gestione Audio
+                    6- Software Multiplexer (successivamente, iniziamo con 2 sensori collegati direttamente)
+                    7- Software Lettura movimenti
                 
                 MARCO
-                2) Memorizzazione movimenti (Server)
-                    1- Creazione DB in MariaDB (Con tabella esercizi errati)
-                    2- Creazione dei file datiSensore (con annessa struttura di cartella)
-                    3- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB e file)
-                    4- Middleware per invio interrogazioni al DB
+                2) Memorizzazione movimenti
+                    1- Creazione dei file CSV datiSensore (con annessa struttura di cartella)
+                    2- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB e file)
              
                 ANNA 
-                3) Registrazione Esercizio (Raspberry)
+                3) Registrazione Esercizio
                     1- Software Pulsanti durante la registrazione (con timer)
                     
-                LAUGIO    
-                4) Confronto Movimenti (Server)
-                    1- Algoritmo di IA per il confronto tra i dati in ingresso e quelli preregistrati
-                    2- Assemblaggio dati sensori da dare in pasto a IA
-                    3- Invio al Raspberry (esNum, %corretezza)   
+                LAUGIO (IMP)
+                4) Confronto Movimenti
+                    1- Algoritmo di IA (tensorflow) per il confronto tra i dati in ingresso e quelli preregistrati
+                    2- Assemblaggio dati sensori da dare in pasto a rete neurale  
                 
                 ANNA    
-                5) Feedback Tuta (Raspberry)
+                5) Feedback Tuta
                     1- Interfaccia audio output all'utente 
-                    (se l'esercizio stà venendo eseguito in modo giusto do un suono, se è sbagliato ne do un altro, 
-                    in previsione di una versione che differenzi gli errori)   
-                
-                LAUGIO
-                6) Comunicazione 4G (Interpiattaforma)
-                    1- Software Interfaccia 4G Raspberry
-                    2- Software Interfaccia 4G Server
-                    3- Invio Lato Client Raspberry
-                    4- Ricezione Lato Server
-                    5- Ricezione Lato Client Raspberry
-                    6- Invio Lato Server
+                    (se l'esercizio stà venendo eseguito in modo giusto do un suono, se è sbagliato ne do un altro)
                     
                 ANNA
-                7) Selezione Esercizio (Raspberry)
+                6) Selezione Esercizio
                     1- Interfaccia audio output all'utente
                     2- Software Pulsanti nella selezione degli esercizi
-                    3- Software che carica in memoria tutti gli esercizi dal server all'avvio
 
             

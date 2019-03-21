@@ -69,7 +69,7 @@ def click_bottone_centrale(channel):
 		
 def click_bottone_destra(channel):
 	if(statoTimer == TIMER_IN_IMPOSTAZIONE)
-		timer++
+		timer = timer +1
 		Timer_changed_listener.notify()	
 		
 	else if(statoTimer == TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO)    #l'utente decide di mantenere l'esercizio appena registrato	
@@ -94,13 +94,17 @@ class Timer_changed_listener:
 
 def registra_esercizio():
 	while Timer_changed_listener.notify() != TEMPO_FINITO:
-		timer--
+		timer = timer -1
 		time.sleep(1)	#aspetto un secondo			
 
 		
 #--------------------------------------------------------------------------------------------------------------------------------------------------	
 #gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 #utilizzo del modulo os: https://docs.python.org/2/library/os.html
-#in alternativa si può usare https://docs.python.org/2/library/pty.html#module-pty
 def output_audio(messaggio):
-	
+	pid = os.forkpty() 	#se non funziona usare pty.spawn()
+	if(pid==0) 		#sono nel figlio
+	{
+		#SE DA QUALCHE PROBLEMA POTREBBE ESSERE PERCHE' NON HO FATTO FLUSH DEI PRECENTI INPUT (si risolve con la funzione os.fsync)
+		os.exceclp("omxplayer", messaggio)	#eseguo il programma per la riproduzione dell'audio	
+	}	

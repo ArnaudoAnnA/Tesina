@@ -18,12 +18,18 @@ La chiave primaria è nEsercizio
   Un esercizio può essere fatto più volte, e ciò significa che avrà più versioni.
   La chiave primaria è nVersione
   La chiave esterna è nEsercizio
+  Errore è un booleano che mi dice se il movimento è avvenuto nel modo corretto 
 
 
 3) Sensori(nSensore, posizione)
-  Questa tabella contiene l'id del sensore utilizzato e la sua posizionw
+  Questa tabella contiene l'id del sensore utilizzato e la sua posizione
 
 
 
 4) DatiSensore(idDato, pathDato, nEsercizio, nSensore, nVersione)
-nesercizioErr e' la chiaVE ESTERNA ALL'ESERCIZIO ERRATO
+  idDato è la chiave primaria che identifica i dati di un movimento specifico
+  l'insieme dei dati di un movimento è il pathDato (stringa di dati)
+  La chiave esterna è nEsercizio
+  La chiave esterna è nSensore
+  La chiave esterna è nVersione
+

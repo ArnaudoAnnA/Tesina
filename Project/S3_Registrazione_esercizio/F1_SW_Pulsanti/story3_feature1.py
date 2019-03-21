@@ -46,7 +46,7 @@ datasetEsercizio = [0]  #MOK
 def click_bottone_sinistra(channel):
 	if(statoTimer == TIMER_IN_IMPOSTAZIONE)
 		if(timer!=0)
-				timer--
+				timer= timer-1
 				Timer_changed_listener.notify()				#funzione che si occuperà di dare in output tramite interfaccia audio il nuovo valore del timer
 
 	else if(statoTimer == TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO)    #l'utente decide di scartare l'esercizio appena registrato

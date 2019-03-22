@@ -17,7 +17,7 @@ PRIORITA': 1    PAOLO
                 3) Registrazione Esercizio
                     1- Software Pulsanti durante la registrazione (con timer)
                     
-                LAUGIO (IMP)
+                LAUGIO (IMP ORTANTE)
                 4) Confronto Movimenti
                     1- Algoritmo di IA (tensorflow) per il confronto tra i dati in ingresso e quelli preregistrati
                     2- Assemblaggio dati sensori da dare in pasto a rete neurale  
@@ -31,5 +31,3 @@ PRIORITA': 1    PAOLO
                 6) Selezione Esercizio
                     1- Interfaccia audio output all'utente
                     2- Software Pulsanti nella selezione degli esercizi
-
-            

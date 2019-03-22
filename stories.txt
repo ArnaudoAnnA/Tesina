@@ -1,4 +1,5 @@
-PRIORITA': 1    PAOLO
+PRIORITA':  1    
+                PAOLO
                 1) Rilevamento del movimento
                     1- Hardware realizzazione fisica tuta
                     2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C (?) e Raspberry

@@ -9,6 +9,8 @@ import numpy as np
 import csv
 import sys
 
+import sensibilityConfiguration as sensibilityC
+
 
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
@@ -61,7 +63,7 @@ MPU_Init()
 
 print (" Reading Data of Gyroscope and Accelerometer")
 
-LenFifo = 10
+LenFifo = sensibilityC.MOVEMENT_DURATION / sensibilityC.FREQUENCY
 Athr = 0.04
 AxFifo = collections.deque(LenFifo*[0], LenFifo)
 AyFifo = collections.deque(LenFifo*[0], LenFifo)
@@ -110,6 +112,6 @@ while True:
 		#print '%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f' %(time.time(),Gx,Gy,Gz,Ax,Ay,Az)
 		writer.writerow([time.time()] + list(AxFifo) + list(AyFifo) + list(AzFifo) + list(GxFifo) + list(GyFifo) + list(GzFifo) + [movement_class])
 	#print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
-	time.sleep(0.2)
+	time.sleep(sensibilityC.FREQUENCY)
 
 close(csvfile)

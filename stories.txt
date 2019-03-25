@@ -5,14 +5,15 @@ PRIORITA':  1
                     2- Hardware Collegamenti tra Sensori, Multiplexer TCA9548A I2C (?) e Raspberry
                     3- Hardware Pulsanti
                     4- Hardware Audio (altoparlante)
-                    5- Software Gestione Audio
-                    6- Software Multiplexer (successivamente, iniziamo con 2 sensori collegati direttamente)
-                    7- Software Lettura movimenti
+                    5- Software Multiplexer (successivamente, iniziamo con 2 sensori collegati direttamente)
+                    6- Software Lettura movimenti
                 
                 MARCO
                 2) Memorizzazione movimenti
-                    1- Creazione dei file CSV datiSensore (con annessa struttura di cartella)
-                    2- Precaricamento degli esercizi (registrazione fisica degli esercizi e dei relativi dati su DB e file)
+                    1- funzione che crea l'albero di cartelle (fatto in modo che la struttura possa essere cambiata in qualsiasi momento) 
+                    2- funzione che mette i file nel posto giusto
+                    3- funzione che sia in grado di, a partire dalla struttura di cartelle, restituire l'elenco degli esercizi 
+                    4- funzione che gestisca il reperimento dei file audio
              
                 ANNA 
                 3) Registrazione Esercizio

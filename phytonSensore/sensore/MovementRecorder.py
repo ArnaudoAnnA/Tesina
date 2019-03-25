@@ -29,36 +29,6 @@ Device_Address2 = 0x69  # MPU6050 2 device address
 LENFIFO   = 10
 AUTH 	  = 0.4
 
-
-MPU_Init()
-csvfile = open('movements.csv', 'ab')
-writer = csv.writer(csvfile)
-sensorFifo1=[]
-sensorFifo2=[]
-init_Fifo(LENFIFO, sensorFifo1, AUTH)
-init_Fifo(LENFIFO, sensorFifo2, AUTH)
-sensor1=[0]*LENFIFO
-sensor2=[0]*LENFIFO
-read_sensor_data(sensor1)
-read_sensor_data(sensor2)
-parse_sensor_data(sensor1)
-parse_sensor_data(sensor2)
-append_sensor_data(sensorFifo1, sensor1)
-append_sensor_data(sensorFifo2, sensor2)
-
-movement_class = sys.argv[1] 
-if not(movement_class):
-    movement_class = 'UNK'
-
-while True:
-    writer.writerow(list(sensorFifo1) + list(sensorFifo2) + [movement_class])
-    #print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
-    time.sleep(0.2)
-
-close(csvfile)
-
-
-
 def MPU_Init(Device_Address):
     #write to sample rate register
     bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
@@ -133,3 +103,30 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[3].append(sensor[3])
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
+
+	
+	MPU_Init()
+csvfile = open('movements.csv', 'ab')
+writer = csv.writer(csvfile)
+sensorFifo1=[]
+sensorFifo2=[]
+init_Fifo(LENFIFO, sensorFifo1, AUTH)
+init_Fifo(LENFIFO, sensorFifo2, AUTH)
+sensor1=[0]*LENFIFO
+sensor2=[0]*LENFIFO
+while True:
+	read_sensor_data(sensor1)
+	read_sensor_data(sensor2)
+	parse_sensor_data(sensor1)
+	parse_sensor_data(sensor2)
+	append_sensor_data(sensorFifo1, sensor1)
+	append_sensor_data(sensorFifo2, sensor2)
+
+	movement_class = sys.argv[1] 
+	if not(movement_class):
+  	  movement_class = 'UNK'
+
+	writer.writerow(list(sensorFifo1) + list(sensorFifo2) + [movement_class])
+	#print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
+	time.sleep(0.2)
+close(csvfile)

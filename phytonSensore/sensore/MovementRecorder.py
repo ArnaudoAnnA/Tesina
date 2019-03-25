@@ -143,6 +143,12 @@ while True:
 
     if movement_detected:
         #print '%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f' %(time.time(),Gx,Gy,Gz,Ax,Ay,Az)
+        #vengono scritti rispettivamente in sequenza su ogni riga: - il tempo
+        #                                                           - le accelerazioni sui 3 assi del primo sensore
+        #                                                           - i dati del giroscopio sui 3 assi del primo sensore
+        #                                                           - le accelerazioni sui 3 assi del secondo sensore
+        #                                                           - i dati del giroscopio sui 3 assi del secondo sensore
+        #                                                           - la classe del movimento
         writer.writerow([time.time()] + list(Ax1Fifo) + list(Ay1Fifo) + list(Az1Fifo) + list(Gx1Fifo) + list(Gy1Fifo) + list(Gz1Fifo) + list(Ax2Fifo) + list(Ay2Fifo) + list(Az2Fifo) + list(Gx2Fifo) + list(Gy2Fifo) + list(Gz2Fifo) + [movement_class])
         #print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
 

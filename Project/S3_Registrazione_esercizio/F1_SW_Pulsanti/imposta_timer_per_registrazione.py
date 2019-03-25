@@ -2,6 +2,11 @@
 
 #------------------------------------------------------
 # versione Python 2
+
+#IMPOSTA_TIMER_PER_REGISTRAZIONE
+#si occupa della parte di impostazione del timer prima della registrazione dell'esercizio.
+
+#IMPORTANTE: richiede che sul raspberry sia installata la libreria Rpy.GPIO
 #------------------------------------------------------
 
 #costanti

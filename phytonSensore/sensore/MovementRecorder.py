@@ -105,7 +105,8 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[5].append(sensor[5])
 
 	
-	MPU_Init()
+MPU_Init(Device_Address1)
+MPU_Init(Device_Address2)
 csvfile = open('movements.csv', 'ab')
 writer = csv.writer(csvfile)
 sensorFifo1=[]

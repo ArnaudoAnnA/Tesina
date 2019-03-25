@@ -25,28 +25,54 @@ GYRO_ZOUT_H  = 0x47
 bus = smbus.SMBus(1)    # or bus = smbus.SMBus(0) for older version boards
 Device_Address1 = 0x68  # MPU6050 1 device address
 Device_Address2 = 0x69  # MPU6050 2 device address
+#Algorithm constants
+LENFIFO   = 10
+AUTH 	  = 0.4
 
 
-def MPU_Init():
+MPU_Init()
+csvfile = open('movements.csv', 'ab')
+writer = csv.writer(csvfile)
+sensorFifo1=[]
+sensorFifo2=[]
+init_Fifo(LENFIFO, sensorFifo1, AUTH)
+init_Fifo(LENFIFO, sensorFifo2, AUTH)
+sensor1=[0]*LENFIFO
+sensor2=[0]*LENFIFO
+while True:
+	read_sensor_data(sensor1)
+	read_sensor_data(sensor2)
+	parse_sensor_data(sensor1)
+	parse_sensor_data(sensor2)
+	append_sensor_data(sensorFifo1, sensor1)
+	append_sensor_data(sensorFifo2, sensor2)
+
+	movement_class = sys.argv[1] 
+	if not(movement_class):
+  	  movement_class = 'UNK'
+
+	writer.writerow(list(sensorFifo1) + list(sensorFifo2) + [movement_class])
+	#print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
+	time.sleep(0.2)
+close(csvfile)
+
+
+
+def MPU_Init(Device_Address):
     #write to sample rate register
-    bus.write_byte_data(Device_Address1, SMPLRT_DIV, 7)
-    bus.write_byte_data(Device_Address2, SMPLRT_DIV, 7)
+    bus.write_byte_data(Device_Address, SMPLRT_DIV, 7)
 
     #write to power management register
-    bus.write_byte_data(Device_Address1, PWR_MGMT_1, 1)
-    bus.write_byte_data(Device_Address2, PWR_MGMT_1, 1)
+    bus.write_byte_data(Device_Address, PWR_MGMT_1, 1)
 
     #write to Configuration register
-    bus.write_byte_data(Device_Address1, CONFIG, 0)
-    bus.write_byte_data(Device_Address2, CONFIG, 0)
+    bus.write_byte_data(Device_Address, CONFIG, 0)
 
     #write to Gyro configuration register
-    bus.write_byte_data(Device_Address1, GYRO_CONFIG, 24)
-    bus.write_byte_data(Device_Address2, GYRO_CONFIG, 24)
+    bus.write_byte_data(Device_Address, GYRO_CONFIG, 24)
 
     #write to interrupt enable register
-    bus.write_byte_data(Device_Address1, INT_ENABLE, 1)
-    bus.write_byte_data(Device_Address2, INT_ENABLE, 1)
+    bus.write_byte_data(Device_Address, INT_ENABLE, 1)
 
 
 def read_raw_data(addr, Device_Address):
@@ -62,96 +88,47 @@ def read_raw_data(addr, Device_Address):
         value = value - 65536
     return value
 
-MPU_Init()
 
-print (" Reading Data of Gyroscope and Accelerometer")
+def init_Fifo(lenFifo, sensorFifo, Athr): #sensorFifo 0=ax 1=ay 2=az 3=mx 4=my 5=mz
 
-LenFifo = 10
-Athr = 0.04
-Ax1Fifo = collections.deque(LenFifo*[0], LenFifo)
-Ay1Fifo = collections.deque(LenFifo*[0], LenFifo)
-Az1Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gx1Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gy1Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gz1Fifo = collections.deque(LenFifo*[0], LenFifo)
+	print (" Reading Data of Gyroscope and Accelerometer")
+	sensorFifo[0] = collections.deque(lenFifo*[0], lenFifo)
+	sensorFifo[1] = collections.deque(lenFifo*[0], lenFifo)
+	sensorFifo[2] = collections.deque(lenFifo*[0], lenFifo)
+	sensorFifo[3] = collections.deque(lenFifo*[0], lenFifo)
+	sensorFifo[4] = collections.deque(lenFifo*[0], lenFifo)
+	sensorFifo[5] = collections.deque(lenFifo*[0], lenFifo)
+	return sensorFifo
 
-Ax2Fifo = collections.deque(LenFifo*[0], LenFifo)
-Ay2Fifo = collections.deque(LenFifo*[0], LenFifo)
-Az2Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gx2Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gy2Fifo = collections.deque(LenFifo*[0], LenFifo)
-Gz2Fifo = collections.deque(LenFifo*[0], LenFifo)
 
-csvfile = open('movements.csv', 'ab')
-writer = csv.writer(csvfile)
-
-movement_class = sys.argv[1] 
-if not(movement_class):
-    movement_class = 'UNK'
-
-while True:
     #Read Accelerometer raw value
-    acc_x_1 = read_raw_data(ACCEL_XOUT_H, Device_Address1)
-    acc_y_1 = read_raw_data(ACCEL_YOUT_H, Device_Address1)
-    acc_z_1 = read_raw_data(ACCEL_ZOUT_H, Device_Address1)
-
-    acc_x_2 = read_raw_data(ACCEL_XOUT_H, Device_Address2)
-    acc_y_2 = read_raw_data(ACCEL_YOUT_H, Device_Address2)
-    acc_z_2 = read_raw_data(ACCEL_ZOUT_H, Device_Address2)
+def read_sensor_data(sensor): #sensor 0=ax 1=ay 2=az 3=mx 4=my 5=mz
+    sensor[0] = read_raw_data(ACCEL_XOUT_H, Device_Address1)
+    sensor[1] = read_raw_data(ACCEL_YOUT_H, Device_Address1)
+    sensor[2] = read_raw_data(ACCEL_ZOUT_H, Device_Address1)
 
     #Read Gyroscope raw value
-    gyro_x_1 = read_raw_data(GYRO_XOUT_H, Device_Address1)
-    gyro_y_1 = read_raw_data(GYRO_YOUT_H, Device_Address1)
-    gyro_z_1 = read_raw_data(GYRO_ZOUT_H, Device_Address1)
+    sensor[3] = read_raw_data(GYRO_XOUT_H, Device_Address1)
+    sensor[4] = read_raw_data(GYRO_YOUT_H, Device_Address1)
+    sensor[5] = read_raw_data(GYRO_ZOUT_H, Device_Address1)
+    return sensor
 
-    gyro_x_2 = read_raw_data(GYRO_XOUT_H, Device_Address2)
-    gyro_y_2 = read_raw_data(GYRO_YOUT_H, Device_Address2)
-    gyro_z_2 = read_raw_data(GYRO_ZOUT_H, Device_Address2)
-
+def parse_sensor_data(sensor): #sensor 0=ax 1=ay 2=az 3=mx 4=my 5=mz
     #Full scale range +/- 250 degree/C as per sensitivity scale factor
-    Ax1 = acc_x_1/16384.0
-    Ay1 = acc_y_1/16384.0
-    Az1 = acc_z_1/16384.0
+    sensor[0] = sensor[0]/16384.0
+    sensor[1] = sensor[1]/16384.0
+    sensor[2] = sensor[2]/16384.0
 
-    Ax2 = acc_x_2/16384.0
-    Ay2 = acc_y_2/16384.0
-    Az2 = acc_z_2/16384.0
 
-    Gx1 = gyro_x_1/131.0
-    Gy1 = gyro_y_1/131.0
-    Gz1 = gyro_z_1/131.0
+    sensor[3] = sensor[3]/131.0
+    sensor[4] = sensor[4]/131.0
+    sensor[5] = sensor[5]/131.0
+    return sensor
 
-    Gx2 = gyro_x_2/131.0
-    Gy2 = gyro_y_2/131.0
-    Gz2 = gyro_z_2/131.0
-
-    Ax1Fifo.append(Ax1)
-    Ay1Fifo.append(Ay1)
-    Az1Fifo.append(Az1)
-    Gx1Fifo.append(Gx1)
-    Gy1Fifo.append(Gy1)
-    Gz1Fifo.append(Gz1)
-
-    Ax2Fifo.append(Ax2)
-    Ay2Fifo.append(Ay2)
-    Az2Fifo.append(Az2)
-    Gx2Fifo.append(Gx2)
-    Gy2Fifo.append(Gy2)
-    Gz2Fifo.append(Gz2)
-
-    movement_detected = (np.abs(Ax1Fifo[LenFifo-1]-Ax1Fifo[LenFifo-2])>Athr) | (np.abs(Ay1Fifo[LenFifo-1]-Ay1Fifo[LenFifo-2])>Athr) | (np.abs(Az1Fifo[LenFifo-1]-Az1Fifo[LenFifo-2])>Athr) | (np.abs(Ax2Fifo[LenFifo-1]-Ax2Fifo[LenFifo-2])>Athr) | (np.abs(Ay2Fifo[LenFifo-1]-Ay2Fifo[LenFifo-2])>Athr) | (np.abs(Az2Fifo[LenFifo-1]-Az2Fifo[LenFifo-2])>Athr)
-
-    if movement_detected:
-        #print '%.2f, %.2f, %.2f, %.2f, %.2f, %.2f, %.2f' %(time.time(),Gx,Gy,Gz,Ax,Ay,Az)
-        #vengono scritti rispettivamente in sequenza su ogni riga: - il tempo
-        #                                                           - le accelerazioni sui 3 assi del primo sensore
-        #                                                           - i dati del giroscopio sui 3 assi del primo sensore
-        #                                                           - le accelerazioni sui 3 assi del secondo sensore
-        #                                                           - i dati del giroscopio sui 3 assi del secondo sensore
-        #                                                           - la classe del movimento
-        writer.writerow([time.time()] + list(Ax1Fifo) + list(Ay1Fifo) + list(Az1Fifo) + list(Gx1Fifo) + list(Gy1Fifo) + list(Gz1Fifo) + list(Ax2Fifo) + list(Ay2Fifo) + list(Az2Fifo) + list(Gx2Fifo) + list(Gy2Fifo) + list(Gz2Fifo) + [movement_class])
-        #print 'Gx=%.2f, Gy=%.2f, Gz=%.2f, Ax=%.2f, Ay=%.2f, Az=%.2f' %(Gx,Gy,Gz,Ax,Ay,Az)	
-
-    time.sleep(0.2)
-
-close(csvfile)
+def append_sensor_data(sensorFifo, sensor):
+    sensorFifo[0].append(sensor[0])
+    sensorFifo[1].append(sensor[1])
+    sensorFifo[2].append(sensor[2])
+    sensorFifo[3].append(sensor[3])
+    sensorFifo[4].append(sensor[4])
+    sensorFifo[5].append(sensor[5])

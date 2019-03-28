@@ -18,6 +18,7 @@ def output_audio(messaggio):
     pid = os.forkpty()  # se non funziona usare pty.spawn()
     if (pid == 0):  # sono nel figlio
         {
+            print("sono nel figlio")
             # SE DA QUALCHE PROBLEMA POTREBBE ESSERE PERCHE' NON HO FATTO FLUSH DEI PRECENTI INPUT (si risolve con la funzione os.fsync)
-            os.exceclp("omxplayer", messaggio)  # eseguo il programma per la riproduzione dell'audio
+            os.execlp("omxplayer", messaggio)  # eseguo il programma per la riproduzione dell'audio
         }

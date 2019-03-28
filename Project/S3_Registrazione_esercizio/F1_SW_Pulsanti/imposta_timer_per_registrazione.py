@@ -11,9 +11,11 @@
 
 #costanti
 
-PIN_BOTTONE_SINISTRA = 3
-PIN_BOTTONE_CENTRALE = 4
-PIN_BOTTONE_DESTRA = 5
+PIN_BOTTONE_DESTRA = 21
+PIN_BOTTONE_CENTRALE = 20
+PIN_BOTTONE_SINISTRA = 16
+
+
 
 TUTTO_SPENTO = 0
 TIMER_IN_IMPOSTAZIONE = 1
@@ -28,9 +30,8 @@ import audio_timer
 import raspberry_audio as outputInterface
 
 
-def click_bottone_sinistra():
+def click_bottone_sinistra(channel):
     global statoTimer
-    global timer
     if (statoTimer == TIMER_IN_IMPOSTAZIONE):
         if (timerDaImpostare.timer != 0):
             timerDaImpostare.incrementaTimer(-1)
@@ -42,12 +43,13 @@ def click_bottone_sinistra():
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 
-def click_bottone_centrale():
+def click_bottone_centrale(channel):
     global statoTimer
     global timerDaImpostare
 
     if ( statoTimer == TUTTO_SPENTO):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
-        outputInterface.output_audio(FILE_AUDIO.SPIEGAZIONI_IMPOSTAZIONE_TIMER)
+        outputInterface.output_audio("/home/pi/Downloads/Tesina-master/Project/S3_Registrazione_esercizio/F1_SW_Pulsanti/beep-01a.wav")
+        print("dovevo aver suonato")
         statoTimer = TIMER_IN_IMPOSTAZIONE
         timerDaImpostare = audio_timer.Timer(0)  #istazio un nuovo oggetto timer
 
@@ -58,9 +60,8 @@ def click_bottone_centrale():
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 
-def click_bottone_destra():
+def click_bottone_destra(channel):
     global statoTimer
-    global timer
     if (statoTimer == TIMER_IN_IMPOSTAZIONE):
         timerDaImpostare.incrementaTimer(+1)
 
@@ -73,7 +74,6 @@ def click_bottone_destra():
 # thread che, contemporaneamente a quello che memorizza l'esercizio, scandisce il tempo
 
 def audio_acquisizione_esercizio():
-    global timer
 
     outputInterface.output_audio(FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(SECONDI_PRE_REGISTRAZIONE))
 
@@ -90,21 +90,21 @@ def audio_acquisizione_esercizio():
 
 # ------- MAIN ----------------------------------------------------------------------------------------------------
 
-GPIO.setmode(GPIO.BCM) 								#specifico quale configurazione di pin intendo usare
-GPIO.setup(PIN_BOTTONE_SINISTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  #PUD_DOWN significa che, se non viene ricevuto nessun segnale da raspberry, l'input del pin è di default 0
-													#questa istruzione è importante per evitare errori dovuti a variazioni di tensione, che avvengono anche quando un pin non riceve voltaggio, per motivi fisici 
-GPIO.setup(PIN_BOTTONE_CENTRALE, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(PIN_BOTTONE_DESTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setmode(GPIO.BCM)                              #specifico quale configurazione di pin intendo usare
+GPIO.setup(PIN_BOTTONE_SINISTRA, GPIO.IN, pull_up_down=GPIO.PUD_UP)  #PUD_DOWN significa che, se non viene ricevuto nessun segnale da raspberry, l'input del pin è di default 0
+                                                    #questa istruzione è importante per evitare errori dovuti a variazioni di tensione, che avvengono anche quando un pin non riceve voltaggio, per motivi fisici 
+GPIO.setup(PIN_BOTTONE_CENTRALE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(PIN_BOTTONE_DESTRA, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 #la situazione inziale è "timer non impostato" e "esercizio non registrato"
-statoTimer = TIMER_IN_IMPOSTAZIONE;
+statoTimer = TUTTO_SPENTO;
 datasetEsercizio = [0]  #MOK
 timerDaImpostare = audio_timer.Timer(0)
 
 #aggiungo un event_detect ad ogni pin e associo la relativa funzione che gestirà l'evento click sul bottone
 #ulteriori spiegazioni:  https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
 #SINISTRA
-GPIO.add_event_detect(PIN_BOTTONE_SINISTRA, GPIO.FALLING) 	#GPIO.FALLING significa che l'evento si scatena nel momento in cui il bottone viene premuto (non quando viene rilasciato)
+GPIO.add_event_detect(PIN_BOTTONE_SINISTRA, GPIO.FALLING)   #GPIO.FALLING significa che l'evento si scatena nel momento in cui il bottone viene premuto (non quando viene rilasciato)
 
 GPIO.add_event_callback(PIN_BOTTONE_SINISTRA, click_bottone_sinistra)
 

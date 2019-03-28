@@ -15,7 +15,7 @@
 TEMPO_FINITO = -1
 
 import time
-import output_per_test as audioInterface
+import raspberry_audio as audioInterface
 
 
 class Timer:
@@ -35,7 +35,6 @@ class Timer:
 
     #------------------------------------------------------------------------------------------------------------------------------------
     def audio_conto_alla_rovescia(self):
-        global timer
         while self.incrementaTimer(-1) != TEMPO_FINITO:
             time.sleep(1)  # aspetto un secondo
 

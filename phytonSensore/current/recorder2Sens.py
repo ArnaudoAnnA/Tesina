@@ -28,11 +28,11 @@ sensor2=[0]*LENFIFO
 #loop that runs for acquisitionTime time in seconds
 for x in range(0, recordings):
 	#reading the data from the sensors
-	baal.read_sensor_data(sensor1, Device_Address1)
-	baal.read_sensor_data(sensor2, Device_Address2)
+	sensor1=baal.read_sensor_data(sensor1, Device_Address1)
+	sensor2=baal.read_sensor_data(sensor2, Device_Address2)
 	#parsing the data in an useful format
-	baal.parse_sensor_data(sensor1)
-	baal.parse_sensor_data(sensor2)
+	sensor1=baal.parse_sensor_data(sensor1)
+	sensor2=baal.parse_sensor_data(sensor2)
 	#adding the sensor data to the head of the FIFO, automatically deleting the one in the tail
 	baal.append_sensor_data(sensorFifo1, sensor1)
 	baal.append_sensor_data(sensorFifo2, sensor2)

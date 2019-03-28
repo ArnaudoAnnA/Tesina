@@ -1,3 +1,4 @@
+import smbus
 #Recorder constants
 #FIFO LENGTH
 LENFIFO   		= 10

@@ -1,5 +1,5 @@
-#based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto. Thx m8
-import smbus        #import SMBus module of I2C
+#based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto. Thx m8, non e' vero, lo aveva copiato a sua volta, sto terone
+import smbus     #import SMBus module of I2C
 import time
 import collections
 import numpy as np
@@ -7,6 +7,19 @@ import csv
 import sys
 import config
 
+#some MPU6050 Registers and their Address
+PWR_MGMT_1   = 0x6B
+SMPLRT_DIV   = 0x19
+CONFIG       = 0x1A
+GYRO_CONFIG  = 0x1B
+INT_ENABLE   = 0x38
+ACCEL_XOUT_H = 0x3B
+ACCEL_YOUT_H = 0x3D
+ACCEL_ZOUT_H = 0x3F
+GYRO_XOUT_H  = 0x43
+GYRO_YOUT_H  = 0x45
+GYRO_ZOUT_H  = 0x47
+bus = smbus.SMBus(1)
 
 def MPU_Init(Device_Address):
     #write to sample rate register
@@ -40,14 +53,14 @@ def read_raw_data(addr, Device_Address):
 
     #Creates 6 FIFO, one for each data recived from the MPU6050
 def init_Fifo(lenFifo, sensorFifo, Athr): #sensorFifo 0=ax 1=ay 2=az 3=mx 4=my 5=mz
-	print (" Reading Data of Gyroscope and Accelerometer")
-	sensorFifo[0] = collections.deque(lenFifo*[0], lenFifo)
-	sensorFifo[1] = collections.deque(lenFifo*[0], lenFifo)
-	sensorFifo[2] = collections.deque(lenFifo*[0], lenFifo)
-	sensorFifo[3] = collections.deque(lenFifo*[0], lenFifo)
-	sensorFifo[4] = collections.deque(lenFifo*[0], lenFifo)
-	sensorFifo[5] = collections.deque(lenFifo*[0], lenFifo)
-	return sensorFifo
+    sensorFifo[0] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[1] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[2] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[3] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[4] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[5] = collections.deque(lenFifo*[0], lenFifo)
+    print(list(sensorFifo[5]))
+    return sensorFifo
 
 
     #Read Accelerometer raw value

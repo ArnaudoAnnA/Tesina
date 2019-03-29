@@ -46,7 +46,7 @@ for x in xrange(0, recordings):
     #writing the fifo if it has the correct overlap or is the last recording
     if times%(config.LENFIFO-config.OVERLAP)==0 or times==recordings-1 :
         #USA LA LIST DI PYTHON, NON LA LIST DI DEQUE!!!
-        writer.writerow(list(sensorFifo1) + list(sensorFifo2) + [movement_class])
+        writer.writerow(collections.list(sensorFifo1) + collections.list(sensorFifo2) + [movement_class])
     #setting next instant
     times=times+1
     time.sleep(1/config.ACQUIRATE)

@@ -22,6 +22,5 @@ GYRO_XOUT_H  = 0x43
 GYRO_YOUT_H  = 0x45
 GYRO_ZOUT_H  = 0x47
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
-bus = smbus.SMBus(1)    # or bus = smbus.SMBus(0) for older version boards
 Device_Address1 = 0x68  # MPU6050 1 device address
 Device_Address2 = 0x69  # MPU6050 2 device address

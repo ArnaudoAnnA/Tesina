@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 #------------------------------------------------------
@@ -17,6 +18,7 @@ OUTPUT_AUDIO_PROGRAM_USED = "oxmplayer"
 
 # gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 # utilizzo del modulo os: https://docs.python.org/2/library/os.html
+# utilizzo del modulo subprocess : https://docs.python.org/2/library/subprocess.html
 def output_audio(messaggio):
     pid = os.forkpty()  # se non funziona usare pty.spawn()
     if (pid == 0):  # sono nel figlio

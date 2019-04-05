@@ -20,8 +20,10 @@ acquisitionTime = sys.argv[2]
 recordings = int(acquisitionTime*config.ACQUIRATE)
 #initializing the number of recordings recorded
 times = 0
+#opening the sqlite db
+baal.db_connect(config.DBPATH)
 #opening the file writer in order to save the dataset in a csv file named like the exercise
-csvfile = open(movementsDictionary.name.get(movement_class, "NONETYPE") +'.csv', 'ab')
+csvfile = open(baal.get_exercise[config.EXNAME] +'.csv', 'ab')
 writer = csv.writer(csvfile)
 #creating the lists that will become FIFO
 sensorFifo1=[0]*config.NDATA

@@ -6,6 +6,8 @@ import numpy as np
 import csv
 import sys
 import config
+import sqlite3
+from sqlite3 import Error
 
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
@@ -93,3 +95,17 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[3].append(sensor[3])
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
+
+def db_connect(db_file):
+    try:
+        conn = sqlite3.connect(db_file)
+        return conn
+    except Error as e:
+        print(e)
+
+def get_exercise(exercise_number){
+	cur = conn.cursor()
+    cur.execute("SELECT * FROM exercises WHERE id=?", exercise_number)
+    ex = cur.fetchone()
+    return ex[name], ex[description], ex[audio]
+}

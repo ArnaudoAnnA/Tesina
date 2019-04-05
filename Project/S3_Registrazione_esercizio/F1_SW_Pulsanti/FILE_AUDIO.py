@@ -9,3 +9,5 @@ INVIO_DATI_IN_CORSO = "invio dati in corso"
 INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO = "la registrazione sarà avviata tra {} secondi"
 VIA = "via"
 REGISTRAZIONE_TERMINATA = "registrazione terminata"
+
+FEEDBACK_ERRORE = "errore sensore {}" #sostituire, in seguito, al numero del sensore la sua posizione

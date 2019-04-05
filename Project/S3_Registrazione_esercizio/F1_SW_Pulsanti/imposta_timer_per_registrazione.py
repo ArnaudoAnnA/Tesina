@@ -78,12 +78,12 @@ def audio_acquisizione_esercizio():
     outputInterface.output_audio(FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(SECONDI_PRE_REGISTRAZIONE))
 
     conto_alla_rovescia_pre_registrazione = audio_timer.Timer(SECONDI_PRE_REGISTRAZIONE)
-    conto_alla_rovescia_pre_registrazione.audio_conto_alla_rovescia()                                   #"5..4..3..2.."
+    conto_alla_rovescia_pre_registrazione.audio_conto_alla_rovescia(1)                                   #"5..4..3..2.."
 
     outputInterface.output_audio(FILE_AUDIO.VIA)                                                        #"via"
     time.sleep(1)
 
-    timerDaImpostare.audio_conto_alla_rovescia()                                                        #"7..6..5..4.."
+    timerDaImpostare.audio_conto_alla_rovescia(1)                                                        #"7..6..5..4.."
 
     outputInterface.output_audio(FILE_AUDIO.REGISTRAZIONE_TERMINATA)                                    #"registrazione terminata"
 

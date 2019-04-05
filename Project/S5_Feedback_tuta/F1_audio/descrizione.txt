@@ -1,5 +1,3 @@
-TEMPISTICHE: 5 pomodori
-
 
 
 IMPLEMENTAZIONE: python
@@ -12,3 +10,15 @@ L'obiettivo è comunicare all'utente nel modo più chiaro possibile l'errore com
 
 Nel momento in cui viene ricevuta la percentuale di correttezza, il numero ricevuto
 viene dato in output attraverso gli altoparlanti.
+
+Utilizzo la classe timer_audio per il conto alla rovescia che accompagna l'esecuzione dell'esercizio. 
+Nel momento in cui uno qualsiasi dei thread, che stà controllando la correttezza dei movimenti provenienti da ciascun sensore, 
+ha pronto un risultato (esercizio corretto o esercizio sbagliato), questo richiama le funzioni di questa feature.
+Queste si occuperanno di:
+  - PERCENTUALE DI CORRETTEZZA SUFFICIENTE: viene memorizzata in un array che conterrà il "resoconto" dell'esecuzione dell'esercizio
+  - PERCENTUALE DI CORRETTEZZA NON SUFFICIENTE: viene dato un output audio + memorizzazione nell'array contenente il resocondo dell'esercizio
+  
+L'array sarà così strutturato:
+  TODO
+  
+Alla fine dell'esercizio, verrà dato in output audio il resonconto dell'esecuzione dell'esercizio.   

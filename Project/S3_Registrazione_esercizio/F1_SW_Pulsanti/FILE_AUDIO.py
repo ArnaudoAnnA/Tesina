@@ -11,3 +11,4 @@ VIA = "via"
 REGISTRAZIONE_TERMINATA = "registrazione terminata"
 
 FEEDBACK_ERRORE = "errore sensore {}" #sostituire, in seguito, al numero del sensore la sua posizione
+RESOCONTO_ESERCIZIO = "esercizio eseguito con {} per cento di correttezza" 

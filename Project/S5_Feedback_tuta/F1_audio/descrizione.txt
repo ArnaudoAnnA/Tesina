@@ -11,5 +11,4 @@ Software che gestisce l'interfaccia audio con l'utente durante l'esecuzione dell
 L'obiettivo è comunicare all'utente nel modo più chiaro possibile l'errore commesso.
 
 Nel momento in cui viene ricevuta la percentuale di correttezza, il numero ricevuto
-
-dal server viene dato in output attraverso gli altoparlanti.
+viene dato in output attraverso gli altoparlanti.

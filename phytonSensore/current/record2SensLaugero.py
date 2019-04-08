@@ -9,22 +9,26 @@ import sys
 import config
 import baal
 import movementsDictionary
+import init2Sens
 
 #Arguments:
 #the number of the exercise (keeping in mind the recording of error datasets)
 movement_class = sys.argv[1]
 #the number of the seconds to record
-acquisitionTime = sys.argv[2]
+acquisitionTime = int(sys.argv[2])
 
 #the integer representing the number of instants to record
-recordings = int(acquisitionTime*config.ACQUIRATE)
+recordings = acquisitionTime*config.ACQUIRATE
+print recordings
 #initializing the number of recordings recorded
 times = 0
 #opening the sqlite db
 baal.db_connect(config.DBPATH)
 #opening the file writer in order to save the dataset in a csv file named like the exercise
-csvfile = open(baal.get_exercise(movement_class)[config.NAME]+'.csv', 'ab')
+csvfile = open((sys.argv[3] + '.csv'), 'ab')
 writer = csv.writer(csvfile)
+baal.MPU_Init(config.Device_Address1)
+baal.MPU_Init(config.Device_Address2)
 #creating the lists that will become FIFO
 sensorFifo1=[0]*config.NDATA
 sensorFifo2=[0]*config.NDATA
@@ -35,6 +39,7 @@ baal.init_Fifo(config.LENFIFO, sensorFifo2, config.AUTH)
 sensor1=[0]*config.LENFIFO
 sensor2=[0]*config.LENFIFO
 #loop that runs for acquisitionTime time in seconds
+print "ciao", 1.0/config.ACQUIRATE
 for x in xrange(0, recordings):
     #reading the data from the sensors
     sensor1=baal.read_sensor_data(sensor1, config.Device_Address1)
@@ -48,8 +53,10 @@ for x in xrange(0, recordings):
     #writing the fifo if it has the correct overlap or is the last recording
     if times%(config.LENFIFO-config.OVERLAP)==0 or times==recordings-1 :
         #USA LA LIST DI PYTHON, NON LA LIST DI DEQUE!!!
-        writer.writerow(collections.list(sensorFifo1) + collections.list(sensorFifo2) + [movement_class])
+        writer.writerow(sensorFifo1 + sensorFifo2 + [movement_class])
     #setting next instant
     times=times+1
-    time.sleep(1/config.ACQUIRATE)
-close(csvfile)
+    time.sleep(1.0/config.ACQUIRATE)
+    print 'laugeroMuori' , times 
+csvfile.close()
+print "finito"

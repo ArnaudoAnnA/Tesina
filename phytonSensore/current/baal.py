@@ -9,6 +9,8 @@ import config
 import sqlite3
 from sqlite3 import Error
 
+conn = None
+
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
 SMPLRT_DIV   = 0x19
@@ -96,16 +98,17 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
 
+#laugero commenta, infame
 def db_connect(db_file):
     try:
         conn = sqlite3.connect(db_file)
         return conn
     except Error as e:
-        print(e)
+        print("Error:", e)
 
-def get_exercise(exercise_number){
-	cur = conn.cursor()
+#laugero commenta, infame
+def get_exercise(exercise_number):
+    cur = conn.cursor()
     cur.execute("SELECT * FROM exercises WHERE id=?", exercise_number)
     ex = cur.fetchone()
     return ex[name], ex[description], ex[audio]
-}

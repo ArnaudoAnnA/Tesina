@@ -8,7 +8,7 @@ EXAUDIO = 2
 #FIFO LENGTH
 LENFIFO         = 10
 #DATA ACQUISITION RATE (n per second)
-ACQUIRATE        = 10
+ACQUIRATE        = 50
 #NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
 OVERLAP         = 4
 #laugero non sa cosa sia

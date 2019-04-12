@@ -14,6 +14,8 @@ import baal
 movement_class = sys.argv[1]
 #the number of the seconds to record
 acquisitionTime = int(sys.argv[2])
+#constants:
+SLEEPTIME=1.0/config.ACQUIRATE
 
 #the integer representing the number of instants to record
 recordings = acquisitionTime*config.ACQUIRATE
@@ -51,5 +53,6 @@ for x in xrange(0, recordings):
         writer.writerow(collections.list(sensorFifo1) + collections.list(sensorFifo2) + [movement_class])
     #setting next instant
     times=times+1
-    time.sleep(1/config.ACQUIRATE-(time.time()-oldnow))
+    #if throws error, it's because config.ACQUIRATE is too big
+    time.sleep(SLEEPTIME-(time.time()-oldnow))
 close(csvfile)

@@ -56,7 +56,7 @@ for x in xrange(0, recordings):
         writer.writerow(sensorFifo1 + sensorFifo2 + [movement_class])
     #setting next instant
     times=times+1
-    time.sleep(1/config.ACQUIRATE-(abs(time.time()-oldnow)))
+    time.sleep(1.0/config.ACQUIRATE-(abs(time.time()-oldnow)))
     print 'laugeroMuori' , times 
 csvfile.close()
 print "finito"

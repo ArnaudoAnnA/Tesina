@@ -10,7 +10,6 @@
 #questa libreria contiene funzioni per la riproduzione di file audio su raspberry Pi
 
 #------------------------------------------------------
-import os
 import soundplayer
 
 ID_AUDIOOUTPUT_DEVICE = 1

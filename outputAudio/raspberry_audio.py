@@ -1,4 +1,4 @@
-
+    
 # -*- coding: utf-8 -*-
 
 #------------------------------------------------------
@@ -12,7 +12,7 @@
 #------------------------------------------------------
 import soundplayer
 
-ID_AUDIOOUTPUT_DEVICE = 1
+ID_AUDIOOUTPUT_DEVICE = 1  #1 è PER USB
 
 
 # gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa

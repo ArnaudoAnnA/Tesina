@@ -7,7 +7,7 @@
 
 
 #RASPBERRY_AUDIO
-#questa libreria contiene funzioni per la riproduzione di file audio su raspberry Pi
+#questo modulo contiene funzioni per la riproduzione di file audio su raspberry Pi
 
 #------------------------------------------------------
 import soundplayer

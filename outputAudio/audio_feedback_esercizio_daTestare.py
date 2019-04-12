@@ -24,7 +24,7 @@ class OutputCorrezioneEsercizio:
     timer_pre.audio_conto_alla_rovescia(1)
 
     #inizio della fase di acquisizione e correzione
-    outputInterface.output_audio(FILE_AUDIO.VIA)                                                        #"via"
+    outputInterface.output_audio(FILE_AUDIO.VIA)   #"via"
     time.sleep(1)
     timer.audio_conto_alla_rovescia(3)  #il numero di secondi rimanenti viene dato in output ogni tre secondi
     

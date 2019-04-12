@@ -11,20 +11,14 @@
 
 #------------------------------------------------------
 import os
-import subprocess
+import soundplayer
 
-OUTPUT_AUDIO_PROGRAM_USED = "oxmplayer"
+ID_AUDIOOUTPUT_DEVICE = 1
 
 
 # gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 # utilizzo del modulo os: https://docs.python.org/2/library/os.html
 # utilizzo del modulo subprocess : https://docs.python.org/2/library/subprocess.html
 def output_audio(messaggio):
-    pid = os.forkpty()  # se non funziona usare pty.spawn()
-    if (pid == 0):  # sono nel figlio
-        {
-            print("sono nel figlio")
-            # SE DA QUALCHE PROBLEMA POTREBBE ESSERE PERCHE' NON HO FATTO FLUSH DEI PRECENTI INPUT (si risolve con la funzione os.fsync)
-            subprocess.call(OUTPUT_AUDIO_PROGRAM_USED, messaggio)   # eseguo il programma per la riproduzione dell'audio
-            #os.execlp("omxplayer", messaggio)  
-        }
+   p = soundplayer.SoundPlayer(messaggio, ID_AUDIOOUTPUT_DEVICE)
+   p.play()

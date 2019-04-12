@@ -89,14 +89,19 @@ def parse_sensor_data(sensor): #sensor 0=ax 1=ay 2=az 3=mx 4=my 5=mz
     sensor[5] = sensor[5]/131.0
     return sensor
 
-    #adds an element on each one of the 6 FIFO, automatically deleting the last
+#adds an element on each one of the 6 FIFO, automatically deleting the last
 def append_sensor_data(sensorFifo, sensor):
     sensorFifo[0].append(sensor[0])
+    print sensor
+    print sensorFifo
     sensorFifo[1].append(sensor[1])
     sensorFifo[2].append(sensor[2])
     sensorFifo[3].append(sensor[3])
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
+    print "after",sensor
+    print "after",sensorFifo
+
 
 #laugero commenta, infame
 def db_connect(db_file):

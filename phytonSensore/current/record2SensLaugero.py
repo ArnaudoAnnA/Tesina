@@ -53,7 +53,8 @@ for x in xrange(0, recordings):
     #writing the fifo if it has the correct overlap or is the last recording
     if times%(config.LENFIFO-config.OVERLAP)==0 or times==recordings-1 :
         #USA LA LIST DI PYTHON, NON LA LIST DI DEQUE!!!
-        writer.writerow(sensorFifo1 + sensorFifo2 + [movement_class])
+        #allora in console di python 2.7 se uso la funzione list() su una collection di tipo deque mi toglie il deque, ora perchè qua non lo fa?
+        writer.writerow(list(sensorFifo1) + list(sensorFifo2) + [movement_class])
     #setting next instant
     times=times+1
     time.sleep(1.0/config.ACQUIRATE)

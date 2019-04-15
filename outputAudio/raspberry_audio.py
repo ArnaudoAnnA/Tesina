@@ -1,4 +1,4 @@
-
+    
 # -*- coding: utf-8 -*-
 
 #------------------------------------------------------
@@ -10,11 +10,12 @@
 #questo modulo contiene funzioni per la riproduzione di file audio su raspberry Pi
 
 #------------------------------------------------------
-import os
+import pygame
 
 # gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 # utilizzo del modulo os: https://docs.python.org/2/library/os.html
 # utilizzo del modulo subprocess : https://docs.python.org/2/library/subprocess.html
-def output_audio(messaggio):
-   cmd = "omxplayer "+messaggio
-   os.system(cmd)
+def output_audio(file_audio):
+    pygame.init()
+    audio = pygame.mixer.Sound(file_audio)
+    audio.play()

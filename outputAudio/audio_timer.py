@@ -15,6 +15,7 @@
 TEMPO_FINITO = -1
 
 import time
+import FILE_AUDIO
 import raspberry_audio as audioInterface
 
 
@@ -52,6 +53,6 @@ class Timer_changed_listener:
         # viene evocato ogni volta che il numero del timer cambia
         # da in output il nuovo valore del timer.
         # se il nuovo valore è 0, restituisce TEMPO_FINITO, che può essere ignorato o meno a seconda di dove viene richiamato il metodo
-        audioInterface.output_audio(timer)
+        audioInterface.output_audio(FILE_AUDIO.PATH_CARTELLA + FILE_AUDIO.secondi[timer])
         if (timer == 0):
             return TEMPO_FINITO

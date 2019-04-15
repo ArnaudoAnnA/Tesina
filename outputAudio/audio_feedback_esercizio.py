@@ -37,6 +37,6 @@ class OutputCorrezioneEsercizio:
     if(percentualeCorrettezza < MINIMO_PERCENTUALE_CORRETTEZZA):
       outputInterface.(FILE_AUDIO.FEEDBACK_ERRORE.format(sensore))
   
-    #salvo i dati per il resoconto 
+    #salvo i dati per il resoconto
     correttezzaMedia += percentualeCorrettezza
     n_feedBack += 1

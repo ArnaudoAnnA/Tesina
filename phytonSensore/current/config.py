@@ -1,9 +1,9 @@
 import smbus
 #DB Constants
 DBPATH  = "brian.db"
-EXNAME  = 0
-EXDESC  = 1
-EXAUDIO = 2
+NAME  = 1
+DESC  = 2
+AUDIO = 3
 #Recorder constants
 #FIFO LENGTH
 LENFIFO         = 10

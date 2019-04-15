@@ -9,7 +9,6 @@ import config
 import sqlite3
 from sqlite3 import Error
 
-conn = None
 
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
@@ -112,8 +111,8 @@ def db_connect(db_file):
         print("Error:", e)
 
 #laugero commenta, infame
-def get_exercise(exercise_number):
+def get_exercise(conn, exercise_number):
     cur = conn.cursor()
-    cur.execute("SELECT * FROM exercises WHERE id=?", exercise_number)
+    cur.execute("SELECT * FROM exercises WHERE id=?", str(exercise_number))
     ex = cur.fetchone()
-    return ex[name], ex[description], ex[audio]
+    return ex[config.NAME], ex[config.DESC], ex[config.AUDIO]

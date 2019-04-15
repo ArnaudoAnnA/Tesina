@@ -19,8 +19,6 @@ import numpy as np
 import csv
 import sys
 import config
-import sqlite3
-from sqlite3 import Error
 
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B

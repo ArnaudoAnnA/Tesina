@@ -2,7 +2,7 @@
 USAGE: python recorder2Sens.py movement_class acquisitionTime
 '''
 
-#paolo devi sisemare la roba dei file e fare più che non stampino malen e deuqe e quelle puttanate lì
+#paolo devi sisemare la roba dei file e fare più che non stampino maxlen e deque e quelle puttanate lì
 
 import time
 import collections
@@ -66,7 +66,7 @@ for x in xrange(0, recordings):
     
     
     #writing the fifo if it has the correct overlap or is the last recording
-    if times%(config.LENFIFO-config.OVERLAP) == 0 or times == recordings - 1 :
+    if times%(config.LENFIFO - config.OVERLAP) == 0 or times == recordings - 1 :
         armWriter.writerow(collections.list(armSensorFifo) + [movement_class])
         legWriter.writerow(collections.list(legSensorFifo) + [movement_class])
         

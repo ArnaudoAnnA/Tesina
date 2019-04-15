@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 
+#-----------------------------------------------------------------------
+#   Lista di costanti contenenti i nomi dei file.wav 
+# 
+#   NOTA: tutti i file devono essere di formato.wav!!!!
+#         Tutti i file devono essere identificati usandone anche il path assoluto
+#-----------------------------------------------------------------------
 #ogni valore di costante verrà sostituito con il nome del file audio che contiene una registrazione che dice le cose scritte tra virgolette
-#NOTA: tutti i file devono essere di formato.wav!!!!
+
 
 PATH_CARTELLA = "/home/pi/Downloads/Tesina-master/outputAudio/"
 

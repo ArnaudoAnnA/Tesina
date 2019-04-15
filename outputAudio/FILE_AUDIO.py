@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 #ogni valore di costante verrà sostituito con il nome del file audio che contiene una registrazione che dice le cose scritte tra virgolette
+#NOTA: tutti i file devono essere di formato.wav!!!!
+
 PATH_CARTELLA = "/home/pi/Downloads/Tesina-master/outputAudio/"
 
 

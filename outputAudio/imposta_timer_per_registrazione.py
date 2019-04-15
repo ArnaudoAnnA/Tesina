@@ -38,7 +38,7 @@ def click_bottone_sinistra(channel):
             timerDaImpostare.incrementaTimer(-1)
 
     elif (statoTimer == TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO):  # l'utente decide di scartare l'esercizio appena registrato
-        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA + FILE_AUDIO.VALORE_SCARTATO)
+        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.VALORE_SCARTATO)
         datasetEsercizio = [0]  #non è il caso di azzerare anche il timer perchè alla prossima pressione del tasto centrale verrà istanziato un nuovo oggetto timer
         statoTimer = TUTTO_SPENTO
 
@@ -49,13 +49,13 @@ def click_bottone_centrale(channel):
     global timerDaImpostare
 
     if ( statoTimer == TUTTO_SPENTO):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
-        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA + FILE_AUDIO.SPIEGAZIONI_IMPOSTAZIONE_TIMER)
+        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.SPIEGAZIONI_IMPOSTAZIONE_TIMER)
         print("dovevo aver suonato")
         statoTimer = TIMER_IN_IMPOSTAZIONE
         timerDaImpostare = audio_timer.Timer(0)  #istazio un nuovo oggetto timer
 
     elif (statoTimer == TIMER_IN_IMPOSTAZIONE and timerDaImpostare.timer != 0):  # l'utente ha terminato l'impostazione del timer
-        outputInterface.output_audio(FILE_AUDIO.CONFERMA_TIMER)
+        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.CONFERMA_TIMER)
         statoTimer = TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO
 
 
@@ -68,7 +68,7 @@ def click_bottone_destra(channel):
         timerDaImpostare.incrementaTimer(+1)
 
     elif (statoTimer == TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO) : # l'utente decide di mantenere l'esercizio appena registrato
-        outputInterface.output_audio(FILE_AUDIO + FILE_AUDIO.INVIO_DATI_IN_CORSO)
+        outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.INVIO_DATI_IN_CORSO)
         audio_acquisizione_esercizio()
         statoTimer = TUTTO_SPENTO
 
@@ -77,17 +77,17 @@ def click_bottone_destra(channel):
 
 def audio_acquisizione_esercizio():
 
-    outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA + FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(SECONDI_PRE_REGISTRAZIONE))
+    outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(SECONDI_PRE_REGISTRAZIONE))
 
-    conto_alla_rovescia_pre_registrazione = audio_timer.Timer(FILE_AUDIO.PATH_CARTELLA + SECONDI_PRE_REGISTRAZIONE)
+    conto_alla_rovescia_pre_registrazione = audio_timer.Timer(FILE_AUDIO.PATH_CARTELLA, SECONDI_PRE_REGISTRAZIONE)
     conto_alla_rovescia_pre_registrazione.audio_conto_alla_rovescia(1)                                   #"5..4..3..2.."
 
-    outputInterface.output_audio(FILE_AUDIO + FILE_AUDIO.VIA)                                                        #"via"
+    outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA, FILE_AUDIO.VIA)                                                        #"via"
     time.sleep(1)
 
     timerDaImpostare.audio_conto_alla_rovescia(1)                                                        #"7..6..5..4.."
 
-    outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA + FILE_AUDIO.REGISTRAZIONE_TERMINATA)                                    #"registrazione terminata"
+    outputInterface.output_audio(FILE_AUDIO.PATH_CARTELLA,  FILE_AUDIO.REGISTRAZIONE_TERMINATA)                                    #"registrazione terminata"
 
 
 # ------- MAIN ----------------------------------------------------------------------------------------------------

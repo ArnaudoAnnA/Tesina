@@ -11,7 +11,7 @@
 
 #-------------------------------------------------------------------------------------------------------------
 
-#based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto. Thx m8, non e' vero, lo aveva copiato a sua volta, sto terone
+#based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto.
 import smbus     #import SMBus module of I2C
 import time
 import collections

@@ -1,0 +1,1 @@
+header = [name + '_' + str(i) for name in ['Ax','Ay','Az','Gx','Gy','Gz'] for i in range(1,21)]+['movement']

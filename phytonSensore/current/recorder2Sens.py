@@ -73,8 +73,8 @@ for x in xrange(0, recordings):
     
     #writing the fifo if it has the correct overlap or is the last recording
     if times%(LENFIFO - config.OVERLAP) == 0 or times == recordings - 1 :
-        armWriter.writerow(collections.list(armSensorFifo) + [movement_class])
-        legWriter.writerow(collections.list(legSensorFifo) + [movement_class])
+        armWriter.writerow(armSensorFifo + [movement_class])
+        legWriter.writerow(legSensorFifo + [movement_class])
         
     #setting next instant
     times = times + 1

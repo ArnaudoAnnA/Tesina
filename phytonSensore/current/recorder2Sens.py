@@ -10,15 +10,15 @@ import numpy as np
 import csv
 import sys
 import config
-import baal
+import funzioniSensori as baal
 import init2Sens
 
 ACQUIRATE = config.ACQUIRATE
 DBPATH = config.DBPATH
 NDATA = config.NDATA
 LENFIFO = config.LENFIFO
-ARMSENSORADDRESS = config.Device_Address1
-LEGSENSORADDRESS = config.Device_Address2
+ARM_SENSOR_ADDRESS = config.Device_Address1
+LEG_SENSOR_ADDRESS = config.Device_Address2
 
 #Arguments:
 #the number of the exercise (keeping in mind the recording of error datasets)
@@ -60,8 +60,8 @@ for x in xrange(0, recordings):
     oldnow=time.time()
     
     #reading the data from the sensors
-    armSensor=baal.read_sensor_data(armSensor, ARMSENSORADDRESS)
-    legSensor=baal.read_sensor_data(legSensor, LEGSENSORADDRESS)
+    armSensor=baal.read_sensor_data(armSensor, ARM_SENSOR_ADDRESS)
+    legSensor=baal.read_sensor_data(legSensor, LEG_SENSOR_ADDRESS)
     
     #parsing the data in an useful format
     armSensor=baal.parse_sensor_data(armSensor)

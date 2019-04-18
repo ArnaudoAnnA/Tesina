@@ -1,10 +1,8 @@
 import smbus
 
-#DB Constants
-DBPATH  = "brian.db"
-NAME  = 1
-DESC  = 2
-AUDIO = 3
+
+
+
 
 #Recorder constants
 

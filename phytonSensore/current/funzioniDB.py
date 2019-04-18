@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import sqlite3
 import config
 #gestire errori
@@ -38,11 +40,3 @@ class Table_Exercises:
         return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
         
         
-
-
-
-
-
-#per testare (da eliminare)
-conn = db_connect()
-Table_Exercises.get_exercise(conn, 1)

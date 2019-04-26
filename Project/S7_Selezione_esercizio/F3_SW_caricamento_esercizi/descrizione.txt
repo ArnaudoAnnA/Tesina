@@ -6,12 +6,8 @@ IMPLEMENTAZIONE:
 
 
 
-Software che si occupa dello scaricamento di tutti gli esercizi che ci sono su server.
-
-- Invio inizialmente una rihciesta al DB sul server (STORY 6) che restituisca il numero di esercizi salvati su DB.
+Software che si occupa del caricamento di tutti gli esercizi che ci sono su database.
 
 - Creo una struttura in memoria adatta a contenenere, per ogni esercizio: numero, descrizione, (durata?).
 
-- Attraverso un ciclo iterativo invio una serie di interrogazioni al DB su server (STORY 6) (una per esercizio) che restituiscano i 
-
-  dati dell'esercizio.
+- Eseguo un'interrogazione al DB e salvo tutti gli esercizi 

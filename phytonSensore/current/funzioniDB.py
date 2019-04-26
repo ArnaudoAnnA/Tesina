@@ -1,3 +1,4 @@
+
 import sqlite3
 import config
 #gestire errori
@@ -21,6 +22,7 @@ class Table_Exercises:
     COLUMN_NAME  = "name"
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
+    COLUMN_DURATA_SECONDI = "durata_secondi"
     
     columns = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
         

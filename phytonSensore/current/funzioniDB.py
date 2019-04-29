@@ -38,8 +38,6 @@ class Table_Exercises:
             
             if(id_exercise < 0){
                 return "Errore: Indice inserito non valido"
-            }else if(){
-                
             }
             
             cursor.execute(query.format(Table_Exercises.TABLENAME, Table_Exercises.COLUMN_EXID, id_exercise))   
@@ -55,16 +53,21 @@ class Table_Exercises:
     
     
     def get_allExercise(db_conn){
-        
-        cursor = db_conn.cursor()
-        
-        query = "SELECT * FROM {}"
-        
-        cursor.execute(query.format(Table_Exercises.TABLENAME)   
-        
-        #fetchall() method to fetch all rows from the database table
-        row = cursor.fetchall()
-                       
+        try:
+            cursor = db_conn.cursor()
+
+            query = "SELECT * FROM {}"
+
+            cursor.execute(query.format(Table_Exercises.TABLENAME)   
+
+            #fetchall() method to fetch all rows from the database table
+            row = cursor.fetchall()
+                           
+        except sqlite3.Error as e:
+            return "Errore del Database"
+        except Exception as e:
+            return "Errore: Eccezione nelle query"
+                           
         return row  #ritorno tutte le righe, nella funzione client me li prendo
     }
         

@@ -24,6 +24,7 @@ class Table_Exercises:
     COLUMN_NAME  = "name"
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
+    COLUMN_TEMPO = "tempo"
     
     COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
         

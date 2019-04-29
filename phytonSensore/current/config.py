@@ -7,11 +7,11 @@ import smbus
 #Recorder constants
 
 #FIFO LENGTH
-WINDOW_LENGHT            = 10
+LENFIFO            = 10
 #DATA ACQUISITION RATE (n per second)
 MEASUREMENT_EACH_SECOND  = 25
 #NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
-WINDOW_OVERLAP           = 4
+OVERLAP           = 4
 #number of datas sent from each sensor
 NDATA_EACH_SENSOR        = 6
 

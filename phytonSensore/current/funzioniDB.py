@@ -25,7 +25,7 @@ class Table_Exercises:
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
     
-    columns = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
+    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
         
         
     def get_exercise(db_conn, id_exercise):

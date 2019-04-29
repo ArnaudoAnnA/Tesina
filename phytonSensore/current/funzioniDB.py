@@ -10,6 +10,7 @@ class Database:
     NAME = "brian.db"
     PATH = "/home/pi/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
     
+    
     def db_connect():  
         conn = sqlite3.connect(PATH+NAME)
         return conn
@@ -26,17 +27,45 @@ class Table_Exercises:
     
     columns = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
         
+        
     def get_exercise(db_conn, id_exercise):
-
+           
         #Marco aggiungi try catch
+        try:
+            cursor = db_conn.cursor()
+
+            query = "SELECT * FROM {} WHERE {} = {}"
+            
+            if(id_exercise < 0){
+                return "Errore: Indice inserito non valido"
+            }else if(){
+                
+            }
+            
+            cursor.execute(query.format(Table_Exercises.TABLENAME, Table_Exercises.COLUMN_EXID, id_exercise))   
+            
+            row = cursor.fetchone()
+            
+        except sqlite3.Error as e:
+            return "Errore del Database"
+        except Exception as e:
+            return "Errore: Eccezione nelle query"
+            
+        return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
+    
+    
+    def get_allExercise(db_conn){
+        
         cursor = db_conn.cursor()
         
-        query = "SELECT * FROM {} WHERE {} = {}"
+        query = "SELECT * FROM {}"
         
-        cursor.execute(query.format(Table_Exercises.TABLENAME, Table_Exercises.COLUMN_EXID, id_exercise))    
-     
-        row = cursor.fetchone()
+        cursor.execute(query.format(Table_Exercises.TABLENAME)   
         
-        return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
+        #fetchall() method to fetch all rows from the database table
+        row = cursor.fetchall()
+                       
+        return row  #ritorno tutte le righe, nella funzione client me li prendo
+    }
         
         

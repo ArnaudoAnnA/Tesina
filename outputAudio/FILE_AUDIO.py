@@ -24,3 +24,7 @@ FEEDBACK_ERRORE = "errore sensore {}" #sostituire, in seguito, al numero del sen
 RESOCONTO_ESERCIZIO = "esercizio eseguito con {} per cento di correttezza" 
 
 secondi = ["zero.mp3", "uno.wav", "due.wav", "tre.wav", "quattro.wav", "cinque.wav"]
+
+
+#selezione esercizio
+NESSUN_ESERCIZIO_DISPONIBILE = "nessun esercizio disponibile"

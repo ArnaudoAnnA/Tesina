@@ -154,7 +154,7 @@ class Thread_readSensor(threading.Thread):
                 
             #setting next instant
             times=times+1
-            time.sleep(1.0/config.MEASUREMENT_EACH_SECOND-(abs(time.time()-oldnow)))
+            time.sleep(1.0/config.MEASUREMENT_EACH_SECOND-(time.time()-oldnow))
             print ('times: ' , times) 
         
         self.csvfile.close()

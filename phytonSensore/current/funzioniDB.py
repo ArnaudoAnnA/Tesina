@@ -33,7 +33,6 @@ class Table_Exercises:
           
         if(id_exercise < 0):
             return "Errore: Indice inserito non valido"
-        
     
         try:
             cursor = db_conn.cursor()

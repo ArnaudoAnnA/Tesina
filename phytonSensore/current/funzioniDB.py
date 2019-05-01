@@ -16,7 +16,7 @@ class Database:
         return conn
     
     
-
+#IMPORTANTE!! gli id dei vari esercizi devono comporre una serie progressiva di numeri senza NESSUN buco
 class Table_Exercises:
     TABLENAME = "exercises"
     
@@ -26,23 +26,19 @@ class Table_Exercises:
     COLUMN_AUDIO = "audio"
     COLUMN_TEMPO = "tempo"
     
-    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
+    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TEMPO]
         
         
     def get_exercise(db_conn, id_exercise):
-           
-        #Marco aggiungi try catch
+          
+        if(id_exercise < 0):
+            return "Errore: Indice inserito non valido"
+        
+    
         try:
             cursor = db_conn.cursor()
-
             query = "SELECT * FROM {} WHERE {} = {}"
-            
-            if(id_exercise < 0){
-                return "Errore: Indice inserito non valido"
-            }
-            
             cursor.execute(query.format(Table_Exercises.TABLENAME, Table_Exercises.COLUMN_EXID, id_exercise))   
-            
             row = cursor.fetchone()
             
         except sqlite3.Error as e:
@@ -56,9 +52,7 @@ class Table_Exercises:
     def get_allExercise(db_conn){
         try:
             cursor = db_conn.cursor()
-
             query = "SELECT * FROM {}"
-
             cursor.execute(query.format(Table_Exercises.TABLENAME)   
 
             #fetchall() method to fetch all rows from the database table
@@ -70,6 +64,7 @@ class Table_Exercises:
             return "Errore: Eccezione nelle query"
                            
         return row  #ritorno tutte le righe, nella funzione client me li prendo
-    }
+    
+                        
         
         

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 #-------------------------------------------------------------------------------------------------------------
 #   funzioni:
 #   -   MPU_init            -> inizializzazione sensore
@@ -19,6 +21,7 @@ import numpy as np
 import csv
 import sys
 import config
+import threading
 
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
@@ -107,3 +110,55 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[3].append(sensor[3])
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
+    
+    
+class Thread_readSensor(threading.Thread):
+    
+    def __init__(self, deviceAddress, devicePosition, nEsercizio, recordings):
+        threading.Thread.__init__(self)
+        
+        self.deviceAddress = deviceAddress
+        self.nEsercizio = nomeEsercizio      #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
+        self.recordings = recordings
+        
+        #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
+        self.csvfile = open(devicePosition + '.csv', 'ab')
+        self.writer = csv.writer(csvfile)
+        
+        dataOneMisuration = [0] * config.NDATA_EACH_SENSOR          #lista che conterrà tutti i dati registrati dal sensore in un istante
+        windowMisurationsFifo = [0] * config.NDATA_EACH_SENSOR      #lista che contiene i dati registrati dal sensore in una finestra di tempo
+        init_Fifo(config.WINDOW_LENGHT, windowMisurationsFifo)
+    
+    
+    def run():
+        times = 0
+        
+        #per fare in modo che tutti i thread partano in contemporanea
+        while(record2Sens.start != True): pass
+        
+        for x in xrange(0, self.recordings):
+            oldnow=time.now()
+            
+            #reading the data from the sensor
+            self.dataOneMisuration = read_sensor_data(self.dataOneMisuration, self.deviceAddress)
+            
+            #parsing the data in an useful format
+            self.dataOneMisuration=funzioniSensori.parse_sensor_data(self.dataOneMisuration)
+            
+            #adding the sensor data to the head of the FIFO, automatically deleting the one in the tail
+            funzioniSensori.append_sensor_data(self.windowMisurationsFifo, self.dataOneMisuration)
+            
+            #writing the fifo if it has the correct overlap or is the last recording
+            if times%(config.WINDOW_LENGHT-config.WINDOW_OVERLAP)==0 or times==recordings-1 :
+                self.writer.writerow(self.windowMisurationsFifo + [self.nEsercizio])
+                
+            #setting next instant
+            times=times+1
+            time.sleep(1.0/config.MEASUREMENT_EACH_SECOND-(time.time()-oldnow))
+            print ('times: ' , times) 
+        
+        self.csvfile.close()
+        print(devicePosition, "ha finito")
+        
+        
+        

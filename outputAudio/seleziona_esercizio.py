@@ -79,11 +79,11 @@ def click_bottone_destra(channel):
 		#l'utente ha selezionato l'esercizio: richiamo le funzioni che gestiscono l'esecuzione dell'esercizio
 			#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
 			sensori = Table_sensors.get_sensors()
-			indiceTempo = Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_TEMPO)
-			tempo = esercizio[indiceTempo]
+			indiceDurataSecondi = Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_DURATA_SECONDI)
+			durataSecondi = esercizio[indiceDurataSecondi]
 
 			#faccio partire il timer che scandisce il tempo dell'esercizio
-			audio_feedback_esercizio.outputTimer()
+			audio_feedback_esercizio.outputTimer(durataSecondi)
 
 			# avvio i thread che leggono dai sensori e eseguono l'algoritmo di intelligenza artificiale
 	

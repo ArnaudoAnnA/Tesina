@@ -1,5 +1,6 @@
 # coding=utf-8
 
+
 import sqlite3
 import config
 #gestire errori
@@ -24,9 +25,9 @@ class Table_Exercises:
     COLUMN_NAME  = "name"
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
-    COLUMN_TEMPO = "tempo"
+    COLUMN_DURATA_SECONDI = "durata_secondi"
     
-    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TEMPO]
+    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_DURATA_SECONDI]
         
         
     def get_exercise(db_conn, id_exercise):
@@ -48,7 +49,7 @@ class Table_Exercises:
         return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
     
     
-    def get_allExercise(db_conn){
+    def get_allExercises(db_conn){
         try:
             cursor = db_conn.cursor()
             query = "SELECT * FROM {}"
@@ -65,5 +66,4 @@ class Table_Exercises:
         return row  #ritorno tutte le righe, nella funzione client me li prendo
     
                         
-        
-        
+       

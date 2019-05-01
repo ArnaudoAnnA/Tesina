@@ -11,12 +11,6 @@
 
 #costanti
 
-PIN_BOTTONE_DESTRA = 21
-PIN_BOTTONE_CENTRALE = 20
-PIN_BOTTONE_SINISTRA = 16
-
-
-
 TUTTO_SPENTO = 0
 TIMER_IN_IMPOSTAZIONE = 1
 TIMER_IMPOSTATO_REGISTRAZIONE_ESERCIZIO = 2
@@ -28,6 +22,7 @@ import RPi.GPIO as GPIO
 import time
 import audio_timer
 import raspberry_audio as outputInterface
+import config
 
 
 def click_bottone_sinistra(channel):
@@ -93,10 +88,10 @@ def audio_acquisizione_esercizio():
 # ------- MAIN ----------------------------------------------------------------------------------------------------
 
 GPIO.setmode(GPIO.BCM)                              #specifico quale configurazione di pin intendo usare
-GPIO.setup(PIN_BOTTONE_SINISTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  #PUD_DOWN significa che, se non viene ricevuto nessun segnale da raspberry, l'input del pin è di default 0
+GPIO.setup(config.PIN_BOTTONE_SINISTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)  #PUD_DOWN significa che, se non viene ricevuto nessun segnale da raspberry, l'input del pin è di default 0
                                                     #questa istruzione è importante per evitare errori dovuti a variazioni di tensione, che avvengono anche quando un pin non riceve voltaggio, per motivi fisici 
-GPIO.setup(PIN_BOTTONE_CENTRALE, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(PIN_BOTTONE_DESTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(config.PIN_BOTTONE_CENTRALE, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(config.PIN_BOTTONE_DESTRA, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 #la situazione inziale è "timer non impostato" e "esercizio non registrato"
 statoTimer = TUTTO_SPENTO;
@@ -106,18 +101,18 @@ timerDaImpostare = audio_timer.Timer(0)
 #aggiungo un event_detect ad ogni pin e associo la relativa funzione che gestirà l'evento click sul bottone
 #ulteriori spiegazioni:  https://sourceforge.net/p/raspberry-gpio-python/wiki/Inputs/
 #SINISTRA
-GPIO.add_event_detect(PIN_BOTTONE_SINISTRA, GPIO.FALLING)   #GPIO.FALLING significa che l'evento si scatena nel momento in cui il bottone viene premuto (non quando viene rilasciato)
+GPIO.add_event_detect(config.PIN_BOTTONE_SINISTRA, GPIO.FALLING)   #GPIO.FALLING significa che l'evento si scatena nel momento in cui il bottone viene premuto (non quando viene rilasciato)
 
-GPIO.add_event_callback(PIN_BOTTONE_SINISTRA, click_bottone_sinistra)
+GPIO.add_event_callback(config.PIN_BOTTONE_SINISTRA, click_bottone_sinistra)
 
 
 #CENTRO
-GPIO.add_event_detect(PIN_BOTTONE_CENTRALE, GPIO.FALLING)
-GPIO.add_event_callback(PIN_BOTTONE_CENTRALE, click_bottone_centrale)
+GPIO.add_event_detect(config.PIN_BOTTONE_CENTRALE, GPIO.FALLING)
+GPIO.add_event_callback(config.PIN_BOTTONE_CENTRALE, click_bottone_centrale)
 
 #DESTRA
-GPIO.add_event_detect(PIN_BOTTONE_DESTRA, GPIO.FALLING)
-GPIO.add_event_callback(PIN_BOTTONE_DESTRA, click_bottone_destra)
+GPIO.add_event_detect(config.PIN_BOTTONE_DESTRA, GPIO.FALLING)
+GPIO.add_event_callback(config.PIN_BOTTONE_DESTRA, click_bottone_destra)
 
 while(True):
     pass

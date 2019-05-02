@@ -1,7 +1,7 @@
-import baal
+import funzioniSensori
 import config
 
 #initializing the sensors
 
-baal.MPU_Init(config.Device_Address1)
-baal.MPU_Init(config.Device_Address2)
+funzioniSensori.MPU_Init(config.Device_Address1)
+funzioniSensori.MPU_Init(config.Device_Address2)

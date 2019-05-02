@@ -1,17 +1,13 @@
 import smbus
 
-
-
-
-
 #Recorder constants
 
 #FIFO LENGTH
-LENFIFO            = 10
+LENFIFO                  = 10
 #DATA ACQUISITION RATE (n per second)
 MEASUREMENT_EACH_SECOND  = 25
 #NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
-OVERLAP           = 4
+OVERLAP                  = 4
 #number of datas sent from each sensor
 NDATA_EACH_SENSOR        = 6
 
@@ -24,7 +20,7 @@ PIN_BOTTONE_DESTRA = 21
 PIN_BOTTONE_CENTRALE = 20
 PIN_BOTTONE_SINISTRA = 16
 
-#posizioni in cui si può trovare un sensore
+#posizioni in cui si puo' trovare un sensore
 SENSORPOSITION_LEGSX = "legsx"
 SENSORPOSITION_LEGDX = "legdx"
 SENSORPOSITION_ARMSX = "armsx"

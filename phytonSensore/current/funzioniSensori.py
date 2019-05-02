@@ -118,7 +118,7 @@ class Thread_readSensor(threading.Thread):
         threading.Thread.__init__(self)
         
         self.deviceAddress = deviceAddress
-        self.nEsercizio = nomeEsercizio      #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
+        self.nEsercizio = nEsercizio      #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
         self.recordings = recordings
         
         #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore

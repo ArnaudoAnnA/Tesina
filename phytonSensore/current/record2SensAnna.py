@@ -18,12 +18,12 @@ movement_class = sys.argv[1] #the number of the exercise (keeping in mind the re
 acquisitionTime = int(sys.argv[2]) #the number of the seconds to record
 
 #the integer representing the number of instants to record
-recordings = acquisitionTime*config.WINDOW_LENGHT
+recordings = acquisitionTime*config.LENFIFO
 print ("recordings: ",recordings)
 
 #init sensors
-threadSensor1 = funzioniSensori.Thread_readSensor(config.Device_Address1, config.SENSORPOSITION_LEGSX, recordings)
-threadSensor2 = funzioniSensori.Thread_readSensor(config.Device_Address2, config.SENSORPOSITION_ARMSX, recordings)
+threadSensor1 = funzioniSensori.Thread_readSensor(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class, recordings)
+threadSensor2 = funzioniSensori.Thread_readSensor(config.Device_Address2, config.SENSORPOSITION_ARMSX, movement_class, recordings)
 
 start = False #variabile che serve per fare in modo che tutti i thread partano in contemporanea
 

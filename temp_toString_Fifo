@@ -1,0 +1,10 @@
+
+def toString_Fifo(fifo):
+  ret = "[ "+fifo[0]
+  
+  for i in range(1, len(fifo)):
+    ret = ret+", "+fifo[i]
+  
+  ret = ret + " ]"
+  
+  return ret

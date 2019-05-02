@@ -1,8 +1,0 @@
-
-def toString_Fifo(fifo):
-  ret = ""
-
-  for j in range(0, len(fifo)):
-     ret = ret + list(fifo[j])
-  
-  return ret

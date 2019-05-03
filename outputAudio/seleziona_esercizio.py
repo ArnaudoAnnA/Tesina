@@ -89,7 +89,7 @@ def click_bottone_destra(channel):
 			durataSecondi = esercizio[indiceDurataSecondi]
 
 			#faccio partire il timer che scandisce il tempo dell'esercizio
-			audio_feedback_esercizio.AudioFeedbackEsercizio.outputTimer(durataSecondi)
+			audio_feedback_esercizio.AudioFeedBackEsercizio.outputTimer(durataSecondi)
 
 			# avvio i thread che leggono dai sensori e eseguono l'algoritmo di intelligenza artificiale
 	

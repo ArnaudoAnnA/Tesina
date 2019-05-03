@@ -43,7 +43,7 @@ def click_bottone_centrale(channel):
 		#scarico le descrizioni di tutti gli esercizi e li metto a disposizione dell'utente per la selezione
 		#mi connetto al DB
 		dbConn = funzioniDB.Database.db_connect()
-		esercizi = funzioniDB.Table_Exercises.getAllExcercises()
+		esercizi = funzioniDB.Table_Exercises.get_allExcercises()
 
 		if(esercizi == NULL):
 			output_interface.output_audio(FILE_AUDIO.NESSUN_ESERCIZIO_DISPONIBILE)

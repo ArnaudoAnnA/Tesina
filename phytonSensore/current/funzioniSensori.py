@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+-# -*- coding: utf-8 -*-
 
 #-------------------------------------------------------------------------------------------------------------
 #   funzioni:
@@ -113,12 +113,12 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[5].append(sensor[5])
     
 def toList_Fifo(fifo):
-  ret = []
+    ret = []
 
-  for i in xrange(0, len(fifo)):
-     ret = ret+list(fifo[i])
+    for i in xrange(0, len(fifo)):
+        ret = ret+list(fifo[i])
   
-  return ret
+    return ret
     
 class Thread_readSensor(threading.Thread):
     

@@ -32,8 +32,8 @@ class Timer:
 
     # --------------------------------------------------------------------------------------------------------------------------------------
     def incrementaTimer(self, incremento):
-        return self.impostaTimer(self.timer + incremento)
-
+		self.timer = self.timer + incremento
+		return Timer_changed_listener.notify(self.timer)
     #------------------------------------------------------------------------------------------------------------------------------------
     def audio_conto_alla_rovescia(self, intervalloOgniQuantoNotificare):
         while self.incrementaTimer(-intervalloOgniQuantoNotificare) != TEMPO_FINITO:

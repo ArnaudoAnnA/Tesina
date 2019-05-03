@@ -31,7 +31,6 @@ class Table_Exercises:
     @staticmethod    
     def get_exercise(db_conn, id_exercise):
            
-        #Marco aggiungi try catch
         try:
             cursor = db_conn.cursor()
 

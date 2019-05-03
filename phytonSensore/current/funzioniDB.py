@@ -1,4 +1,4 @@
-# coding=utf-8
+@staticmethod# coding=utf-8
 
 import sqlite3
 import config
@@ -10,7 +10,7 @@ class Database:
     NAME = "brian.db"
     PATH = "/home/pi/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
     
-    
+    @staticmethod
     def db_connect():  
         conn = sqlite3.connect(PATH+NAME)
         return conn
@@ -28,7 +28,7 @@ class Table_Exercises:
     
     COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
         
-        
+    @staticmethod    
     def get_exercise(db_conn, id_exercise):
            
         #Marco aggiungi try catch
@@ -52,7 +52,7 @@ class Table_Exercises:
             
         return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
     
-    
+    @staticmethod
     def get_allExercise(db_conn):
         try:
             cursor = db_conn.cursor()

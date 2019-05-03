@@ -1,4 +1,5 @@
-ou# -*- coding: utf-8 -*-
+
+# -*- coding: utf-8 -*-
 
 import time
 import audio_timer
@@ -13,6 +14,7 @@ class AudioFeedBackEsercizio:
   n_feedBack = 0
 
   #funzione che si occupa del timer durante la fase di correzione esercizio
+  @staticmethod
   def outputTimer(tempo):
     AudioFeedBackEsercizio.correttezzaMedia = 0
     AudioFeedBackEsercizio.n_feedback = 0
@@ -34,6 +36,7 @@ class AudioFeedBackEsercizio:
 
 
   #funzione richiamata dai thread ogni volta che l'algoritmo di intelligenza artificiale riconosce un movimento
+  @staticmethod
   def feedback_movimento_notify(sensore, percentualeCorrettezza):
 
     if(percentualeCorrettezza < MINIMO_PERCENTUALE_CORRETTEZZA):

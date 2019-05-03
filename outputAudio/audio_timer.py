@@ -36,8 +36,8 @@ class Timer:
 
     #------------------------------------------------------------------------------------------------------------------------------------
     def audio_conto_alla_rovescia(self, intervalloOgniQuantoNotificare):
-        while self.incrementaTimer(-intervalloOgniquantoNotificare) != TEMPO_FINITO:
-            time.sleep(intervalloOgniquantoNotificare)  # aspetto 
+        while self.incrementaTimer(-intervalloOgniQuantoNotificare) != TEMPO_FINITO:
+            time.sleep(intervalloOgniQuantoNotificare)  # aspetto 
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 

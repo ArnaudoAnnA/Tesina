@@ -4,6 +4,7 @@
 import time
 import audio_timer
 import raspberry_audio as outputInterface
+import FILE_AUDIO
 
 TEMPO_PRE_INIZIO_CORREZIONE = 5
 MINIMO_PERCENTUALE_CORRETTEZZA = 65

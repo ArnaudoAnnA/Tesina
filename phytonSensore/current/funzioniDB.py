@@ -1,4 +1,4 @@
-@staticmethod# coding=utf-8
+# coding=utf-8
 
 import sqlite3
 import config
@@ -12,7 +12,7 @@ class Database:
     
     @staticmethod
     def db_connect():  
-        conn = sqlite3.connect(PATH+NAME)
+        conn = sqlite3.connect(Database.PATH+Database.NAME)
         return conn
     
     

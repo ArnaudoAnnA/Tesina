@@ -3,11 +3,13 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
 LENFIFO=config.LENFIFO
+CSV_PATH=config.CSV_PATH
 
 # basic random forest function
 def ai(position, n_of_train_samples, max_depth, n_estimators):
-    header = ['Ax_' + str(i) for i in xrange(1, LENFIFO)]+['Ay_' + str(i) for i in xrange(1, LENFIFO)]+['Az_' + str(i) for i in xrange(1, LENFIFO)]+['Gx_' + str(i) for i in xrange(1, LENFIFO)]+['Gy_' + str(i) for i in xrange(1, LENFIFO)]+['Gz_' + str(i) for i in xrange(1, LENFIFO)]+['movement_class'] # data heading
-    data = pd.read_csv(position + '.csv', header=None, index_col=0, names=header) # reading data from csv, indexing the columns
+    header = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO)]+['Az_' + str(i) for i in xrange(1, LENFIFO)]+['Gx_' + str(i) for i in xrange(1, LENFIFO)]+['Gy_' + str(i) for i in xrange(1, LENFIFO)]+['Gz_' + str(i) for i in xrange(1, LENFIFO)]+['movement_class'] # data heading
+    print list(header)
+    data = pd.read_csv(filepath_or_buffer = CSV_PATH + position + '.csv', header=None, index_col=0, names=header) # reading data from csv, indexing the columns
     data.head()# data visualization
 
     shuffled_data = data.sample(frac=1) # data shuffled in order to minimize near rows dependency

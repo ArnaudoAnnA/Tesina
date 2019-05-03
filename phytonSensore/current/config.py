@@ -10,6 +10,8 @@ MEASUREMENT_EACH_SECOND  = 25
 OVERLAP                  = 4
 #number of datas sent from each sensor
 NDATA_EACH_SENSOR        = 6
+#
+CSV_PATH                 = "file:///home/pi/Downloads/Tesina-master/phytonSensore/registrazioni/"
 
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
 Device_Address1 = 0x68  # MPU6050 ARM device address

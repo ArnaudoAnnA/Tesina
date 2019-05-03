@@ -77,8 +77,7 @@ def click_bottone_destra(channel):
 		output_interface.output_audio(FILE_AUDIO.ESERCIZIO + FILE_AUDIO.numeri[idEsercizioCorrente])
 		time.sleep(0.5)
 		indiceAudio = funzioniDB.Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_AUDIO)
-		output_interface.output_audio(esercizioCorrente[indiceAudio])
-		
+		output_interface.output_audio(esercizioCorrente[indiceAudio])		
 	elif(situazione == RICHIESTA_CONFERMA):
 		#l'utente ha selezionato l'esercizio: richiamo le funzioni che gestiscono l'esecuzione dell'esercizio
 			#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
@@ -125,7 +124,7 @@ GPIO.add_event_callback(config.PIN_BOTTONE_DESTRA, click_bottone_destra)
 situazione = ESERCIZIO_NON_SELEZIONATO
 esercizi = None
 nEsercizi = None
-idEsercizioCorrente = -1
+idEsercizioCorrente = 0
 
 while(True):
     pass	

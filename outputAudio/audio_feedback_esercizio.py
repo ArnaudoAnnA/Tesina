@@ -11,7 +11,7 @@ MINIMO_PERCENTUALE_CORRETTEZZA = 65
 
 class AudioFeedBackEsercizio:
   
-  correttezzaMedia = 0  #VOLENDO IN FUTURO SI PUO' AGGIUNGERE CORRETTEZZA MEDIA PER SENSORE
+  sommaCorrettezza = 0
   n_feedBack = 0
 
   #funzione che si occupa del timer durante la fase di correzione esercizio
@@ -32,7 +32,7 @@ class AudioFeedBackEsercizio:
     timer.audio_conto_alla_rovescia(1)  
     
     #alla fine, do in output il resoconto dell'esecuzione dell'esercizio
-    correttezzaMedia = correttezzaMedia / n_feedBack
+    correttezzaMedia = AudioFeedBackEsercizio.correttezzaMedia / AudioFeedBackEsercizio.n_feedBack  #VOLENDO SI PUO' DARE IN OUTPUT LA CORRETTEZZA MEDIA PER SENSORE
     outputInterface.outputAudio(FILE_AUDIO.RESOCONTO_ESERCIZIO.format(correttezzaMedia))
 
 
@@ -44,5 +44,5 @@ class AudioFeedBackEsercizio:
       outputInterface.output_audio(FILE_AUDIO.FEEDBACK_ERRORE.format(sensore))
   
     #salvo i dati per il resoconto
-    correttezzaMedia += percentualeCorrettezza
-    n_feedBack += 1
+    AudioFeedBackEsercizio.sommaCorrettezza += percentualeCorrettezza
+    AudioFeedBackEsercizio.n_feedBack += 1

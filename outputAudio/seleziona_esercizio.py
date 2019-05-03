@@ -64,7 +64,7 @@ def click_bottone_centrale(channel):
 		
 def click_bottone_destra(channel):
 	global situazione
-	global esercizio
+	global esercizi
 	global nEsercizi
 	global situazione
 	global idEsercizioCorrente
@@ -83,7 +83,9 @@ def click_bottone_destra(channel):
 		#l'utente ha selezionato l'esercizio: richiamo le funzioni che gestiscono l'esecuzione dell'esercizio
 			#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
 			sensori = Table_sensors.get_sensors()
-			indiceDurataSecondi = funzioniDB.Table_Exercises.COLUMNS.index(funzioniDB.Table_Exercises.COLUMN_DURATA_SECONDI)
+			
+			indiceDurataSecondi = funzioniDB.Table_Exercises.COLUMNS.index(funzioniDB.Table_Exercises.COLUMN_TIME_SECONDS)
+			esercizio = esercizi[idEsercizioCorrente]
 			durataSecondi = esercizio[indiceDurataSecondi]
 
 			#faccio partire il timer che scandisce il tempo dell'esercizio

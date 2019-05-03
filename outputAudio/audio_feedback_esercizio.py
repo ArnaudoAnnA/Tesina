@@ -23,7 +23,7 @@ class AudioFeedBackEsercizio:
 
     #conto alla rovescia prima dell'inizio 
     timer_pre = audio_timer.Timer(TEMPO_PRE_INIZIO_CORREZIONE)
-    outputInterface.output_audio(FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(SECONDI_PRE_REGISTRAZIONE))
+    outputInterface.output_audio(FILE_AUDIO.INIZIO_REGISTRAZIONE_TRA_QUALCHE_SECONDO.format(TEMPO_PRE_INIZIO_REGISTRAZIONE))
     timer_pre.audio_conto_alla_rovescia(1)
 
     #inizio della fase di acquisizione e correzione

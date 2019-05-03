@@ -19,13 +19,17 @@ def click_bottone_sinistra(channel):
 	global idEsercizioCorrente
 	
 	if(situazione == IN_SELEZIONE):
-		idEsercizioCorrente = idEsercizioCorrente + 1 % nEsercizi
+		if(idEsercizioCorrente == 0):
+                	idEsercizioCorrente = nEsercizi - 1
+                else:
+                	idEsercizioCorrente = idEsercizioCorrente - 1
+			
 		esercizioCorrente = esercizi[idEsercizioCorrente]
 		
 		#do in output la descrizione dell'esercizio corrente
 		output_interface.output_audio(FILE_AUDIO.ESERCIZIO + FILE_AUDIO.numeri[idEsercizioCorrente])
 		time.sleep(0.5)
-		indiceAudio = Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_AUDIO)
+		indiceAudio = funzioniDB.Table_Exercises.COLUMNS.index(funzioniDB.Table_Exercises.COLUMN_AUDIO)
 		output_interface.output_audio(esercizioCorrente[indiceAudio])
 		
 	elif(situazione == RICHIESTA_CONFERMA):
@@ -43,17 +47,17 @@ def click_bottone_centrale(channel):
 		#scarico le descrizioni di tutti gli esercizi e li metto a disposizione dell'utente per la selezione
 		#mi connetto al DB
 		dbConn = funzioniDB.Database.db_connect()
-		esercizi = funzioniDB.Table_Exercises.get_allExcercises()
+		esercizi = funzioniDB.Table_Exercises.get_allExercises(dbConn)
 
-		if(esercizi == NULL):
+		if(esercizi == None):
 			output_interface.output_audio(FILE_AUDIO.NESSUN_ESERCIZIO_DISPONIBILE)
 		
 		else:
 			nEsercizi = len(esercizi)
-			output_interface.output_audio(FILE_AUDIO.USARE_FRECCIE_PER_SELEZIONARE_ESERCIZIO)
-			situazione = IN_IMPOSTAZIONE
+			output_interface.output_audio(FILE_AUDIO.USARE_FRECCE_PER_SELEZIONARE_ESERCIZIO)
+			situazione = IN_SELEZIONE
 	
-	elif(situazione == IN_IMPOSTAZIONE):
+	elif(situazione == IN_SELEZIONE):
 		output_interface.output_audio(FILE_AUDIO.CONFERMA)
 		situazione = RICHIESTA_CONFERMA
 
@@ -61,25 +65,25 @@ def click_bottone_centrale(channel):
 def click_bottone_destra(channel):
 	global situazione
 	global esercizio
-	
+	global nEsercizi
 	global situazione
 	global idEsercizioCorrente
 	
-	if(situazione == IN_SELEZIONE and idEsercizioCorrente > 0):
-		idEsercizioCorrente = idEsercizioCorrente - 1
+	if(situazione == IN_SELEZIONE):
+		idEsercizioCorrente = idEsercizioCorrente + 1 % nEsercizi
 		esercizioCorrente = esercizi[idEsercizioCorrente]
 		
 		#do in output la descrizione dell'esercizio corrente
 		output_interface.output_audio(FILE_AUDIO.ESERCIZIO + FILE_AUDIO.numeri[idEsercizioCorrente])
 		time.sleep(0.5)
-		indiceAudio = Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_AUDIO)
+		indiceAudio = funzioniDB.Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_AUDIO)
 		output_interface.output_audio(esercizioCorrente[indiceAudio])
 		
 	elif(situazione == RICHIESTA_CONFERMA):
 		#l'utente ha selezionato l'esercizio: richiamo le funzioni che gestiscono l'esecuzione dell'esercizio
 			#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
 			sensori = Table_sensors.get_sensors()
-			indiceDurataSecondi = Table_Exercises.COLUMNS.index(Table_Exercises.COLUMN_DURATA_SECONDI)
+			indiceDurataSecondi = funzioniDB.Table_Exercises.COLUMNS.index(funzioniDB.Table_Exercises.COLUMN_DURATA_SECONDI)
 			durataSecondi = esercizio[indiceDurataSecondi]
 
 			#faccio partire il timer che scandisce il tempo dell'esercizio

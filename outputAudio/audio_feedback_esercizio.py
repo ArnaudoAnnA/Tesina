@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ou# -*- coding: utf-8 -*-
 
 import time
 import audio_timer
@@ -35,7 +35,7 @@ class OutputCorrezioneEsercizio:
   def feedback_movimento_notify(sensore, percentualeCorrettezza):
 
     if(percentualeCorrettezza < MINIMO_PERCENTUALE_CORRETTEZZA):
-      outputInterface.(FILE_AUDIO.FEEDBACK_ERRORE.format(sensore))
+      outputInterface.output_audio(FILE_AUDIO.FEEDBACK_ERRORE.format(sensore))
   
     #salvo i dati per il resoconto
     correttezzaMedia += percentualeCorrettezza

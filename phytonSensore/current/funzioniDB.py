@@ -53,7 +53,7 @@ class Table_Exercises:
         return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
     
     @staticmethod
-    def get_allExercise(db_conn):
+    def get_allExercises(db_conn):
         try:
             cursor = db_conn.cursor()
 

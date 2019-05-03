@@ -7,13 +7,15 @@ import raspberry_audio as outputInterface
 TEMPO_PRE_INIZIO_CORREZIONE = 5
 MINIMO_PERCENTUALE_CORRETTEZZA = 65
 
-class OutputCorrezioneEsercizio:
+class AudioFeedBackEsercizio:
   
   correttezzaMedia = 0  #VOLENDO IN FUTURO SI PUO' AGGIUNGERE CORRETTEZZA MEDIA PER SENSORE
   n_feedBack = 0
 
   #funzione che si occupa del timer durante la fase di correzione esercizio
   def outputTimer(tempo):
+    AudioFeedBackEsercizio.correttezzaMedia = 0
+    AudioFeedBackEsercizio.n_feedback = 0
     timer = audio_timer.Timer(tempo)
 
     #conto alla rovescia prima dell'inizio 

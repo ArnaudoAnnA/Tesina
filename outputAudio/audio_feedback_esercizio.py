@@ -29,7 +29,7 @@ class AudioFeedBackEsercizio:
     #inizio della fase di acquisizione e correzione
     outputInterface.output_audio(FILE_AUDIO.VIA)                                                        #"via"
     time.sleep(1)
-    timer.audio_conto_alla_rovescia(3)  #il numero di secondi rimanenti viene dato in output ogni tre secondi
+    timer.audio_conto_alla_rovescia(1)  
     
     #alla fine, do in output il resoconto dell'esecuzione dell'esercizio
     correttezzaMedia = correttezzaMedia / n_feedBack

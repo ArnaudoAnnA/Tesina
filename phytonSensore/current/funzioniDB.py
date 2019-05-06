@@ -71,27 +71,50 @@ class Table_Exercises:
 class Table_Sensors:
     TABLENAME = "sensors"
     
-    COLUMN_SENSID = "sens_id"
+    COLUMN_SENS_ID = "sens_id"
     COLUMN_POSITION= "position"
-    COLUMN_PATHFILE = "path_file"
-    COLUMN_PATHIAFIT = "pathIA_fit"
+    COLUMN_PATH_CSV = "path_csv"
+    COLUMN_PATHIA_FIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATHFILE, COLUMN_PATHIAFIT]
-    def get_sensors(db_conn):
+    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATH_CSV, COLUMN_PATHIA_FIT]
+    
+    #possible values of attribute "position"
+    SENSORPOSITION_LEGSX = "legsx"
+    SENSORPOSITION_LEGDX = "legdx"
+    SENSORPOSITION_ARMSX = "armsx"
+    SENSORPOSITION_ARMDX = "armdx"
+    
+    @staticmethod
+    def get_allSensors(db_conn):
         try:
             cursor = db_conn.cursor()
             query = "SELECT * FROM {}"
             cursor.execute(query.format(Table_Sensors.TABLENAME))
             #fetchall() method to fetch all rows from the database table
-            row = cursor.fetchall()
+            rows = cursor.fetchall()
             
         except sqlite3.Error as e:
             return "Errore del Database"
         except Exception as e:
             return "Errore: Eccezione nelle query"
                            
-        return row  #ritorno tutte le righe, nella funzione client me li prendo
-               
+        return rows  #ritorno tutte le righe, nella funzione client me li prendo
+    
+    @staticmethod
+    def get_sensor_from_position(db_conn, sensorPosition):
+         try:
+            cursor = db_conn.cursor()
+            query = "SELECT * FROM {} WHERE {} = {}"
+            cursor.execute(query.format(Table_Sensors.TABLENAME, Table_Sensors.COLUMN_POSITION, sensorPosition))
+            #fetchall() method to fetch all rows from the database table
+            row = cursor.fetchone()
+            
+        except sqlite3.Error as e:
+            return "Errore del Database"
+        except Exception as e:
+            return "Errore: Eccezione nelle query"
+                           
+        return row  #ritorno tutta la riga, nella funzione client me li prendo
     
     
 

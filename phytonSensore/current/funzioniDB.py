@@ -4,6 +4,8 @@ import sqlite3
 import config
 #gestire errori
 
+#RISOLVERE PROBLEMA DEL fatchAll() in get_exercises() e get_sensors()
+
 
 class Database:
     

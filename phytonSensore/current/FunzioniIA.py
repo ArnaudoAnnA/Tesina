@@ -6,31 +6,20 @@ import funzioniDB
 import config 
 
 LENFIFO=config.LENFIFO
+CSV_PATH=config.CSV_PATH
+AI_PATH=config.AI_PATH
 N_ESTIMATORS=config.N_ESTIMATORS
 MAX_DEPTH=config.MAX_DEPTH
 
 #function that, given the sensor position, trains and serializes the AI
-def saveFitAI(sensorPosition):
-    
-    #retriving the path of the file were the serialized Random Forest has to be saved
-    DBconn = funzioniDB.Database.db_connect()
-    sensor = funzioniDB.Table_Sensors.get_sensor_from_position(DBconn, sensorPosition)
-    index_ia_fit = Table_Sensors.COLUMNS.index(Table_Sensors.COLUMN_PATHIAFIT)
-    serialized = sensor[indice_ia_fit] # ".pkl" serialized file path
-    
-    #retriving the path of the csv file that contains all stored exercises
-    index_csv = Table_Sensors.COLUMNS.index(Table_Sensors.COLUMN_PATHCSV)
-    csv_path = sensor[index_csv]        # ".csv" 
-    
-    #retriving data for ia training 
+def saveFitIA(sensorPosition):
+    serialized = AI_PATH + sensorPosition + ".pkl" # serialized file path
     header = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)]+['movement_class'] # data heading
-    data = pd.read_csv(csv_path, header=None, index_col=0, names=header) # reading data from csv, indexing the columns
+    data = pd.read_csv(filepath_or_buffer = CSV_PATH + position + '.csv', header=None, index_col=0, names=header) # reading data from csv, indexing the columns
     data = data.sample(frac=1) # data shuffled in order to minimize near rows dependency
     features = [col for col in data.columns.tolist() if col!='movement_class'] # variable containing features indexes (x in our function)
     x_train = data[features].values # x variable of the function (input)
     y_train = data['movement_class'].values # y variable of the function (category)
-    
-    #ia training
     rfc = RandomForestClassifier(max_depth=MAX_DEPTH, n_estimators=N_ESTIMATORS, random_state=0) # RandomForest instantiation
     rfc.fit(x_train, y_train) # ai training
     joblib.dump(rfc, serialized) # fit ai serialization

@@ -1,4 +1,6 @@
-import RandomForest
+import FunzioniIA
+import funzioniDB 
 import config
 
-RandomForest.ai(config.SENSORPOSITION_LEGSX, 1092, 3, 100)
+position = funzioniDB.Table_Sensors.SENSORPOSITION_LEGSX
+funzioniIA.saveFitIA(position)

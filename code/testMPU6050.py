@@ -105,4 +105,4 @@ while True:
 
     print("\n")
 
-    sleep(1)
+sleep(1)

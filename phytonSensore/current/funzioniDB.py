@@ -81,7 +81,7 @@ class Table_Sensors:
     COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATHFILE, COLUMN_PATHIAFIT]
     
     @staticmethod 
-    def get_sensors(db_conn)
+    def get_sensors(db_conn):
         try:
             cursor = db_conn.cursor()
             query = "SELECT * FROM {}"

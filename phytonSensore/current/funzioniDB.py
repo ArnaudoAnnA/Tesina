@@ -73,12 +73,19 @@ class Table_Exercises:
 class Table_Sensors:
     TABLENAME = "sensors"
     
-    COLUMN_SENSID = "sens_id"
+    COLUMN_SENS_ID = "sens_id"
+    COLUMN_SENS_ADDRESS = "sens_address"
     COLUMN_POSITION= "position"
-    COLUMN_PATHFILE = "path_file"
-    COLUMN_PATHIAFIT = "pathIA_fit"
+    COLUMN_PATH_FILE = "path_file"
+    COLUMN_PATHIA_FIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATHFILE, COLUMN_PATHIAFIT]
+    COLUMNS = [COLUMN_SENS_ID, COLUMN_SENS_ADDRESS COLUMN_POSITION, COLUMN_PATH_FILE, COLUMN_PATHIA_FIT]
+    
+    #posizioni in cui si puo' trovare un sensore
+    SENSORPOSITION_LEGSX = "legsx"
+    SENSORPOSITION_LEGDX = "legdx"
+    SENSORPOSITION_ARMSX = "armsx"
+    SENSORPOSITION_ARMDX = "armdx"
     
     @staticmethod 
     def get_sensors(db_conn):

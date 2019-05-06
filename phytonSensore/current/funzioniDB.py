@@ -8,7 +8,7 @@ import config
 class Database:
     
     NAME = "brian.db"
-    PATH = "C:/Users/inf.arnaudoa1810/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
+    PATH = "/home/pi/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
     
     @staticmethod
     def db_connect():  
@@ -20,13 +20,13 @@ class Database:
 class Table_Exercises:
     TABLENAME = "exercises"
     
-    COLUMN_EXID = "ex_id"
+    COLUMN_EX_COD = "ex_cod"
     COLUMN_NAME  = "name"
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
     COLUMN_TIME_SECONDS = "time_seconds"
     
-    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
+    COLUMNS = [COLUMN_EX_COD, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
         
     @staticmethod    
     def get_exercise(db_conn, id_exercise):
@@ -71,12 +71,12 @@ class Table_Exercises:
 class Table_Sensors:
     TABLENAME = "sensors"
     
-    COLUMN_SENS_ID = "sens_id"
+    COLUMN_SENS_COD = "sens_cod"
     COLUMN_POSITION= "position"
     COLUMN_PATH_CSV = "path_csv"
     COLUMN_PATHIA_FIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATH_CSV, COLUMN_PATHIA_FIT]
+    COLUMNS = [COLUMN_SENS_COD, COLUMN_POSITION, COLUMN_PATH_CSV, COLUMN_PATHIA_FIT]
     
     #possible values of attribute "position"
     SENSORPOSITION_LEGSX = "legsx"
@@ -101,8 +101,8 @@ class Table_Sensors:
         return rows  #ritorno tutte le righe, nella funzione client me li prendo
     
     @staticmethod
-    def get_sensor_from_position(db_conn, sensorPosition):
-         try:
+    def get_sensorFromPosition(db_conn, sensorPosition):
+        try:
             cursor = db_conn.cursor()
             query = "SELECT * FROM {} WHERE {} = {}"
             cursor.execute(query.format(Table_Sensors.TABLENAME, Table_Sensors.COLUMN_POSITION, sensorPosition))
@@ -119,6 +119,6 @@ class Table_Sensors:
     
 
 conn = Database.db_connect()
-exercises = Table_Exercises.get_allExercises(conn)
-print exercises
+sensors = Table_Sensors.get_sensorFromPosition(conn, Table_Sensors.SENSORPOSITION_LEGSX)
+print (sensors)
         

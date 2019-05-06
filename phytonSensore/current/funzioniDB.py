@@ -4,13 +4,11 @@ import sqlite3
 import config
 #gestire errori
 
-#RISOLVERE PROBLEMA DEL fatchAll() in get_exercises() e get_sensors()
-
 
 class Database:
     
     NAME = "brian.db"
-    PATH = "/home/pi/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
+    PATH = "C:/Users/inf.arnaudoa1810/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
     
     @staticmethod
     def db_connect():  
@@ -22,13 +20,13 @@ class Database:
 class Table_Exercises:
     TABLENAME = "exercises"
     
-    COLUMN_EX_COD = "ex_cod"
+    COLUMN_EXID = "ex_id"
     COLUMN_NAME  = "name"
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO = "audio"
     COLUMN_TIME_SECONDS = "time_seconds"
     
-    COLUMNS = [COLUMN_EX_COD, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
+    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
         
     @staticmethod    
     def get_exercise(db_conn, id_exercise):
@@ -61,7 +59,7 @@ class Table_Exercises:
             query = "SELECT * FROM {}"
             cursor.execute(query.format(Table_Exercises.TABLENAME))
             #fetchall() method to fetch all rows from the database table
-            row = cursor.fetchall()
+            row = list(cursor.fetchall())
                            
         except sqlite3.Error as e:
             return "Errore del Database"
@@ -73,21 +71,12 @@ class Table_Exercises:
 class Table_Sensors:
     TABLENAME = "sensors"
     
-    COLUMN_SENS_COD = "sens_cod"
+    COLUMN_SENSID = "sens_id"
     COLUMN_POSITION= "position"
-    COLUMN_SENS_ADDRESS = "sens_address"
-    COLUMN_PATH_FILE = "path_file"
-    COLUMN_PATHIA_FIT = "pathIA_fit"
+    COLUMN_PATHFILE = "path_file"
+    COLUMN_PATHIAFIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENS_COD, COLUMN_SENS_ADDRESS, COLUMN_POSITION, COLUMN_PATH_FILE, COLUMN_PATHIA_FIT]
-    
-    #posizioni in cui si puo' trovare un sensore
-    SENSORPOSITION_LEGSX = "legsx"
-    SENSORPOSITION_LEGDX = "legdx"
-    SENSORPOSITION_ARMSX = "armsx"
-    SENSORPOSITION_ARMDX = "armdx"
-    
-    @staticmethod 
+    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATHFILE, COLUMN_PATHIAFIT]
     def get_sensors(db_conn):
         try:
             cursor = db_conn.cursor()
@@ -105,7 +94,8 @@ class Table_Sensors:
                
     
     
-    
-    
-        
+
+conn = Database.db_connect()
+exercises = Table_Exercises.get_allExercises(conn)
+print exercises
         

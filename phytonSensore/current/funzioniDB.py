@@ -67,6 +67,34 @@ class Table_Exercises:
             return "Errore: Eccezione nelle query"
                            
         return row  #ritorno tutte le righe, nella funzione client me li prendo
+
+class Table_Sensors:
+    TABLENAME = "sensors"
+    
+    COLUMN_SENSID = "sens_id"
+    COLUMN_POSITION= "position"
+    COLUMN_ PATHFILE = "path_file"
+    COLUMN_PATHIAFIT = "pathIA_fit"
+    
+    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_ PATHFILE, COLUMN_PATHIAFIT]
+    def get_sensors(db_conn)
+        try:
+            cursor = db_conn.cursor()
+            query = "SELECT * FROM {}"
+            cursor.execute(query.format(Table_Sensors.TABLENAME))
+            #fetchall() method to fetch all rows from the database table
+            row = cursor.fetchall()
+            
+        except sqlite3.Error as e:
+            return "Errore del Database"
+        except Exception as e:
+            return "Errore: Eccezione nelle query"
+                           
+        return row  #ritorno tutte le righe, nella funzione client me li prendo
+               
+    
+    
+    
     
         
         

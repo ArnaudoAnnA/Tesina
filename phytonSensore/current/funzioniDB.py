@@ -79,6 +79,8 @@ class Table_Sensors:
     COLUMN_PATHIAFIT = "pathIA_fit"
     
     COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_ PATHFILE, COLUMN_PATHIAFIT]
+    
+    @staticmethod 
     def get_sensors(db_conn)
         try:
             cursor = db_conn.cursor()

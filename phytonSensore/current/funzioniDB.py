@@ -74,12 +74,12 @@ class Table_Sensors:
     TABLENAME = "sensors"
     
     COLUMN_SENS_ID = "sens_id"
-    COLUMN_SENS_ADDRESS = "sens_address"
     COLUMN_POSITION= "position"
+    COLUMN_SENS_ADDRESS = "sens_address"
     COLUMN_PATH_FILE = "path_file"
     COLUMN_PATHIA_FIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENS_ID, COLUMN_SENS_ADDRESS COLUMN_POSITION, COLUMN_PATH_FILE, COLUMN_PATHIA_FIT]
+    COLUMNS = [COLUMN_SENS_ID, COLUMN_SENS_ADDRESS, COLUMN_POSITION, COLUMN_PATH_FILE, COLUMN_PATHIA_FIT]
     
     #posizioni in cui si puo' trovare un sensore
     SENSORPOSITION_LEGSX = "legsx"

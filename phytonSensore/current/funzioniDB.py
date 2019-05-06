@@ -75,10 +75,10 @@ class Table_Sensors:
     
     COLUMN_SENSID = "sens_id"
     COLUMN_POSITION= "position"
-    COLUMN_ PATHFILE = "path_file"
+    COLUMN_PATHFILE = "path_file"
     COLUMN_PATHIAFIT = "pathIA_fit"
     
-    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_ PATHFILE, COLUMN_PATHIAFIT]
+    COLUMNS = [COLUMN_SENSID, COLUMN_POSITION, COLUMN_PATHFILE, COLUMN_PATHIAFIT]
     
     @staticmethod 
     def get_sensors(db_conn)

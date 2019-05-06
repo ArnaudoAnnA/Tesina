@@ -28,7 +28,7 @@ class Table_Exercises:
     COLUMN_AUDIO = "audio"
     COLUMN_TIME_SECONDS = "time_seconds"
     
-    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, TIME_SECONDS]
+    COLUMNS = [COLUMN_EXID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
         
     @staticmethod    
     def get_exercise(db_conn, id_exercise):

@@ -1,8 +1,9 @@
+# coding=utf-8
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
-import funzioniSensori
-import funzioniDB
+import sensor_functions
+import db_functions
 import config 
 
 LENFIFO=config.LENFIFO

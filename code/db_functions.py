@@ -2,13 +2,15 @@
 
 import sqlite3
 import config
-#gestire errori
+
+HOME_PATH=config.HOME_PATH
+#error handling
 
 
 class Database:
     
     NAME = "brian.db"
-    PATH = "/home/pi/Downloads/Tesina-master/phytonSensore/current/"  #IMPORTANTE!! specificare sempre il PATH ASSOLUTO 
+    PATH = HOME_PATH+"/files/db/"  #IMPORTANT, always use abs path! 
     
     @staticmethod
     def db_connect():  

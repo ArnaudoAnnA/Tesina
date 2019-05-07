@@ -1,3 +1,4 @@
+# coding=utf-8
 import config
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier

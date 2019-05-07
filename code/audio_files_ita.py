@@ -38,9 +38,9 @@ SECONDS = "secondi"
 GO = "via"
 SENSOR_POSITION = 
 {
-  config.SENSORPOSITION_LEGSX = "legsx"
-  config.SENSORPOSITION_LEGDX = "legdx"
-  config.SENSORPOSITION_ARMSX = "armsx"
-  config.SENSORPOSITION_ARMDX = "armdx"
+  config.SENSORPOSITION_LEGSX : "legsx"
+  config.SENSORPOSITION_LEGDX : "legdx"
+  config.SENSORPOSITION_ARMSX : "armsx"
+  config.SENSORPOSITION_ARMDX : "armdx"
 }  
 

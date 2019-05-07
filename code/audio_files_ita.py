@@ -7,9 +7,10 @@
 #  ALERT: every file must be .wav 
 #         every file must have absolute path
 #-----------------------------------------------------------------------
+import config
+HOME_PATH=config.HOME_PATH
 
-
-DIRECTORY_PATH = "/home/pi/Downloads/Tesina-master/outputAudio/"
+DIRECTORY_PATH = HOME_PATH+"files/wav/"
 
 #timer
 VALORE_SCARTATO = "valore scartato"

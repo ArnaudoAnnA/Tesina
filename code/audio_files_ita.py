@@ -8,9 +8,9 @@
 #         every file must have absolute path
 #-----------------------------------------------------------------------
 
+import config
 
-
-DIRECTORY_PATH = "/home/pi/Downloads/Tesina-master/outputAudio/"
+DIRECTORY_PATH = config.ROOT_PATH + "file/audio/"
 
 
 DISCARDED_VALUE = "valore scartato"

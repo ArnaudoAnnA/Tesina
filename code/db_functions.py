@@ -10,7 +10,7 @@ HOME_PATH=config.HOME_PATH
 class Database:
     
     NAME = "brian.db"
-    PATH = HOME_PATH+"/files/db/"  #IMPORTANT, always use abs path! 
+    PATH = HOME_PATH+"files/db/"  #IMPORTANT, always use abs path! 
     
     @staticmethod
     def db_connect():  

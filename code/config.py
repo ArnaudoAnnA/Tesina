@@ -19,6 +19,11 @@ CSV_PATH                 = "file://"+HOME_PATH+"files/csv/"
 Device_Address1 = 0x68  # MPU6050 ARM device address
 Device_Address2 = 0x69  # MPU6050 LEG device address
 
+SENSORPOSITION_LEGSX = "legsx"
+SENSORPOSITION_LEGDX = "legdx"
+SENSORPOSITION_ARMSX = "armsx"
+SENSORPOSITION_ARMDX = "armdx"
+
 #PIN associati ai bottoni della mascherina
 PIN_BOTTONE_DESTRA = 21
 PIN_BOTTONE_CENTRALE = 20

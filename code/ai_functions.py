@@ -3,20 +3,21 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib
 import sensor_functions
-import db_functions
 import config 
 
 LENFIFO=config.LENFIFO
 CSV_PATH=config.CSV_PATH
-AI_PATH=config.AI_PATH
-N_ESTIMATORS=config.N_ESTIMATORS
-MAX_DEPTH=config.MAX_DEPTH
+
+header_features = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+header = header_features+['movement_class']
+AI_PATH=config.HOME_PATH+"/files/pkl/"
+N_ESTIMATORS = 100
+MAX_DEPTH = 3
 
 #function that, given the sensor position, trains and serializes the AI
-def saveFitIA(sensorPosition):
-    serialized = AI_PATH + sensorPosition + ".pkl" # serialized file path
-    header = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)]+['movement_class'] # data heading
-    data = pd.read_csv(filepath_or_buffer = CSV_PATH + position + '.csv', header=None, index_col=0, names=header) # reading data from csv, indexing the columns
+def save_fit_ai(sensor_position):
+    serialized = AI_PATH + sensor_position + ".pkl" # serialized file path
+    data = pd.read_csv(filepath_or_buffer = CSV_PATH + sensor_position + '.csv', header=None, names=header) # reading data from csv, indexing the columns
     data = data.sample(frac=1) # data shuffled in order to minimize near rows dependency
     features = [col for col in data.columns.tolist() if col!='movement_class'] # variable containing features indexes (x in our function)
     x_train = data[features].values # x variable of the function (input)
@@ -26,10 +27,11 @@ def saveFitIA(sensorPosition):
     joblib.dump(rfc, serialized) # fit ai serialization
     
 #function that, given a row of LENFIFO sensor data, returns the recognized movement class and its percentage of correctness
-def movementRecognizer(sensorPosition, movement):
-    serialized = AI_PATH + sensorPosition + ".pkl" # serialized file path
+def movement_recognizer(sensor_position, movement):
+    df_movement = pd.DataFrame(data= [movement], columns = header_features)
+    serialized = AI_PATH + sensor_position + ".pkl" # serialized file path
     rfc = joblib.load(serialized)
-    return rfc.predict_proba(movement)
+    return rfc.predict_proba(df_movement)
     
     
     

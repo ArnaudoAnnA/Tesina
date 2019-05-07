@@ -50,6 +50,6 @@ class TimerChangedListener:
     @staticmethod
     def notify(timer):
     	#called every time the timer changes value, returns the new timer value: if it's 0, returns TIME_OUT
-        audio_interface.audio_output(DIRECTORY_PATH + NUMS[timer])
+        audio_interface.audio_output([DIRECTORY_PATH + NUMBERS[timer]])
         if (timer == 0):
             return TIME_OUT

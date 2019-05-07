@@ -26,7 +26,7 @@ ERROR_FEEDBACK = "errore sensore" #sostituire, in seguito, al numero del sensore
 EXERCISE_DONE_WITH = "esercizio eseguito con"
 PERCENTAGE_OF_CORRECTNESS = "per cento di correttezza" 
 
-NUMS = ["zero.mp3", "uno.wav", "due.wav", "tre.wav", "quattro.wav", "cinque.wav"]
+NUMBERS = ["zero.mp3", "uno.wav", "due.wav", "tre.wav", "quattro.wav", "cinque.wav"]
 SECONDS = "secondi"
 
 

@@ -42,10 +42,10 @@ def left_button_click(channel):
 		current_exercise = exercises[id_current_exercise]
 		
 		#do in output la descrizione dell'exercise corrente
-		output_interface.audio_output(EXERCISE + NUMS[id_current_exercise])
+		output_interface.audio_output([EXERCISE + NUMBERS[id_current_exercise]])
 		time.sleep(0.5)
 		audio_index = db_functions.table_exercises.COLUMNS.index(db_functions.table_exercises.COLUMN_AUDIO)
-		output_interface.audio_output(current_exercise[audio_index])
+		output_interface.audio_output([current_exercise[audio_index]])
 		
 	elif(state == CONFIRM_REQUEST):
 		#ritorno in modalità SELECTING 
@@ -65,11 +65,11 @@ def central_button_click(channel):
 		exercises = db_functions.table_exercises.get_all_exercises(dbConn)
 
 		if(exercises == None):
-			output_interface.audio_output(NO_AVAIABLE_EXERCISE)
+			output_interface.audio_output([NO_AVAIABLE_EXERCISE])
 		
 		else:
 			n_exercises = len(exercises)
-			output_interface.audio_output(USE_THE_ARROWS_TO_SELECT_THE_EXERCISE)
+			output_interface.audio_output([USE_THE_ARROWS_TO_SELECT_THE_EXERCISE])
 			state = SELECTING
 	
 	elif(state == SELECTING):
@@ -89,10 +89,10 @@ def click_bottone_destra(channel):
 		current_exercise = exercises[id_current_exercise]
 		
 		#do in output la descrizione dell'exerciseso corrente
-		output_interface.audio_output(EXERCISE + NUMS[id_current_exercise])
+		output_interface.audio_output([EXERCISE, NUMBERS[id_current_exercise]])
 		time.sleep(0.5)
 		audio_index = db_functions.table_exercises.COLUMNS.index(table_exercises.COLUMN_AUDIO)
-		output_interface.audio_output(current_exercise[audio_index])		
+		output_interface.audio_output([current_exercise[audio_index]])		
 	elif(state == CONFIRM_REQUEST):
 		#l'utente ha selezionato l'exerciseso: richiamo le funzioni che gestiscono l'esecuzione dell'exerciseso
 			#per prima cosa recupero tutti i dati relativi all'exerciseso selezionato

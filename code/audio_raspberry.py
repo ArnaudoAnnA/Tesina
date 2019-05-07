@@ -18,3 +18,6 @@ def output_audio(path, files_audio):
     for file in files_audio:
         audio = pygame.mixer.Sound(file)
         audio.play()
+        
+        while(pygame.mixer.get_buisy()):    #I wait for the end of the audio reproduction
+            pass

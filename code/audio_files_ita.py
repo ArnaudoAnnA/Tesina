@@ -7,26 +7,29 @@
 #  ALERT: every file must be .wav 
 #         every file must have absolute path
 #-----------------------------------------------------------------------
-import config
-HOME_PATH=config.HOME_PATH
 
-DIRECTORY_PATH = HOME_PATH+"files/wav/"
 
-#timer
-VALORE_SCARTATO = "valore scartato"
-ISTRUZIONI_IMPOSTAZIONE_TIMER = "istruzioni_impostazione_timer.wav"
-CONFERMARE_NUMERO = "Vuoi confermare il numero selezionato? Destra per si, sinistra per no"
-REGISTRAZIONE_AVVIATA_TRA = "la registrazione sarà avviata tra {} secondi"
-VIA = "via"
-REGISTRAZIONE_TERMINATA = "registrazione terminata"
 
-NUMERI = ["zero.mp3", "uno.wav", "due.wav", "tre.wav", "quattro.wav", "cinque.wav"]
+DIRECTORY_PATH = "/home/pi/Downloads/Tesina-master/outputAudio/"
 
-#exercise feedback
-ERRORE_SENSORE = "errore sensore {}" #sostituire, in seguito, al numero del sensore la sua posizione
-PERCENTUALE_CORRETTEZZA = "esercizio eseguito con {} per cento di correttezza" 
+
+DISCARDED_VALUE = "valore scartato"
+TIMER_SETTINGS_GUIDE = "istruzioni_impostazione_timer.wav"
+CONFIRM = "Vuoi confermare il numero selezionato? Destra per si, sinistra per no"
+SENDING_DATA = "invio dati in corso"
+REGISTRATION_WILL_START_IN = "la registrazione sarà avviata tra"
+
+GO = "via"
+REGISTRATION_ENDED = "registrazione terminata"
+
+ERROR_FEEDBACK = "errore sensore" #sostituire, in seguito, al numero del sensore la sua posizione
+EXERCISE_DONE_WITH = "esercizio eseguito con"
+PERCENTAGE_OF_CORRECTNESS = "per cento di correttezza" 
+
+NUMS = ["zero.mp3", "uno.wav", "due.wav", "tre.wav", "quattro.wav", "cinque.wav"]
+SECONDS = "secondi"
+
 
 #exercise selection
-NESSUN_ESERCIZIO_DISPONIBILE = "nessun esercizio disponibile"
-USARE_FRECCE_PER_SELEZIONARE_ESERCIZIO = "usare le frecce per selezionare l'esercizio"
-ESERCIZIO = "esercizio"
+NO_AVAIABLE_EXERCISE = "nessun esercizio disponibile"
+USE_THE_ARROWS_TO_SELECT_THE_EXERCISE = "usare le frecce per selezionare l'esercizio"

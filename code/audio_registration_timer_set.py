@@ -35,7 +35,7 @@ def left_button_click(channel):
             unset_timer.increase_timer(-1)
 
     elif (timer_state == TIMER_SET):  # l'utente decide di scartare l'esercizio appena registrato
-        output_interface.audio_output(audio_files.DIRECTORY_PATH, audio_files.VALORE_SCARTATO)
+        output_interface.audio_output(audio_files.DIRECTORY_PATH, [audio_files.DISCARDED_VALUE])
         exercise_dataset = [0]  #non è il caso di azzerare anche il timer perchè alla prossima pressione del tasto centrale verrà istanziato un nuovo oggetto timer
         timer_state = ALL_OFF
 
@@ -46,12 +46,12 @@ def central_button_click(channel):
     global unset_timer
 
     if ( timer_state == ALL_OFF):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
-        output_interface.output_audio(audio_files.DISCARDED_VALUE, audio_files.ISTRUZIONI_IMPOSTAZIONE_TIMER)
+        output_interface.output_audio(audio_files.DISCARDED_VALUE, [audio_files.TIMER_SETTINGS_GUIDE])
         timer_state = SETTING_TIMER
         unset_timer = audio_timer.Timer(0)  #istazio un nuovo oggetto timer
 
     elif (timer_state == SETTING_TIMER and unset_timer.timer != 0):  # l'utente ha terminato l'impostazione del timer
-        output_interface.output_audio(audio_files.DIRECTORY_PATH, audio_files.CONFERMARE_NUMERO)
+        output_interface.output_audio(audio_files.DIRECTORY_PATH, [audio_files.CONFIRM])
         timer_state = TIMER_SET
 
 
@@ -75,17 +75,17 @@ def right_button_click(channel):
 
 def exercise_acquisition_audio():
 
-    output_interface.output_audio(audio_files.DIRECTORY_PATH, audio_files.REGISTRAZIONE_AVVIATA_TRA.format(REGISTRATION_TIME_SPAN))
+    output_interface.output_audio(audio_files.DIRECTORY_PATH, [audio_files.REGISTRATION_WILL_START_IN, audio_files.NUMBERS[TIME_BEFORE_START], audio_files.SECONDI])
 
     registration_countdown = audioTimer.Timer(TIME_BEFORE_START)
     registration_countdown.audio_countdown(1)
 
-    output_interface.audio_output(audio_files.DIRECTORY_PATH, faudio_files.VIA)
+    output_interface.audio_output(audio_files.DIRECTORY_PATH, [faudio_files.GO])
     time.sleep(1)
 
     unset_timer.audio_countdown(1)
 
-    output_interface.audio_output(audio_files.DIRECTORY_PATH, audio_files.REGISTRAZIONE_TERMINATA)
+    output_interface.audio_output(audio_files.DIRECTORY_PATH, [audio_files.REGISTRATION_ENDED])
 
 
 # ------- MAIN ----------------------------------------------------------------------------------------------------

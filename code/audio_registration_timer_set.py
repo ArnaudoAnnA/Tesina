@@ -6,7 +6,7 @@
 #IMPORTANT: needs the Rpy.GPIO module
 #------------------------------------------------------
 
-import audio_file_ita as file_audio
+import audio_file_ita as audio_files
 import RPi.GPIO as GPIO
 import time
 import audio_timer
@@ -35,7 +35,7 @@ def left_button_click(channel):
             unset_timer.increase_timer(-1)
 
     elif (timer_state == TIMER_SET):  # l'utente decide di scartare l'esercizio appena registrato
-        output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.VALORE_SCARTATO)
+        output_interface.audio_output(audio_files.DIRECTORY_PATH, audio_files.VALORE_SCARTATO)
         exercise_dataset = [0]  #non è il caso di azzerare anche il timer perchè alla prossima pressione del tasto centrale verrà istanziato un nuovo oggetto timer
         timer_state = ALL_OFF
 
@@ -46,12 +46,12 @@ def central_button_click(channel):
     global unset_timer
 
     if ( timer_state == ALL_OFF):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
-        output_interface.output_audio(file_audio.DISCARDED_VALUE, file_audio.ISTRUZIONI_IMPOSTAZIONE_TIMER)
+        output_interface.output_audio(audio_files.DISCARDED_VALUE, audio_files.ISTRUZIONI_IMPOSTAZIONE_TIMER)
         timer_state = SETTING_TIMER
         unset_timer = audio_timer.Timer(0)  #istazio un nuovo oggetto timer
 
     elif (timer_state == SETTING_TIMER and unset_timer.timer != 0):  # l'utente ha terminato l'impostazione del timer
-        output_interface.output_audio(file_audio.DIRECTORY_PATH, file_audio.CONFERMARE_NUMERO)
+        output_interface.output_audio(audio_files.DIRECTORY_PATH, audio_files.CONFERMARE_NUMERO)
         timer_state = TIMER_SET
 
 
@@ -75,17 +75,17 @@ def right_button_click(channel):
 
 def exercise_acquisition_audio():
 
-    output_interface.output_audio(file_audio.DIRECTORY_PATH, file_audio.REGISTRAZIONE_AVVIATA_TRA.format(REGISTRATION_TIME_SPAN))
+    output_interface.output_audio(audio_files.DIRECTORY_PATH, audio_files.REGISTRAZIONE_AVVIATA_TRA.format(REGISTRATION_TIME_SPAN))
 
     registration_countdown = audioTimer.Timer(TIME_BEFORE_START)
     registration_countdown.audio_countdown(1)
 
-    output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.VIA)
+    output_interface.audio_output(audio_files.DIRECTORY_PATH, faudio_files.VIA)
     time.sleep(1)
 
     unset_timer.audio_countdown(1)
 
-    output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.REGISTRAZIONE_TERMINATA)
+    output_interface.audio_output(audio_files.DIRECTORY_PATH, audio_files.REGISTRAZIONE_TERMINATA)
 
 
 # ------- MAIN ----------------------------------------------------------------------------------------------------

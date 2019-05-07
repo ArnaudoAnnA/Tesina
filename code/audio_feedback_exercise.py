@@ -22,7 +22,7 @@ class AudioFeedbackExercise:
 
     #initial countdown
     countdown = audio_timer.Timer(TIME_BEFORE_START)
-    output_interface.audio_output(file_audio.REGISTRAZIONE_AVVIATA_TRA.format(TIME_BEFORE_START))
+    output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.REGISTRAZIONE_AVVIATA_TRA.format(TIME_BEFORE_START))
     countdown.audio_countdown(1)
 
     #acquisition and correction phase
@@ -33,14 +33,14 @@ class AudioFeedbackExercise:
     
     #report exercise execution
     medium_correctness = AudioFeedbackExercise.medium_correctness / AudioFeedbackExercise.n_feedback
-    output_interface.audio_output(file_audio.PERCENTUALE_CORRETTEZZA.format(medium_correctness))
+    output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.PERCENTUALE_CORRETTEZZA.format(medium_correctness))
 
   #function called by thread every time the AI algorithm recognizes a movement class
   @staticmethod
   def movement_feedback_notify(sensor, correctness_percentage):
 
     if(correctnessPercentage < MINIMUM_CORRECTNESS_PERCENTAGE):
-      output_interface.audio_output(file_audio.ERRORE_SENSORE.format(sensor))
+      output_interface.audio_output(file_audio.DIRECTORY_PATH, file_audio.ERRORE_SENSORE.format(sensor))
   
     #saving report
     AudioFeedbackExercise.correctness_sum += correctness_percentage

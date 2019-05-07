@@ -28,3 +28,4 @@ PERCENTUALE_CORRETTEZZA = "esercizio eseguito con {} per cento di correttezza"
 #exercise selection
 NESSUN_ESERCIZIO_DISPONIBILE = "nessun esercizio disponibile"
 USARE_FRECCE_PER_SELEZIONARE_ESERCIZIO = "usare le frecce per selezionare l'esercizio"
+ESERCIZIO = "esercizio"

@@ -1,33 +1,30 @@
 # coding=utf-8
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.externals import joblib
+from sklearn.externals import joblib as jbl
 import sensor_functions
 import config 
 
 LENFIFO=config.LENFIFO
 CSV_PATH=config.CSV_PATH
 AI_PATH=config.HOME_PATH+"/files/pkl/"
-movement_class='movement_class'
+N_ESTIMATORS = config.N_ESTIMATORS
+MAX_DEPTH = config.MAX_DEPTH
+
     
 class TheBrain:
 
     #proprieties
-    rfc = None
-    n_estimators = 0
-    max_depth = 0
-    header_features = None
-    header = None
+    rfc = RandomForestClassifier(max_depth=self.max_depth, n_estimators=self.n_estimators, random_state=0) # RandomForest instantiation
+    n_estimators = N_ESTIMATORS
+    max_depth = MAX_DEPTH
+    header_features = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+    header = header_features+[movement_class]
     sensor_position = None
 
     #constructor
     def __init__(self, sensor_position):
-        self.header_features = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
         self.sensor_position = sensor_position
-        self.header = self.header_features+[movement_class]
-        self.n_estimators = 100
-        self.max_depth = 3
-        self.rfc = RandomForestClassifier(max_depth=self.max_depth, n_estimators=self.n_estimators, random_state=0) # RandomForest instantiation
 
     #function that trains the AI using an input csv 
     def fit_from_csv(self):
@@ -46,7 +43,7 @@ class TheBrain:
     #function that serializes the object
     def serialize(self):
         serialized = AI_PATH + self.sensor_position + ".pkl" # serialized file path
-        joblib.dump(self.rfc, serialized) # fit ai serialization
+        jbl.dump(self.rfc, serialized) # fit ai serialization
 
     #function that, given the sensor position, trains and serializes the AI
     def save_fit_ai(self):
@@ -56,7 +53,7 @@ class TheBrain:
     #function that deserializes the object
     def deserialize(self):
         serialized = AI_PATH + self.sensor_position + ".pkl" # serialized file path
-        self.rfc = joblib.load(serialized)
+        self.rfc = jbl.load(serialized)
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):

@@ -1,6 +1,10 @@
 # coding=utf-8
 import smbus
 
+#AI constants 
+N_ESTIMATORS = 100      #number of the trees
+MAX_DEPTH = 3           #depth of the trees
+
 #Recorder constants
 
 #FIFO LENGTH

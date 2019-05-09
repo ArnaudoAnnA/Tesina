@@ -29,46 +29,35 @@ class table_exercises:
     COLUMN_TIME_SECONDS = "time_seconds"
     
     COLUMNS = [COLUMN_EX_COD, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO, COLUMN_TIME_SECONDS]
-        
+
     @staticmethod    
     def get_exercise(db_conn, id_exercise):
-           
         try:
             cursor = db_conn.cursor()
-
             query = "SELECT * FROM {} WHERE {} = {}"
-            
             if(id_exercise < 0):
                 return "Errore: Indice inserito non valido"
-            
-            
             cursor.execute(query.format(Table_Exercises.TABLENAME, Table_Exercises.COLUMN_EXID, id_exercise))   
-            
-            row = cursor.fetchone()
-            
+            row = cursor.fetchone()  
         except sqlite3.Error as e:
             return "Errore del Database"
         except Exception as e:
             return "Errore: Eccezione nelle query"
-            
-        return row  #ritorno la riga, nella funzione client me li prendo (è meglio così)
-    
+        return row
+        
     @staticmethod
     def get_allExercises(db_conn):
         try:
             cursor = db_conn.cursor()
-
             query = "SELECT * FROM {}"
             cursor.execute(query.format(Table_Exercises.TABLENAME))
             #fetchall() method to fetch all rows from the database table
             row = list(cursor.fetchall())
-                           
         except sqlite3.Error as e:
             return "Errore del Database"
         except Exception as e:
             return "Errore: Eccezione nelle query"
-                           
-        return row  #ritorno tutte le righe, nella funzione client me li prendo
+        return row
 
 class Table_Sensors:
     TABLENAME = "sensors"
@@ -94,13 +83,11 @@ class Table_Sensors:
             cursor.execute(query.format(Table_Sensors.TABLENAME))
             #fetchall() method to fetch all rows from the database table
             rows = cursor.fetchall()
-            
         except sqlite3.Error as e:
             return "Errore del Database"
         except Exception as e:
             return "Errore: Eccezione nelle query"
-                           
-        return rows  #ritorno tutte le righe, nella funzione client me li prendo
+        return rows
     
     @staticmethod
     def get_sensorFromPosition(db_conn, sensorPosition):
@@ -110,13 +97,12 @@ class Table_Sensors:
             cursor.execute(query.format(Table_Sensors.TABLENAME, Table_Sensors.COLUMN_POSITION, sensorPosition))
             #fetchall() method to fetch all rows from the database table
             row = cursor.fetchone()
-            
         except sqlite3.Error as e:
             return "Errore del Database"
         except Exception as e:
             return "Errore: Eccezione nelle query"
                            
-        return row  #ritorno tutta la riga, nella funzione client me li prendo
+        return row
     
     
 

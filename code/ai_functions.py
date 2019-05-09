@@ -58,7 +58,7 @@ class TheBrain:
         serialized = AI_PATH + self.sensor_position + ".pkl" # serialized file path
         self.rfc = joblib.load(serialized)
 
-    #function that, given a row of LENFIFO sensor data, returns the recognized movement class and its percentage of correctness
+    #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):
         df_movement = pd.DataFrame(data= [movement], columns = self.header_features)
         predicted_movement = self.rfc.predict(df_movement)

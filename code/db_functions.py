@@ -39,7 +39,7 @@ class TableExercises:
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {} WHERE {} = {}"
-            cursor.execute(query.format(self.table_name, self.column_id_exercise, id_exercise))   
+            cursor.execute(query.format(self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise))   
             row = cursor.fetchone()  
             
         except sqlite3.Error as e:
@@ -55,7 +55,7 @@ class TableExercises:
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {}"
-            cursor.execute(query.format(Table_Exercises.table_name))
+            cursor.execute(query.format(Table_Exercises.TABLE_NAME))
             row = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
             
         except sqlite3.Error as e:

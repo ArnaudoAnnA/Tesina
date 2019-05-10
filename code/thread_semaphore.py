@@ -6,8 +6,8 @@ class Semaphore:
   def __init__(self):
     self.semaphore = threading.Event()
     
-  def lock(self):
-    self.semaphore.set()
-    
   def unlock(self):
     self.semaphore.clear()
+    
+  def waitForUnlock(self)
+    self.semaphore.wait()

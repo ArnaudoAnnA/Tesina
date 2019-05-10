@@ -26,12 +26,12 @@ print ("recordings: ",recordings)
 threadSensor1 = sensor_functions.Thread_readSensor(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class, recordings)
 threadSensor2 = sensor_functions.Thread_readSensor(config.Device_Address2, config.SENSORPOSITION_ARMSX, movement_class, recordings)
 
-thread_semaphore.semaphore.clear() #variabile che serve per fare in modo che tutti i thread partano in contemporanea
+semaphore = thread_semaphore.Semaphore() #variabile che serve per fare in modo che tutti i thread partano in contemporanea
 
-threadSensor1.start()
-threadSensor2.start()
+threadSensor1.start(semaphore)
+threadSensor2.start(semaphore)
 
-thread_semaphore.semaphore.set()    #I thread iniziano a raccogliere info dai sensori solo da questo momento! 
+semaphore.unlock()   #I thread iniziano a raccogliere info dai sensori solo da questo momento! 
 
 threadSensor1.join()
 threadSensor2.join()

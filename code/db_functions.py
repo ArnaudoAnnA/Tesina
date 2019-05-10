@@ -20,14 +20,16 @@ class Database:
 #DB table exercises class
 class TableExercises:
 
-    TABLE_NAME        = config.TABLE_EXERCISES
-    
-    COLUMN_ID_EXERCISE = config.EXERCISES_ID_EXERCISE
-    COLUMN_NAME        = config.EXERCISES_NAME 
-    COLUMN_DESCRIPTION  = config.EXERCISES_DESCRIPTION
-    COLUMN_AUDIO        = config.EXERCISES_AUDIO
-    
-    COLUMNS             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
+    #connection
+    conn                = None
+    #table constants
+    TABLE_NAME          = "exercises"
+    COLUMN_ID_EXERCISE  = "id_exercise"
+    COLUMN_NAME         = "name"
+    COLUMN_DESCRIPTION  = "description"
+    COLUMN_AUDIO        = "audio"
+    #table columns list
+    columns             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
 
     #constructor
     def __init__(self, conn): 
@@ -35,12 +37,11 @@ class TableExercises:
    
     #function that, given an exercise id, returns its proprieties
     def get_exercise(self, id_exercise):
-        if(id_exercise < 0):
-                return "Error: index not valid"
-            
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {} WHERE {} = {}"
+            if(id_exercise < 0):
+                return "Error: index not valid"
             cursor.execute(query.format(self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise))   
             row = cursor.fetchone()  
             
@@ -64,6 +65,7 @@ class TableExercises:
             return e
         cursor.close()
         return row   
-    
+        
     def get_column_index(self, column_name):
-        return COLUMNS.index(column_name)
+        return self.columns.index(column_name)
+        return row    

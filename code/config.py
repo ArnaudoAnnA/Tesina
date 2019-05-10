@@ -18,18 +18,14 @@ CSV_FILE_PATH                   = "file://"+CSV_PATH
 
 #DB constants
 DB_NAME                         = "brian.db"
-TABLE_EXERCISES                 = "exercises"
-EXERCISES_ID_EXERCISE           = "id_exercise"
-EXERCISES_NAME                  = "name"
-EXERCISES_DESCRIPTION           = "description"
-EXERCISES_AUDIO                 = "audio"
 
 #AI constants 
 #header representing the recorded data row, or csv columns
-HEADER_FEATURES                 = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
 ID_EXERCISE                     = "id_exercise"		#name of the exercise id column
 N_ESTIMATORS                    = 100      			#number of the trees
 MAX_DEPTH                       = 3        			#depth of the trees
+HEADER_FEATURES                 = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+HEADER                          = HEADER_FEATURES + [ID_EXERCISE]
 
 
 #sensors addess

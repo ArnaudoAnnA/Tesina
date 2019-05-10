@@ -10,15 +10,15 @@ NDATA_EACH_SENSOR       = 6					#number of datas sent from each sensor
 
 #folder structure
 HOME_PATH               = "/home/pi/Downloads/Tesina-master/"
-AI_PATH					= HOME_PATH+"/files/pkl/"
-DB_PATH					= HOME_PATH+"files/db/"
+AI_PATH					        = HOME_PATH+"/files/pkl/"
+DB_PATH					        = HOME_PATH+"files/db/"
 CSV_PATH                = HOME_PATH+"files/csv/"
 CSV_FILE_PATH           = "file://"+CSV_PATH
 
 
 #DB constants
-DB_NAME 				= "brian.db"
-TABLE_EXERCISES		   	= "exercises"
+DB_NAME 				        = "brian.db"
+TABLE_EXERCISES		    	= "exercises"
 EXERCISES_ID_EXERCISE  	= "id_exercise"
 EXERCISES_NAME         	= "name"
 EXERCISES_DESCRIPTION  	= "description"
@@ -26,28 +26,28 @@ EXERCISES_AUDIO        	= "audio"
 
 #AI constants 
 #header representing the recorded data row, or csv columns
-HEADER_FEATURES			= ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
-ID_EXERCISE				= "id_exercise"		#name of the exercise id column
-N_ESTIMATORS 			= 100      			#number of the trees
-MAX_DEPTH 				= 3        			#depth of the trees
+HEADER_FEATURES			    = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+ID_EXERCISE				      = "id_exercise"		#name of the exercise id column
+N_ESTIMATORS 			      = 100      			#number of the trees
+MAX_DEPTH 				      = 3        			#depth of the trees
 
 
 #sensors addess
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
-ARMSX_ADDRESS 			= 0x68  			# MPU6050 ARM device address
-LEGSX_ADDRESS			= 0x69  			# MPU6050 LEG device address
+ARMSX_ADDRESS 			    = 0x68  			# MPU6050 ARM device address
+LEGSX_ADDRESS			      = 0x69  			# MPU6050 LEG device address
 #ARMDX_ADDRESS 			
 #LEGDX_ADDRESS
 
 
 #sensors names/positions
-SENSORPOSITION_LEGSX	= "legsx"
-SENSORPOSITION_LEGDX	= "legdx"
-SENSORPOSITION_ARMSX	= "armsx"
-SENSORPOSITION_ARMDX	= "armdx"
+SENSORPOSITION_LEGSX	  = "legsx"
+SENSORPOSITION_LEGDX	  = "legdx"
+SENSORPOSITION_ARMSX	  = "armsx"
+SENSORPOSITION_ARMDX	  = "armdx"
 
 
 #interface pins addresses
-RIGHT_BUTTON_PIN 		= 21
-CENTRAL_BUTTON_PIN 		= 20
-LEFT_BUTTON_PIN 		= 16
+RIGHT_BUTTON_PIN 		    = 21
+CENTRAL_BUTTON_PIN 		  = 20
+LEFT_BUTTON_PIN 		    = 16

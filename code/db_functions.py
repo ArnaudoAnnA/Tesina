@@ -29,7 +29,7 @@ class TableExercises:
     COLUMN_DESCRIPTION  = "description"
     COLUMN_AUDIO        = "audio"
     #table columns list
-    columns             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
+    COLUMNS             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
 
     #constructor
     def __init__(self, conn): 
@@ -67,5 +67,4 @@ class TableExercises:
         return row   
         
     def get_column_index(self, column_name):
-        return self.columns.index(column_name)
-        return row    
+        return self.COLUMNS.index(column_name)   

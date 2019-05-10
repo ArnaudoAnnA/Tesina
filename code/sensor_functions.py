@@ -161,11 +161,12 @@ class Thread_readSensor(threading.Thread):
         init_Fifo(LENFIFO, self.window_misurations_fifo)
     
     
-    def run(self):
+    def run(self, semaphore):
 
         times   = 0
         #per fare in modo che tutti i thread partano in contemporanea
-        thread_semaphore.semaphore.wait()
+        semaphore.waitForUnlock()
+        
         for x in xrange(0, self.recordings):
             oldnow = time.time()
             #reading the data from the sensor

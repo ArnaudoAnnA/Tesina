@@ -20,13 +20,14 @@ class Database:
 #DB table exercises class
 class TableExercises:
 
-    conn                = None
-    table_name          = config.TABLE_EXERCISES
-    column_id_exercise  = config.EXERCISES_ID_EXERCISE
-    column_name         = config.EXERCISES_NAME 
-    column_description  = config.EXERCISES_DESCRIPTION
-    column_audio        = config.EXERCISES_AUDIO
-    columns             = [column_id_exercise, column_name, column_description, column_audio]
+    TABLE_NAME        = config.TABLE_EXERCISES
+    
+    COLUMN_ID_EXERCISE = config.EXERCISES_ID_EXERCISE
+    COLUMN_NAME        = config.EXERCISES_NAME 
+    COLUMN_DESCRIPTION  = config.EXERCISES_DESCRIPTION
+    COLUMN_AUDIO        = config.EXERCISES_AUDIO
+    
+    COLUMNS             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
 
     #constructor
     def __init__(self, conn): 
@@ -34,12 +35,13 @@ class TableExercises:
    
     #function that, given an exercise id, returns its proprieties
     def get_exercise(self, id_exercise):
+        if(id_exercise < 0):
+                return "Error: index not valid"
+            
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {} WHERE {} = {}"
-            if(id_exercise < 0):
-                return "Error: index not valid"
-            cursor.execute(query.format(self.table_name, self.column_id_exercise, id_exercise))   
+            cursor.execute(query.format(self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise))   
             row = cursor.fetchone()  
             
         except sqlite3.Error as e:
@@ -53,7 +55,7 @@ class TableExercises:
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {}"
-            cursor.execute(query.format(self.table_name))
+            cursor.execute(query.format(self.TABLE_NAME))
             row = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
             
         except sqlite3.Error as e:
@@ -62,3 +64,6 @@ class TableExercises:
             return e
         cursor.close()
         return row   
+    
+    def get_column_index(self, column_name):
+        return COLUMNS.index(column_name)

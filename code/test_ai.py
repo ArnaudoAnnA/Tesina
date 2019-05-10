@@ -30,5 +30,5 @@ print("2 ai deserialized")
 (leg_res, leg_res_p) = leg.movement_recognizer(movement_leg)
 (arm_res, arm_res_p) = arm.movement_recognizer(movement_arm)
 
-print("LEG: [movement class] " + leg_res + " [affidability] " + leg_res_p[leg_res-1]*100 + "%")
-print("ARM: [movement class] " + arm_res + " [affidability] " + arm_res_p[arm_res-1]*100 + "%")
+print("LEG: [movement class] " + str(leg_res) + " [affidability] " + str(leg_res_p[leg_res-1]*100) + "%")
+print("ARM: [movement class] " + str(arm_res) + " [affidability] " + str(arm_res_p[arm_res-1]*100) + "%")

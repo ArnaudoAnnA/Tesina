@@ -16,12 +16,12 @@ ID_EXERCISE     = config.ID_EXERCISE
     
 class TheBrain:
 
-    #RandomForest instantiation
-    rfc                 = RandomForestClassifier(max_depth=self.max_depth, n_estimators=self.n_estimators, random_state=0) 
     n_estimators        = N_ESTIMATORS
     max_depth           = MAX_DEPTH
     header_features     = HEADER_FEATURES
     header              = HEADER_FEATURES + [ID_EXERCISE]
+    #RandomForest instantiation
+    rfc                 = RandomForestClassifier(max_depth=max_depth, n_estimators=n_estimators, random_state=0) 
     sensor_position     = None
     serialized_path     = None
 

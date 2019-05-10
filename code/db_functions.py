@@ -21,15 +21,17 @@ class Database:
 class TableExercises:
 
     conn                = None
+    
     table_name          = config.TABLE_EXERCISES
     column_id_exercise  = config.EXERCISES_ID_EXERCISE
     column_name         = config.EXERCISES_NAME 
     column_description  = config.EXERCISES_DESCRIPTION
     column_audio        = config.EXERCISES_AUDIO
+    
     columns             = [column_id_exercise, column_name, column_description, column_audio]
 
     #constructor
-    def __init__():  
+    def __init__(self, conn):  
         self.conn = conn
    
     #function that, given an exercise id, returns its proprieties
@@ -41,6 +43,7 @@ class TableExercises:
                 return "Error: index not valid"
             cursor.execute(query.format(self.table_name, self.column_id_exercise, id_exercise))   
             row = cursor.fetchone()  
+            
         except sqlite3.Error as e:
             return "Error: sqlite3 error"
         except Exception as e:
@@ -54,6 +57,7 @@ class TableExercises:
             query = "SELECT * FROM {}"
             cursor.execute(query.format(Table_Exercises.table_name))
             row = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
+            
         except sqlite3.Error as e:
             return "Error: sqlite3 error"
         except Exception as e:

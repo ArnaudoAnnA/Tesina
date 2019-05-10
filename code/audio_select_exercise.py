@@ -30,21 +30,27 @@ CONFIRM_REQUEST = 2
 
 
 def left_button_click(channel):
+	global audio_index
+	global id_exercise_index
+	
 	global state
-	global id_current_exercise
+	global array_exercises
+	global array_exercises_iterator
+	
 	
 	if(state == SELECTING):
 		if(id_current_exercise == 0):
-                	id_current_exercise = n_exercises - 1
+                	array_exercises_iterator = array_exercises.length -1
                 else:
-                	id_current_exercise = id_current_exercise - 1
+                	array_exercises_iterator -=1
 			
-		current_exercise = exercises[id_current_exercise]
+		#I get the current exercise from the array	
+		current_exercise = exercises[array_exercises_iterator]
+		id_current_exercise = current_exercise[id_exercise_index]
 		
 		#do in output la descrizione dell'exercise corrente
-		output_interface.audio_output([EXERCISE + NUMBERS[id_current_exercise]])
+		output_interface.audio_output([EXERCISE, NUMBERS[id_current_exercise]])
 		time.sleep(0.5)
-		audio_index = db_functions.table_exercises.COLUMNS.index(db_functions.table_exercises.COLUMN_AUDIO)
 		output_interface.audio_output([current_exercise[audio_index]])
 		
 	elif(state == CONFIRM_REQUEST):
@@ -55,58 +61,67 @@ def left_button_click(channel):
 		
 def central_button_click(channel):
 	global state
-	global exercises
-	global n_exercises
+	global array_exercises
+	
+	global audio_index
+	global id_exercise_index
 	
 	if(state == EXERCISE_NOT_SELECTED): 	#primo click sul bottone centrale 
 		#scarico le descrizioni di tutti gli exercises e li metto a disposizione dell'utente per la selezione
 		#mi connetto al DB
-		dbConn = db_functions.Database.db_connect()
-		exercises = db_functions.table_exercises.get_all_exercises(dbConn)
+		db = db_functions.Database()
+		#all data of the exercise is saved in an array format, so I have to know what correspond to each index
+		audio_index = db.table_exercises.get_column_index(db.table_exercises.COLUMN_AUDIO)
+		id_exercise_index = db.table_exercises.get_column_index(db.table_exercises.COLUMN_ID_EXERCISE)
+		
+		array_exercises = db.table_exercises.get_all_exercises()
 
 		if(exercises == None):
 			output_interface.audio_output([NO_AVAIABLE_EXERCISE])
 		
 		else:
-			n_exercises = len(exercises)
-			output_interface.audio_output([USE_THE_ARROWS_TO_SELECT_THE_EXERCISE])
 			state = SELECTING
+			output_interface.audio_output([USE_THE_ARROWS_TO_SELECT_THE_EXERCISE])
+			
 	
 	elif(state == SELECTING):
-		output_interface.audio_output(CONFIRM)
 		state = CONFIRM_REQUEST
+		output_interface.audio_output(CONFIRM)
 
 		
 def click_bottone_destra(channel):
+	global audio_index
+	global id_exercise_index
+	
 	global state
-	global exercises
-	global n_exercises
-	global state
-	global id_current_exercise
+	
+	global array_exercises
+	global array_exercises_iterator
 	
 	if(state == SELECTING):
-		id_current_exercise = id_current_exercise + 1 % n_exercises
-		current_exercise = exercises[id_current_exercise]
+		array_exercises_iterator = array_exercises_iterator + 1 % array_exercises.length
+		
+		#I get the current exercise form the array
+		current_exercise = array_exercises[array_exercises_iterator]
+		id_current_exercise = current_exercise[id_exercise_index]
 		
 		#do in output la descrizione dell'exerciseso corrente
 		output_interface.audio_output([EXERCISE, NUMBERS[id_current_exercise]])
 		time.sleep(0.5)
-		audio_index = db_functions.table_exercises.COLUMNS.index(table_exercises.COLUMN_AUDIO)
-		output_interface.audio_output([current_exercise[audio_index]])		
+		output_interface.audio_output([current_exercise[audio_index]])	
+		
 	elif(state == CONFIRM_REQUEST):
 		#l'utente ha selezionato l'exerciseso: richiamo le funzioni che gestiscono l'esecuzione dell'exerciseso
-			#per prima cosa recupero tutti i dati relativi all'exerciseso selezionato
-			sensors = table_sensors.get_sensors()
-			
-			index_duration_seconds = db_functions.table_exercises.COLUMNS.index(db_functions.table_exercises.COLUMN_TIME_SECONDS)
-			exerciseso = exercises[id_current_exercise]
-			duration_seconds = exerciseso[index_duration_seconds]
+		#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
+		exercise = array_exercises[array_exercises_iterator]
 
-			#faccio partire il timer che scandisce il tempo dell'exerciseso
-			AudioFeedbackExercise.outputTimer(duration_seconds)
+		#Asking to the user how long he want to do the exercise
 
-			# avvio i thread che leggono dai sensors e eseguono l'algoritmo di intelligenza artificiale
-	
+		#faccio partire il timer che scandisce il tempo dell'exercizio
+		AudioFeedbackExercise.outputTimer(duration_seconds)
+
+		# avvio i thread che leggono dai sensors e eseguono l'algoritmo di intelligenza artificiale
+
 	
 	
 #---------------------------------------------------------------------------------------
@@ -137,9 +152,11 @@ GPIO.add_event_callback(RIGHT_BUTTON_PIN, right_button_click)
 
 #state iniziale: ESERCIZIO NON SELEZIONATO
 state = EXERCISE_NOT_SELECTED
-exercises = None
-n_exercises = None
-id_current_exercise = 0
+array_exercises = None
+array_exercises_iterator = 0
+audio_index = None
+id_exercise_index = None
+
 
 while(True):
     pass	

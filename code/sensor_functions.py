@@ -24,6 +24,15 @@ import config
 import threading
 import thread_semaphore
 
+MEASUREMENT_EACH_SECOND     = config.MEASUREMENT_EACH_SECOND
+NDATA_EACH_SENSOR           = config.NDATA_EACH_SENSOR
+LENFIFO                     = config.LENFIFO
+OVERLAP                     = config.OVERLAP
+CSV_FILE_PATH               = config.CSV_FILE_PATH
+LEGSX_ADDRESS               = config.LEGSX_ADDRESS 
+ARMSX_ADDRESS               = config.ARMSX_ADDRESS
+
+
 #some MPU6050 Registers and their Address
 PWR_MGMT_1   = 0x6B
 SMPLRT_DIV   = 0x19
@@ -40,8 +49,6 @@ bus = smbus.SMBus(1)
 
 ACCEL_PARSE_NUMBER = 16384.0
 GYRO_PARSE_NUMBER = 131.0
-
-CSV_PATH=config.CSV_PATH
 
 def MPU_Init(Device_Address):
     #write to sample rate register
@@ -60,13 +67,13 @@ def MPU_Init(Device_Address):
     bus.write_byte_data(Device_Address, INT_ENABLE, 1)
 
 def init_device():
-    MPU_Init(config.Device_Address1)
-    MPU_Init(config.Device_Address2)
+    MPU_Init(ARMSX_ADDRESS)
+    MPU_Init(LEGSX_ADDRESS)
 
 def read_raw_data(addr, Device_Address):
     #Accel and Gyro value are 16-bit
     high = bus.read_byte_data(Device_Address, addr)
-    low = bus.read_byte_data(Device_Address, addr+1)
+    low  = bus.read_byte_data(Device_Address, addr + 1)
 
     #concatenate higher and lower value
     value = ((high << 8) | low)
@@ -78,12 +85,12 @@ def read_raw_data(addr, Device_Address):
 
 #Creates 6 FIFO, one for each data recived from the MPU6050
 def init_Fifo(lenFifo, sensorFifo): #sensorFifo 0=ax 1=ay 2=az 3=mx 4=my 5=mz
-    sensorFifo[0] = collections.deque(lenFifo*[0], lenFifo)
-    sensorFifo[1] = collections.deque(lenFifo*[0], lenFifo)
-    sensorFifo[2] = collections.deque(lenFifo*[0], lenFifo)
-    sensorFifo[3] = collections.deque(lenFifo*[0], lenFifo)
-    sensorFifo[4] = collections.deque(lenFifo*[0], lenFifo)
-    sensorFifo[5] = collections.deque(lenFifo*[0], lenFifo)
+    sensorFifo[0] = collections.deque(lenFifo * [0], lenFifo)
+    sensorFifo[1] = collections.deque(lenFifo * [0], lenFifo)
+    sensorFifo[2] = collections.deque(lenFifo * [0], lenFifo)
+    sensorFifo[3] = collections.deque(lenFifo * [0], lenFifo)
+    sensorFifo[4] = collections.deque(lenFifo * [0], lenFifo)
+    sensorFifo[5] = collections.deque(lenFifo * [0], lenFifo)
     return sensorFifo
 
 #Read Accelerometer raw value
@@ -121,57 +128,59 @@ def toList_Fifo(fifo):
     ret = []
 
     for i in xrange(0, len(fifo)):
-        ret = ret+list(fifo[i])
+        ret = ret + list(fifo[i])
   
     return ret
     
 class Thread_readSensor(threading.Thread):
+
+    device_address              = None
+    device_position             = None
+    id_exercise                 = None
+    recordings                  = None
+    csvfile                     = None
+    writer                      = None
+    data_one_misuration         = None
+    window_misurations_fifo     = None
     
-    def __init__(self, device_address, device_position, n_exercise, recordings):
+    def __init__(self, device_address, device_position, id_exercise, recordings):
         threading.Thread.__init__(self)
         
         self.device_address = device_address
         self.device_position = device_position
-        self.n_exercise = n_exercise      #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
+        #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
+        self.id_exercise = id_exercise        
         self.recordings = recordings
-        
         #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
-        self.csvfile = open(CSV_PATH+device_position+'.csv', 'ab')
+        self.csvfile = open(CSV_FILE_PATH+device_position+'.csv', 'ab')        
         self.writer = csv.writer(self.csvfile)
-        
-        self.data_one_misuration = [0] * config.NDATA_EACH_SENSOR          #lista che conterrà tutti i dati registrati dal sensore in un istante
-        self.window_misurations_fifo = [0] * config.NDATA_EACH_SENSOR      #lista che contiene i dati registrati dal sensore in una finestra di tempo
-        init_Fifo(config.LENFIFO, self.window_misurations_fifo)
+        #lista che conterrà tutti i dati registrati dal sensore in un istante
+        self.data_one_misuration = [0] * NDATA_EACH_SENSOR
+        #lista che contiene i dati registrati dal sensore in una finestra di tempo          
+        self.window_misurations_fifo = [0] * NDATA_EACH_SENSOR      
+        init_Fifo(LENFIFO, self.window_misurations_fifo)
     
     
     def run(self):
-        times = 0
-        
+
+        times   = 0
         #per fare in modo che tutti i thread partano in contemporanea
         thread_semaphore.semaphore.wait()
-        
         for x in xrange(0, self.recordings):
-            oldnow=time.time()
-            
+            oldnow = time.time()
             #reading the data from the sensor
             self.data_one_misuration = read_sensor_data(self.data_one_misuration, self.device_address)
-            
             #parsing the data in an useful format
-            self.data_one_misuration= parse_sensor_data(self.data_one_misuration)
-            
+            self.data_one_misuration = parse_sensor_data(self.data_one_misuration)
             #adding the sensor data to the head of the FIFO, automatically deleting the one in the tail
             append_sensor_data(self.window_misurations_fifo, self.data_one_misuration)
-            
             #writing the fifo if it has the correct overlap or is the last recording
-            if times%(config.LENFIFO-config.OVERLAP)==0 or times == self.recordings-1 :
-                
-                self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.n_exercise])
-                
+            if times % (LENFIFO-OVERLAP) == 0 or times == self.recordings - 1 :
+                self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
             #setting next instant
             times=times+1
-            time.sleep(1.0/config.MEASUREMENT_EACH_SECOND-(time.time()-oldnow))
-            print ('times: ' , times) 
-        
+            time.sleep(1.0 / MEASUREMENT_EACH_SECOND - (time.time() - oldnow))
+            print ('times: ', times) 
         self.csvfile.close()
         print(self.device_position, "finished")
         

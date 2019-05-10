@@ -1,34 +1,53 @@
 # coding=utf-8
 import smbus
 
-#AI constants 
-N_ESTIMATORS = 100      #number of the trees
-MAX_DEPTH = 3           #depth of the trees
-
 #Recorder constants
+LENFIFO                 = 10				#FIFO LENGTH
+MEASUREMENT_EACH_SECOND = 25				#DATA ACQUISITION RATE (n per second)
+OVERLAP                 = 4					#NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
+NDATA_EACH_SENSOR       = 6					#number of datas sent from each sensor
 
-#FIFO LENGTH
-LENFIFO                  = 10
-#DATA ACQUISITION RATE (n per second)
-MEASUREMENT_EACH_SECOND  = 25
-#NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
-OVERLAP                  = 4
-#number of datas sent from each sensor
-NDATA_EACH_SENSOR        = 6
-#
-HOME_PATH                = "/home/pi/Downloads/Tesina-master/"
-CSV_PATH                 = "file://"+HOME_PATH+"files/csv/"
 
+#folder structure
+HOME_PATH               = "/home/pi/Downloads/Tesina-master/"
+AI_PATH					= HOME_PATH+"/files/pkl/"
+DB_PATH					= HOME_PATH+"files/db/"
+CSV_PATH                = HOME_PATH+"files/csv/"
+CSV_FILE_PATH           = "file://"+CSV_PATH
+
+
+#DB constants
+DB_NAME 				= "brian.db"
+TABLE_EXERCISES		   	= "exercises"
+EXERCISES_ID_EXERCISE  	= "id_exercise"
+EXERCISES_NAME         	= "name"
+EXERCISES_DESCRIPTION  	= "description"
+EXERCISES_AUDIO        	= "audio"
+
+#AI constants 
+#header representing the recorded data row, or csv columns
+HEADER_FEATURES			= ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+ID_EXERCISE				= "id_exercise"		#name of the exercise id column
+N_ESTIMATORS 			= 100      			#number of the trees
+MAX_DEPTH 				= 3        			#depth of the trees
+
+
+#sensors addess
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
-Device_Address1 = 0x68  # MPU6050 ARM device address
-Device_Address2 = 0x69  # MPU6050 LEG device address
+ARMSX_ADDRESS 			= 0x68  			# MPU6050 ARM device address
+LEGSX_ADDRESS			= 0x69  			# MPU6050 LEG device address
+#ARMDX_ADDRESS 			
+#LEGDX_ADDRESS
 
-SENSORPOSITION_LEGSX = "legsx"
-SENSORPOSITION_LEGDX = "legdx"
-SENSORPOSITION_ARMSX = "armsx"
-SENSORPOSITION_ARMDX = "armdx"
 
-#PIN associati ai bottoni della mascherina
-PIN_BOTTONE_DESTRA = 21
-PIN_BOTTONE_CENTRALE = 20
-PIN_BOTTONE_SINISTRA = 16
+#sensors names/positions
+SENSORPOSITION_LEGSX	= "legsx"
+SENSORPOSITION_LEGDX	= "legdx"
+SENSORPOSITION_ARMSX	= "armsx"
+SENSORPOSITION_ARMDX	= "armdx"
+
+
+#interface pins addresses
+RIGHT_BUTTON_PIN 		= 21
+CENTRAL_BUTTON_PIN 		= 20
+LEFT_BUTTON_PIN 		= 16

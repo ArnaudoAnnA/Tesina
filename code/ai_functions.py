@@ -5,45 +5,55 @@ from sklearn.externals import joblib as jbl
 import sensor_functions
 import config 
 
-LENFIFO=config.LENFIFO
-CSV_PATH=config.CSV_PATH
-AI_PATH=config.HOME_PATH+"/files/pkl/"
-N_ESTIMATORS = config.N_ESTIMATORS
-MAX_DEPTH = config.MAX_DEPTH
+LENFIFO         = config.LENFIFO
+CSV_FILE_PATH   = config.CSV_FILE_PATH
+AI_PATH         = config.AI_PATH
+N_ESTIMATORS    = config.N_ESTIMATORS
+MAX_DEPTH       = config.MAX_DEPTH
+HEADER_FEATURES = config.HEADER_FEATURES
+ID_EXERCISE     = config.ID_EXERCISE
 
     
 class TheBrain:
 
-    #proprieties
-    rfc = RandomForestClassifier(max_depth=self.max_depth, n_estimators=self.n_estimators, random_state=0) # RandomForest instantiation
-    n_estimators = N_ESTIMATORS
-    max_depth = MAX_DEPTH
-    header_features = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
-    header = header_features+[movement_class]
-    sensor_position = None
+    #RandomForest instantiation
+    rfc                 = RandomForestClassifier(max_depth=self.max_depth, n_estimators=self.n_estimators, random_state=0) 
+    n_estimators        = N_ESTIMATORS
+    max_depth           = MAX_DEPTH
+    header_features     = HEADER_FEATURES
+    header              = HEADER_FEATURES + [ID_EXERCISE]
+    sensor_position     = None
+    serialized_path     = None
 
     #constructor
     def __init__(self, sensor_position):
         self.sensor_position = sensor_position
+        self.serialized_path = AI_PATH + sensor_position + ".pkl"
 
     #function that trains the AI using an input csv 
     def fit_from_csv(self):
-        data = pd.read_csv(filepath_or_buffer = CSV_PATH + self.sensor_position + '.csv', header=None, names=self.header) # reading data from csv, indexing the columns
+        #reading data from csv, indexing the columns
+        data = pd.read_csv(filepath_or_buffer = CSV_FILE_PATH + self.sensor_position + '.csv', header=None, names=self.header) 
         self.fit(data)
 
 
     #function that trains the AI
     def fit(self, data):
-        data = data.sample(frac=1) # data shuffled in order to minimize near rows dependency
-        features = [col for col in data.columns.tolist() if col!=movement_class] # variable containing features indexes (x in our function)
-        x_train = data[features].values # x variable of the function (input)
-        y_train = data[movement_class].values # y variable of the function (category)
-        self.rfc.fit(x_train, y_train) # ai training
+        #data shuffled in order to minimize near rows dependency
+        data = data.sample(frac=1) 
+        #variable containing features indexes (x in our function)
+        features = [col for col in data.columns.tolist() if col != ID_EXERCISE] 
+        #x variable of the function (input)
+        x_train = data[features].values
+        #y variable of the function (category) 
+        y_train = data[ID_EXERCISE].values 
+        #ai training
+        self.rfc.fit(x_train, y_train) 
 
     #function that serializes the object
     def serialize(self):
-        serialized = AI_PATH + self.sensor_position + ".pkl" # serialized file path
-        jbl.dump(self.rfc, serialized) # fit ai serialization
+        #fit ai serialization
+        jbl.dump(self.rfc, self.serialized_path) 
 
     #function that, given the sensor position, trains and serializes the AI
     def save_fit_ai(self):
@@ -52,8 +62,7 @@ class TheBrain:
 
     #function that deserializes the object
     def deserialize(self):
-        serialized = AI_PATH + self.sensor_position + ".pkl" # serialized file path
-        self.rfc = jbl.load(serialized)
+        self.rfc = jbl.load(self.serialized_path)
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):

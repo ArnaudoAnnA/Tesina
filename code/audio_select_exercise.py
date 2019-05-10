@@ -6,7 +6,7 @@ import audio_raspberry as output_interface
 import audio_file_ita as audio
 import table_exercises
 import audio_feedback_exercise
-
+import audio_registration_timer_set
 
 
 #constants
@@ -116,11 +116,10 @@ def click_bottone_destra(channel):
 		exercise = array_exercises[array_exercises_iterator]
 
 		#Asking to the user how long he want to do the exercise
-
-		#faccio partire il timer che scandisce il tempo dell'exercizio
-		AudioFeedbackExercise.outputTimer(duration_seconds)
-
-		# avvio i thread che leggono dai sensors e eseguono l'algoritmo di intelligenza artificiale
+		audio_registration_timer_set.set_timer(audio_feedback_exercise.AudioFeedBackExercise.outputTimer)
+		
+		#when the user set the duration of the esecution, an audio timer start the cuntdown while one thread 
+		#for each sensor recognises the exercise
 
 	
 	

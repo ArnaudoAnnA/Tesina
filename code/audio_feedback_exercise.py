@@ -37,7 +37,7 @@ class AudioFeedbackExercise:
 
   #function called by thread every time the AI algorithm recognizes a movement class
   @staticmethod
-  def movement_feedback_notify(sensor, correctness_percentage):
+  def ia_result_notify(sensor, correctness_percentage):
 
     if(correctnessPercentage < MINIMUM_CORRECTNESS_PERCENTAGE):
       output_interface.audio_output(faudio_files.DIRECTORY_PATH, [audio_files.SENSOR_ERROR, audio_files.SENSOR_POSITON[sensor]])

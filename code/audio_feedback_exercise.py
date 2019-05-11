@@ -34,7 +34,7 @@ class Live_exercise_correction:
     IA_sensorArmDx.start(id_exercise, semaphore)
     
     #the timer will unlock the semaphore when the initial cuntdown has finished
-    Live_exercise_correction.outputTimer(seconds, semaphore)  
+    Live_exercise_correction.exercise_timer(seconds, semaphore)  
     
     #when the timer has finished the cuntdown from "seconds" to zero
     IA_sensorLegSx.join()
@@ -45,10 +45,10 @@ class Live_exercise_correction:
     output_interface.audio_output(audio_files.DIRECTORY_PATH, [audio_files.EXERCISE_DONE_WITH, audio_files.NUMBERS[medium_correctness], PERCENTAGE_OF_CORRECTNESS)
 
 #-----------------------------------------------------------------------------------------------------------------------------------   
-  
-  #function that manages the timer during the correction phase
   @staticmethod
-  def outputTimer(seconds, semaphore):
+  def exercise_timer(seconds, semaphore):
+    """function that manages the timer during the correction phase"""
+                                                               
     AudioFeedbackExercise.medium_correctness = 0
     AudioFeedbackExercise.n_feedback = 0
 
@@ -67,9 +67,10 @@ class Live_exercise_correction:
     semaphore.lock()                                                           
     
     
-  #function called by thread every time the AI algorithm recognizes a movement class
+#---------------------------------------------------------------------------------------------------------------------------------                                                            
   @staticmethod
   def ia_result_notify(sensor, correctness_percentage):
+     """function called by thread every time the AI algorithm recognizes a movement class"""                                                          
 
     if(correctnessPercentage < MINIMUM_CORRECTNESS_PERCENTAGE):
       output_interface.audio_output(faudio_files.DIRECTORY_PATH, [audio_files.SENSOR_ERROR, audio_files.SENSOR_POSITON[sensor]])

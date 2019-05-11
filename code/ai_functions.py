@@ -22,7 +22,7 @@ class TheBrain(threading.Thread):
     rfc                 = RandomForestClassifier(max_depth=MAX_DEPTH, n_estimators=N_ESTIMATORS, random_state=0) 
     sensor_position     = None
     serialized_path     = None
-    observer            = audio_feedback_esercizio.AudioFeedBackEsercizio
+    observer            = audio_feedback_esercizio.Live_exercise_correction
 
     #constructor
     def __init__(self, sensor_position):
@@ -31,9 +31,8 @@ class TheBrain(threading.Thread):
         
     #----RUN----------------------------------------------------------------------------------------------    
     #function called when an IA thread starts
-    #calculates the percentage of correctNess
     def run(self, id_exercise, semaphore):
-        while(semaphore.is_unLocked()):    #thread will be interrupted by the cuntdown of the timer
+        while(semaphore.is_unLocked()):    #thread will be interrupted by the end of the timer cuntdown
             #CODICE CHE RICAVA LA PERCENTUALE DI CORRETTEZZA CON CUI VIENE ESEGUITO L'ESERCIZIO CORRISPONDENTE A ID_EXERCISE
             observer.ia_result_notify(IAresult)
     #---------------------------------------------------------------------------------------------------------

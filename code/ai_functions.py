@@ -32,9 +32,13 @@ class TheBrain(threading.Thread):
     #----RUN----------------------------------------------------------------------------------------------    
     #function called when an IA thread starts
     def run(self, id_exercise, semaphore):
+        semaphore.waitForUnlock()
+        
         while(semaphore.is_unLocked()):    #thread will be interrupted by the end of the timer cuntdown
             #CODICE CHE RICAVA LA PERCENTUALE DI CORRETTEZZA CON CUI VIENE ESEGUITO L'ESERCIZIO CORRISPONDENTE A ID_EXERCISE
             observer.ia_result_notify(IAresult)
+        
+        #when the cycle has finished the thread exits
     #---------------------------------------------------------------------------------------------------------
             
     #function that trains the AI using an input csv 

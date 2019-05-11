@@ -21,7 +21,7 @@ GO = audio.GO
 NO_AVAIABLE_EXERCISE = audio.NO_AVAIABLE_EXERCISE
 USE_THE_ARROWS_TO_SELECT_THE_EXERCISE = audio.USE_THE_ARROWS_TO_SELECT_THE_EXERCISE
 
-AudioFeedbackExercise = audio_feedback_exercise.AudioFeedbackExercise
+Live_exercise_correction = audio_feedback_exercise.Live_exercise_correction
 
 EXERCISE_NOT_SELECTED = 0
 SELECTING = 1
@@ -57,7 +57,7 @@ def left_button_click(channel):
 		#ritorno in modalità SELECTING 
 		state = SELECTING
 
-
+#-----------------------------------------------------------------------------------------------------------------------------------
 		
 def central_button_click(channel):
 	global state
@@ -88,6 +88,7 @@ def central_button_click(channel):
 		state = CONFIRM_REQUEST
 		output_interface.audio_output(CONFIRM)
 
+#------------------------------------------------------------------------------------------------------------------------------		
 		
 def click_bottone_destra(channel):
 	global audio_index
@@ -111,14 +112,13 @@ def click_bottone_destra(channel):
 		output_interface.audio_output([current_exercise[audio_index]])	
 		
 	elif(state == CONFIRM_REQUEST):
-		#l'utente ha selezionato l'exerciseso: richiamo le funzioni che gestiscono l'esecuzione dell'exerciseso
+		#l'utente ha selezionato l'esercizio: richiamo le funzioni che gestiscono l'esecuzione dell'esercizio
 		#per prima cosa recupero tutti i dati relativi all'esercizio selezionato
 		exercise = array_exercises[array_exercises_iterator]
 
 		#Asking to the user how long he want to do the exercise
-		audio_registration_timer_set.set_timer(audio_feedback_exercise.AudioFeedBackExercise.outputTimer)
-		
-		#when the user set the duration of the esecution, an audio timer start the cuntdown while one thread 
+		audio_registration_timer_set.set_timer(Live_exercise_correction.do_exercise)	#I give a callback function to be called when the timer is set
+		#NOTE: when the user set the duration of the esecution, an audio timer start the cuntdown, while one thread 
 		#for each sensor recognises the exercise
 
 	

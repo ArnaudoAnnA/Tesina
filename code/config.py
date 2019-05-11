@@ -44,6 +44,7 @@ SENSORPOSITION_ARMDX            = "armdx"
 
 
 #interface pins addresses
-RIGHT_BUTTON_PIN                = 21
-CENTRAL_BUTTON_PIN              = 20
-LEFT_BUTTON_PIN                 = 16
+# 42 is the answer
+RIGHT_BUTTON_PIN                = 42
+CENTRAL_BUTTON_PIN              = 42
+LEFT_BUTTON_PIN                 = 42

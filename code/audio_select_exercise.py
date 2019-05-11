@@ -125,6 +125,7 @@ def click_bottone_destra(channel):
 	
 #---------------------------------------------------------------------------------------
 #MAIN
+# NOTE: this is the main of the project 
 	
 #SETUP DEI BOTTONI
 	

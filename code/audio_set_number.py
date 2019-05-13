@@ -123,7 +123,7 @@ class Get_number_from_user:
 	        pass
 	
 #----THREAD VERSION------------------------------------------------------------------------------------	
-class Thread_get_number(Get_number_from_user, threading.Thread):
+class Thread_get_number_from_user(Get_number_from_user, threading.Thread):
 """class that makes the method "set_pins_and_start" executed in a new thread"""	
 
 	def __init__(self):

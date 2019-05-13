@@ -13,11 +13,13 @@ import config
 DIRECTORY_PATH = config.ROOT_PATH + "file/audio/"
 
 #setting timer
+TIMER_SETTINGS_BEGIN = "Specificare il numero di secondi di durata dell'esercizio"
 DISCARDED_VALUE = "valore scartato"
-TIMER_SETTINGS_GUIDE = "istruzioni_impostazione_timer.wav"
+TIMER_SETTINGS_GUIDE = "per aumentare il numero premi il bottone destra, per diminuire quello di sinistra"
 CONFIRM = "Vuoi confermare il numero selezionato? Destra per si, sinistra per no"
 
 #registration
+ID_EXERCISE_SETTINGS-BEGIN = "Specificare l'id del nuovo esercizio"
 SENDING_DATA = "invio dati in corso"
 REGISTRATION_WILL_START_IN = "la registrazione sarà avviata tra"
 REGISTRATION_ENDED = "registrazione terminata"

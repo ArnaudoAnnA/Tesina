@@ -7,6 +7,8 @@ import sensor_functions as sf
 import thread_semaphore as ts
 import audio_registration_timer_set as reg
 import config as c
+import audio_raspberry as output_interface
+import audio_files_ita as audio_files
 
 SETTING_COMPLETED		= config.REGISTRATION_SETTING_COMPLETED
 SENSORPOSITION_LEGSX	= config.SENSORPOSITION_LEGSX
@@ -15,13 +17,15 @@ SENSORPOSITION_ARMSX	= config.SENSORPOSITION_ARMSX
 SENSORPOSITION_ARMDX	= config.SENSORPOSITION_ARMDX
 
 #selecting exercise
-settingExercise = reg.SetNumber()
-while (settingExercise.confirm != SETTING_COMPLETED):
+output_interface.output_audio([audio_files.ID_EXERCISE_SETTINGS_BEGIN])
+settingExercise = reg.get_number_from_user()
+while (settingExercise.confirm != SETTING_COMPLETED):		#while the other threads work, I wait for the result
 	pass
 
 #selecting exercise time (using the same class)
-settingTimer = reg.SetNumber()
-while (settingTimer.confirm != SETTING_COMPLETED):
+output_interface.output_audio([audio_files.TIMER_SETTINGS_BEGIN])
+settingTimer = reg.get_number_from_user()
+while (settingTimer.confirm != SETTING_COMPLETED):		#while the other threads work, I wait for the result
 	pass
 
 acquisition_phase(settingExercise.get_number(), settingTimer.timer_object)

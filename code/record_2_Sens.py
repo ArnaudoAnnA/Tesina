@@ -20,18 +20,20 @@ acquisitionTime = int(sys.argv[2]) #the number of the seconds to record
 
 #the integer representing the number of instants to record
 recordings = acquisitionTime * config.LENFIFO
-print ("recordings: ", srecordings)
+print ("recordings: ", recordings)
 
 #init sensors
 threadSensor1 = sensor_functions.Thread_readSensor(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class, recordings)
 threadSensor2 = sensor_functions.Thread_readSensor(config.Device_Address2, config.SENSORPOSITION_ARMSX, movement_class, recordings)
 
-semaphore = thread_semaphore.Semaphore() #variabile che serve per fare in modo che tutti i thread partano in contemporanea
+#variable used for starting all threads simultaneosly
+semaphore = thread_semaphore.Semaphore()
 
 threadSensor1.start(semaphore)
 threadSensor2.start(semaphore)
 
-semaphore.unlock()   #I thread iniziano a raccogliere info dai sensori solo da questo momento! 
+#threads start to collect data from this moment
+semaphore.unlock()
 
 threadSensor1.join()
 threadSensor2.join()

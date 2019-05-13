@@ -8,7 +8,7 @@
 
 import audio_file_ita as audio_files
 import RPi.GPIO as GPIO
-import time
+import threading
 import audio_timer
 import audio_raspberry as output_interface
 import config
@@ -18,20 +18,20 @@ LEFT_BUTTON_PIN 	= config.LEFT_BUTTON_PIN
 CENTRAL_BUTTON_PIN 	= config.CENTRAL_BUTTON_PIN
 RIGHT_BUTTON_PIN 	= config.RIGHT_BUTTON_PIN
 
-ALL_OFF 			= config.REGISTRATION_ALL_OFF
-SETTING_TIMER			= config.REGISTRATION_SETTING_TIMER
-TIMER_SET			= config.REGISTRATION_TIMER_SET
+ALL_OFF 			= 0
+SETTING_NUMBER			= 1
+WAITING_CONFIRM			= 2
 
 class Get_number_from_user:
 """ class that uses an timer object (improprially) to allow user to select a number using buttons"""	
 
-	timer_state 	= ALL_OFF
+	state 	= ALL_OFF
 	timer_object 	= audio_timer.Timer(0)
 	confirm 	= False
 	
 	def __init__(self):
 		
-		timer_state = ALL_OFF
+		state = ALL_OFF
 		timer_object = audio_timer.Timer(0)
 		confirm = False
 		
@@ -49,15 +49,15 @@ class Get_number_from_user:
 		-user wants to discard current number
 	 	it depens from "state" variable """
   
-	    if (self.state == SETTING_TIMER):
+	    if (self.state == SETTING_NUMBER):
 	        if (self.timer_object.timer != 0):
 	            print(self.timer_object.timer)
 	            self.timer_object.increase_timer(-1)
 
-	    elif (self.state == TIMER_SET):  # l'utente decide di scartare l'esercizio appena registrato
+	    elif (self.state == WAITING_CONFIRM):  # l'utente decide di scartare l'esercizio appena registrato
 	        output_interface.audio_output(audio_files.DIRECTORY_PATH, [audio_files.DISCARDED_VALUE])
 	        exercise_dataset = [0]  #non è il caso di azzerare anche il timer perchè alla prossima pressione del tasto centrale verrà istanziato un nuovo oggetto timer
-	        self.timer_state = ALL_OFF
+	        self.state = ALL_OFF
 
 	# --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -67,14 +67,14 @@ class Get_number_from_user:
 		-user has selected a number and want to confirm it
 		it depends from the value of the "state" variable """
 
-	    if ( self.timer_state == ALL_OFF):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
-	        output_interface.output_audio(audio_files.DISCARDED_VALUE, [audio_files.TIMER_SETTINGS_GUIDE])
-	        self.timer_state = SETTING_TIMER
+	    if ( self.state == ALL_OFF):  # timer da impostare da capo (questo è il primo click sul tasto centrale)
+	        output_interface.output_audio(audio_files.DISCARDED_VALUE, [audio_files.WAITING_CONFIRMTINGS_GUIDE])
+	        self.state = SETTING_NUMBER
 	        self.timer_object = audio_timer.Timer(0)  #istazio un nuovo oggetto timer
 
-	    elif (self.timer_state == SETTING_TIMER and self.timer_object.timer != 0):  # l'utente ha terminato l'impostazione del timer
+	    elif (self.state == SETTING_NUMBER and self.timer_object.timer != 0):  # l'utente ha terminato l'impostazione del timer
 	        output_interface.output_audio(audio_files.DIRECTORY_PATH, [audio_files.CONFIRM])
-	        self.timer_state = TIMER_SET
+	        self.state = WAITING_CONFIRM
 
 
 	# --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,13 +85,13 @@ class Get_number_from_user:
 		-user confirmed the selected number
 		it depends from the value of the "state" variable """	
 	    
-	    if (self.timer_state == SETTING_TIMER):
+	    if (self.state == SETTING_NUMBER):
 	        print(self.timer_object.timer)
 	        self.timer_object.increase_timer(+1)
 
-	    elif (self.timer_state == TIMER_SET) : # l'utente conferma il tempo impostato e procede con la registrazione dell'esercizio
+	    elif (self.state == WAITING_CONFIRM) : # l'utente conferma il tempo impostato e procede con la registrazione dell'esercizio
 	        self.confirm = 1
-	        self.timer_state = ALL_OFF
+	        self.state = ALL_OFF
 
 	# --------------------------------------------------------------------------------------------------------------------------------------------------
 	def get_number():
@@ -132,4 +132,4 @@ class Thread_get_number(Get_number_from_user, threading.Thread):
 		
 	def run(self)
 		set_pins_and_start()
-		#thread exits when this function return
+		#thread exits when this function returns

@@ -3,10 +3,10 @@
 # coding=utf-8
 
 import db_functions as db
-import sensor_functions as sf
-import thread_semaphore as ts
-import audio_timer_set 
-import config as c
+import sensor_functions 
+import thread_semaphore
+import audio_set_number
+import config
 import audio_raspberry as output_interface
 import audio_files_ita as audio_files
 
@@ -32,6 +32,9 @@ settingTimer.start()
 settingTimer.join() #while the other threads work, I wait for the result
 
 acquisition_phase(settingExercise.get_number(), settingTimer.timer_object)
+
+#!!!TODO!!!: I control if there is yet another exercise with the same id
+#in negative case I add a new row in Table_exercises
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------

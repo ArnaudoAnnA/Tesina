@@ -13,7 +13,7 @@ class Database:
 
     #constructor, instances TableExercises
     def __init__(self):  
-        self.conn = sqlite3.connect(DB_PATH+DB_NAME)
+        self.conn = sqlite3.connect(DB_PATH + DB_NAME)
         self.table_exercises = TableExercises(self.conn)
     
 

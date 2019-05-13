@@ -134,14 +134,14 @@ def toList_Fifo(fifo):
     
 class Thread_readSensor(threading.Thread):
 
-    device_address              = None
-    device_position             = None
-    id_exercise                 = None
-    recordings                  = None
-    csvfile                     = None
-    writer                      = None
-    data_one_misuration         = None
-    window_misurations_fifo     = None
+    device_address          = None
+    device_position         = None
+    id_exercise             = None
+    recordings              = None
+    csvfile                 = None
+    writer                  = None
+    data_one_misuration     = None
+    window_misurations_fifo = None
     
     def __init__(self, device_address, device_position, id_exercise, recordings):
         threading.Thread.__init__(self)
@@ -152,7 +152,7 @@ class Thread_readSensor(threading.Thread):
         self.id_exercise = id_exercise        
         self.recordings = recordings
         #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
-        self.csvfile = open(CSV_FILE_PATH+device_position+'.csv', 'ab')        
+        self.csvfile = open(CSV_FILE_PATH + device_position + '.csv', 'ab')        
         self.writer = csv.writer(self.csvfile)
         #lista che conterrà tutti i dati registrati dal sensore in un istante
         self.data_one_misuration = [0] * NDATA_EACH_SENSOR
@@ -179,11 +179,8 @@ class Thread_readSensor(threading.Thread):
             if times % (LENFIFO-OVERLAP) == 0 or times == self.recordings - 1 :
                 self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
             #setting next instant
-            times=times+1
+            times = times + 1
             time.sleep(1.0 / MEASUREMENT_EACH_SECOND - (time.time() - oldnow))
             print ('times: ', times) 
         self.csvfile.close()
         print(self.device_position, "finished")
-        
-        
-        

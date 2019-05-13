@@ -19,8 +19,8 @@ movement_class = sys.argv[1] #the number of the exercise (keeping in mind the re
 acquisitionTime = int(sys.argv[2]) #the number of the seconds to record
 
 #the integer representing the number of instants to record
-recordings = acquisitionTime*config.LENFIFO
-print ("recordings: ",recordings)
+recordings = acquisitionTime * config.LENFIFO
+print ("recordings: ", srecordings)
 
 #init sensors
 threadSensor1 = sensor_functions.Thread_readSensor(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class, recordings)

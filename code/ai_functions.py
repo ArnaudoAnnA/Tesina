@@ -19,7 +19,7 @@ ID_EXERCISE     = config.ID_EXERCISE
 class TheBrain(threading.Thread):
 
     #RandomForest instantiation
-    rfc                 = RandomForestClassifier(max_depth=MAX_DEPTH, n_estimators=N_ESTIMATORS, random_state=0) 
+    rfc                 = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0) 
     sensor_position     = None
     serialized_path     = None
     observer            = audio_feedback_esercizio.Live_exercise_correction
@@ -44,14 +44,14 @@ class TheBrain(threading.Thread):
     #function that trains the AI using an input csv 
     def fit_from_csv(self):
         #reading data from csv, indexing the columns
-        data = pd.read_csv(filepath_or_buffer = CSV_FILE_PATH + self.sensor_position + '.csv', header=None, names=HEADER) 
+        data = pd.read_csv(filepath_or_buffer = CSV_FILE_PATH + self.sensor_position + '.csv', header = None, names = HEADER) 
         self.fit(data)
 
 
     #function that trains the AI
     def fit(self, data):
         #data shuffled in order to minimize near rows dependency
-        data = data.sample(frac=1) 
+        data = data.sample(frac = 1) 
         #variable containing features indexes (x in our function)
         features = [col for col in data.columns.tolist() if col != ID_EXERCISE] 
         #x variable of the function (input)
@@ -77,7 +77,7 @@ class TheBrain(threading.Thread):
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):
-        df_movement = pd.DataFrame(data= [movement], columns = HEADER_FEATURES)
+        df_movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
         predicted_movement = self.rfc.predict(df_movement)
         predicted_probability = self.rfc.predict_proba(df_movement)
         return (predicted_movement[0], predicted_probability[0])

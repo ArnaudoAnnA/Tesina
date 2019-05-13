@@ -42,5 +42,4 @@ SENSOR_POSITION =
   config.SENSORPOSITION_LEGDX : "legdx"
   config.SENSORPOSITION_ARMSX : "armsx"
   config.SENSORPOSITION_ARMDX : "armdx"
-}  
-
+}

@@ -42,6 +42,13 @@ SENSORPOSITION_LEGDX            = "legdx"
 SENSORPOSITION_ARMSX            = "armsx"
 SENSORPOSITION_ARMDX            = "armdx"
 
+#registration constants
+REGISTRATION_ALL_OFF 			= 0
+REGISTRATION_SETTING_TIMER 		= 1
+REGISTRATION_TIMER_SET 			= 2
+REGISTRATION_TIME_BEFORE_START 	= 5
+REGISTRATION_SETTING_COMPLETED	= 1
+
 
 #interface pins addresses
 RIGHT_BUTTON_PIN                = 21

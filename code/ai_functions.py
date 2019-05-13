@@ -15,7 +15,7 @@ HEADER          = config.HEADER
 ID_EXERCISE     = config.ID_EXERCISE
 
     
-class TheBrain():
+class TheBrain:
 
     #RandomForest instantiation
     rfc                 = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0) 
@@ -68,14 +68,14 @@ class TheBrain():
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):
-        df_movement = self.movement_to_dataframe(movement)
+        df_movement = self.movement_to_dataframe()
         predicted_movement = self.rfc.predict(df_movement)
         predicted_probability = self.rfc.predict_proba(df_movement)
         return (predicted_movement[0], predicted_probability[0])
 
     #function that, given an exercise id and a movement, rerurns its percentage of correctness in 0-100 format
     def get_percentage_of_correctness(self, id_exercise, movement):
-        df_movement = self.movement_to_dataframe(movement)
+        df_movement = self.movement_to_dataframe()
         predicted_probability = self.rfc.predict_proba(df_movement)
         return predicted_probability[0][id_exercise] * 100
 

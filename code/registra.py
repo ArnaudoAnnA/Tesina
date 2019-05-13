@@ -5,7 +5,7 @@
 import db_functions as db
 import sensor_functions as sf
 import thread_semaphore as ts
-import audio_registration_timer_set as reg
+import audio_timer_set 
 import config as c
 import audio_raspberry as output_interface
 import audio_files_ita as audio_files
@@ -18,20 +18,23 @@ SENSORPOSITION_ARMDX	= config.SENSORPOSITION_ARMDX
 
 #selecting exercise
 output_interface.output_audio([audio_files.ID_EXERCISE_SETTINGS_BEGIN])
-settingExercise = reg.get_number_from_user()
-while (settingExercise.confirm != SETTING_COMPLETED):		#while the other threads work, I wait for the result
-	pass
+settingExercise = audio_timer_set.Thread_get_number_from_user()
+settingExercise.start()
+
+settingExercise.join() #while the other threads work, I wait for the result
+
+
 
 #selecting exercise time (using the same class)
 output_interface.output_audio([audio_files.TIMER_SETTINGS_BEGIN])
-settingTimer = reg.get_number_from_user()
-while (settingTimer.confirm != SETTING_COMPLETED):		#while the other threads work, I wait for the result
-	pass
+settingTimer = audio_timer_set.Thread_get_number_from_user()
+settingTimer.start()
+settingTimer.join() #while the other threads work, I wait for the result
 
 acquisition_phase(settingExercise.get_number(), settingTimer.timer_object)
 
 
-
+#---------------------------------------------------------------------------------------------------------------------------------------
 
 def acquisition_phase(id_exercise, unset_timer):
 	semaphore = thread_semaphore.Semaphore()

@@ -133,24 +133,18 @@ def toList_Fifo(fifo):
     return ret
     
 class Read_sensor(threading.Thread):
-	"""ABSTRACT CLASS (method run not defined)
-		Class that represent a sensor and give methods to read data from that sensor.
-	"""	
-
-    device_address              = None
-    device_position             = None
-    data_one_misuration         = None
-    window_misurations_fifo     = None
+    """ABSTRACT CLASS (method run not defined)
+    Class that represent a sensor and give methods to read data from that sensor."""     
     
     def __init__(self, device_address, device_position, id_exercise):
-    	threading.Thread.__init__(self)
-        
+        threading.Thread.__init__(self)
+            
         self.device_address = device_address
         self.device_position = device_position 
 
         #il numero dell'esercizio che questa istanza andrà di thread andrà a memorizzare
         self.id_exercise = id_exercise    
-        
+            
         #lista che conterrà tutti i dati registrati dal sensore in un istante
         self.data_one_misuration = [0] * NDATA_EACH_SENSOR
         #lista che contiene i dati registrati dal sensore in una finestra di tempo          
@@ -159,9 +153,9 @@ class Read_sensor(threading.Thread):
     
     
     def read_data_and_callback(self, semaphore, callback_when_data_ready):
-    	"""read data from the current sensor and call a callback function each time data is ready. 
-    		It works while the semaphore is unlocked"""
-        times   = 0
+        """read data from the current sensor and call a callback function each time data is ready. 
+                It works while the semaphore is unlocked"""
+        times= 0
 
         semaphore.waitForUnlock()
         
@@ -187,47 +181,47 @@ class Read_sensor(threading.Thread):
 
 
 class Thread_read_sensor_and_write(Read_sensor):
-	"""Specialized class for read data from a specific sensor and write it on a csv file.
-		It inherits from threading.Thread(), so data sensor can be read and written by a separate thread
-		NOTE: the name of the csv file is the position of the sensor"""
+    """Specialized class for read data from a specific sensor and write it on a csv file.
+    It inherits from threading.Thread(), so data sensor can be read and written by a separate thread
+    NOTE: the name of the csv file is the position of the sensor"""
 
-	id_exercise                 = None
-	csvfile                     = None
-	writer                      = None
+    id_exercise = None
+    csvfile = None
+    writer = None
 
-	def __init__(self, device_address, device_position, id_exercise):
-	 	Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+    def __init__(self, device_address, device_position, id_exercise):
+              Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
 
-        #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
-        self.csvfile = open(CSV_FILE_PATH+device_position+'.csv', 'ab')        
-        self.writer = csv.writer(self.csvfile)
+    #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
+    self.csvfile = open(CSV_FILE_PATH+device_position+'.csv', 'ab')        
+    self.writer = csv.writer(self.csvfile)
 
 
     def run(self, semaphore):
-    	self.read_data_and_callback(semaphore, self.write_row_on_csv)
-    	self.csvfile.close()
+        self.read_data_and_callback(semaphore, self.write_row_on_csv)
+        self.csvfile.close()
 
 
     def write_row_on_csv(self):
-    	self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
+        self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
 
 
 
 class Read_sensor_and_IA(Read_sensor):
-	"""Specialized class for:
-		-	reading data from a sensor
-		-	use IA algoritm to retrive percentage of correctness
-		- 	notify the user interface that a result is avaiable to be given in output"""
-	ia_object = None
+        """Specialized class for:
+                -       reading data from a sensor
+                -       use IA algoritm to retrive percentage of correctness
+                -       notify the user interface that a result is avaiable to be given in output"""
+        ia_object = None
 
-	def __init__(self, device_address, device_position, ia_object, id_exercise):
-		Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
-		self.ia_object = ia_object
+        def __init__(self, device_address, device_position, ia_object, id_exercise):
+                Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+                self.ia_object = ia_object
 
-	def run(self, semaphore):
-		self.read_data_and_callback(semaphore, send_data_to_ia)
+        def run(self, semaphore):
+                self.read_data_and_callback(semaphore, send_data_to_ia)
 
-	def send_data_to_ia(self):
-		percentage = ia_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)		
-		ia_object.observer.ia_result_notify(self.device_position, percentage)
+        def send_data_to_ia(self):
+                percentage = ia_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
+                ia_object.observer.ia_result_notify(self.device_position, percentage)
         

@@ -6,7 +6,7 @@ DESCRIPTION: trousers with sensors that permits recognition of the executed move
 - Random Forest Classifier (AI Algorithm)
 - Accelerometer and gyroscope sensor (MPU-6050 https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
 - Audio interface
-- Python (per software su server e raspberry)
+- Python (for all the software)
 
 # Implementation Details
 There are two sensors, one positioned on the left wirst and the other one on the left ankle and they are connected to the Raspberry Pi postioned in a [marsupio] bend to the [vita].

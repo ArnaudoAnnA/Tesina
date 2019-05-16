@@ -1,23 +1,15 @@
 # Tesina
-DESCRIZIONE: pantaloni con sensori che permettono il riconoscimnto del movimento eseguito. L'obiettivo è quello di controllare che l'esercizio (sportivo) venga eseguito correttamente. 
+DESCRIPTION: trousers with sensors that permits recognition of the executed movememt, The objective is to control that the sport exercise will be executed correctly
+ 
+# Used Technologies
+- Raspberry Pi
+- Random Forest Classifier (AI Algorithm)
+- Accelerometer and gyroscope sensor (MPU-6050 https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/)
+- Audio interface
+- Python (per software su server e raspberry)
 
-# tecnologie utilizzate
-- raspberry Pi, 
-- (eventuale) rete neurale per rendere più veloce il riconoscimento dei movimenti, 
-- sensore accellerometro e giroscopio tre assi (MPU-6050 https://www.invensense.com/products/motion-tracking/6-axis/mpu-6050/).
-- interfaccia audio
-- server amazon che esegua l'elaborazione dei dati
-- scheda 4G Raspberry per comunicazione con server
-- python (per software su server e raspberry)
+# Implementation Details
+There are two sensors, one positioned on the left wirst and the other one on the left ankle and they are connected to the Raspberry Pi postioned in a [marsupio] bend to the [vita].
+All the job is managed by the Raspberry Pi, that reads the data coming from the two sensors and instantly execute a control using the Random Forest Classifier, because he needs to understand if the user is executing well the exercise.
 
-# dettagli implementazione
-*OLD*
-Il prototipo realizzato riguarderà un pantalone da corsa con tre sensori MPU-6050 in prossimità dei seguenti punti del corpo:
-  - caviglia
-  - ginocchio
-  - anca
-I tre sensori sono collegati ad un Raspberry Pi posizionato in un marsupio legato in vita.
-La scheda Raspberry è collegata ad una antenna grazie alla quale trasmette i dati rilevati dai sensori ad un computer.
-All'interno del computer avviene il riconoscimento o la memorizzazione dei movimenti (a seconda della modalità selezionata tramite interfaccia desktop). La memorizzazione dei movimenti è necessaria, in una prima fase, per memorizzare la serie di movimenti che poi verrà confrontata con i movimenti percepiti in modalità "riconoscimento".
-
-Una volta realizzato il prototipo per una gamba, eventualmente si potrebbe procedere con la seconda gamba, che sarà identica alla prima ma con un controllo di "simmetricità".
+Once there will be a protype ready, there will be te possibility to prooced with the right part of the body, that will be identical to the other part, just adding a "simmetry" control

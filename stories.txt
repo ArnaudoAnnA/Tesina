@@ -16,9 +16,9 @@ PRIORITA':  1
                 3) Registrazione Esercizio
                     1- Software Pulsanti durante la registrazione (con timer)
                     
-                LAUGIO (IMP ORTANTE)
+                LAUGIO
                 4) Confronto Movimenti
-                    1- Algoritmo di IA (tensorflow) per il confronto tra i dati in ingresso e quelli preregistrati
+                    1- Algoritmo di IA (Scikit learn) per il confronto tra i dati in ingresso e quelli preregistrati
                     2- multithreading (1 thread per sensore)  
                 
                 ANNA    

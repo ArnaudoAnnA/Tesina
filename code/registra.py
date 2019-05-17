@@ -47,8 +47,8 @@ def acquisition_phase(id_exercise, unset_timer):
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
 def record_sensors_data(id_exercise, semaphore):
-	"""function that starts one thread for each sensor. Each thread will read data from sensor and write it on a csv file.
-		Threads are controlled by a semaphore"""
+"""function that starts one thread for each sensor. Each thread will read data from sensor and write it on a csv file.
+Threads are controlled by a semaphore"""
 
 	#init sensors
 	threadSensor1 = sensor_functions.Thread_sensor_to_csv(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class)
@@ -63,10 +63,10 @@ def record_sensors_data(id_exercise, semaphore):
 #---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def exercise_acquisition_audio(unset_timer, semaphore):
-	"""function than manages the timer during the acquisition phase and a semaphore.
-		The semaphore is controlled by the timer:
-		-	when the initial cuntdown finishes the semaphore is unlocked
-		- 	when the main cuntdown finishes the semaphore is locked (to stops other threads) """
+"""function than manages the timer during the acquisition phase and a semaphore.
+	The semaphore is controlled by the timer:
+	-	when the initial cuntdown finishes the semaphore is unlocked
+	- 	when the main cuntdown finishes the semaphore is locked (to stops other threads) """
 
     output_interface.output_audio(audio_files.DIRECTORY_PATH, [audio_files.REGISTRATION_WILL_START_IN, audio_files.NUMBERS[TIME_BEFORE_START], audio_files.SECONDI])
 

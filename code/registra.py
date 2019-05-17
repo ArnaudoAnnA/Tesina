@@ -18,7 +18,7 @@ SENSORPOSITION_ARMDX	= config.SENSORPOSITION_ARMDX
 
 #selecting exercise
 output_interface.output_audio([audio_files.ID_EXERCISE_SETTINGS_BEGIN])
-	settingExercise = audio_set_number.Thread_get_number_from_user()
+settingExercise = audio_set_number.Thread_get_number_from_user()
 settingExercise.start()
 
 settingExercise.join() #while the other threads work, I wait for the result

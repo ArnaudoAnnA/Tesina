@@ -12,7 +12,7 @@ import pygame
 
 # gestire interfaccia audio di Raspberry: https://www.raspberrypi.org/documentation/usage/audio/README.mdaa
 
-def output_audio(path, files_audio):
+def output(path, files_audio):
     pygame.init()
     
     for file in files_audio:

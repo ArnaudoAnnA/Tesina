@@ -132,12 +132,10 @@ def toList_Fifo(fifo):
   
     return ret
     
-class Read_sensor(threading.Thread):
-    """ABSTRACT CLASS (method run not defined)
-    Class that represent a sensor and give methods to read data from that sensor."""     
+class Read_sensor:
+    """Class that represent a sensor and give methods to read data from that sensor."""     
     
     def __init__(self, device_address, device_position, id_exercise):
-        threading.Thread.__init__(self)
             
         self.device_address = device_address
         self.device_position = device_position 
@@ -157,7 +155,7 @@ class Read_sensor(threading.Thread):
                 It works while the semaphore is unlocked"""
         times= 0
 
-        semaphore.waitForUnlock()
+        semaphore.wait_for_unlock()
         
         while(semaphore.isUnlocked()):
 
@@ -180,7 +178,7 @@ class Read_sensor(threading.Thread):
 
 
 
-class Thread_read_sensor_and_write(Read_sensor):
+class Sensor_to_csv_thread(Read_sensor, threading.Thread):
     """Specialized class for read data from a specific sensor and write it on a csv file.
     It inherits from threading.Thread(), so data sensor can be read and written by a separate thread
     NOTE: the name of the csv file is the position of the sensor"""
@@ -190,11 +188,13 @@ class Thread_read_sensor_and_write(Read_sensor):
     writer = None
 
     def __init__(self, device_address, device_position, id_exercise):
-              Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+        Read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+        threading.Thread.__init__(self)
 
-    #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
-    self.csvfile = open(CSV_FILE_PATH+device_position+'.csv', 'ab')        
-    self.writer = csv.writer(self.csvfile)
+        #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
+        absolute_path = CSV_FILE_PATH+device_position+'.csv'
+        self.csvfile = open(absolute_path, 'ab')        
+        self.writer = csv.writer(self.csvfile)
 
 
     def run(self, semaphore):
@@ -207,21 +207,21 @@ class Thread_read_sensor_and_write(Read_sensor):
 
 
 
-class Read_sensor_and_IA(Read_sensor):
-        """Specialized class for:
-                -       reading data from a sensor
-                -       use IA algoritm to retrive percentage of correctness
-                -       notify the user interface that a result is avaiable to be given in output"""
-        ia_object = None
+class Sensor_to_IA_thread(Read_sensor, threading.Thread):
+    """Specialized class for:
+    -       reading data from a sensor
+    -       use IA algoritm to retrive percentage of correctness
+    -       notify the user interface that a result is avaiable to be given in output"""
+    ia_object = None
 
-        def __init__(self, device_address, device_position, ia_object, id_exercise):
-                Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
-                self.ia_object = ia_object
+    def __init__(self, device_address, device_position, ia_object, id_exercise):
+        Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+        self.ia_object = ia_object
 
-        def run(self, semaphore):
-                self.read_data_and_callback(semaphore, send_data_to_ia)
+    def run(self, semaphore):
+        self.read_data_and_callback(semaphore, send_data_to_ia)
 
-        def send_data_to_ia(self):
-                percentage = ia_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
-                ia_object.observer.ia_result_notify(self.device_position, percentage)
+    def send_data_to_ia(self):
+        percentage = ia_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
+        ia_object.observer.ia_result_notify(self.device_position, percentage)
         

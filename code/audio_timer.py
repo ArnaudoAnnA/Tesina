@@ -9,30 +9,29 @@
 #this module implements a timer with an audio interface
 #------------------------------------------------------
 import time
-import audio_file_ita as audio
-import audio_raspberry as audio_interface
+import audio_files_ita as audio_files
+import raspberry_output as audio_interface
 
 #constants
-DIRECTORY_PATH = FILE_AUDIO.DIRECTORY_PATH
-NUMS = FILE_AUDIO.NUMS
+DIRECTORY_PATH = audio_files.DIRECTORY_PATH
+NUMBERS = audio_files.NUMBERS
 
 TIME_OUT = -1
 
 class Timer:
-    timer = 0
 
     def __init__(self, initial_value):
-        self.timer = initialValue
+        self.value = initial_value
 
 
-    def setTimer(self, new):
-        self.timer = new
-        return TimerChangedListener.notify(self.timer)
+    def set(self, new):
+        self.value = new
+        return TimerChangedListener.notify(self.value)
 
     # --------------------------------------------------------------------------------------------------------------------------------------
-    def increaseTimer(self, increment):
-		self.timer = self.timer + increment
-		return TimerChangedListener.notify(self.timer)
+    def increase(self, increment):
+        self.value = self.value + increment
+        return TimerChangedListener.notify(self.value)
     #------------------------------------------------------------------------------------------------------------------------------------
     def audio_countdown(self, lapse):
         while self.increaseTimer(-lapse) != TIME_OUT:
@@ -50,6 +49,8 @@ class TimerChangedListener:
     @staticmethod
     def notify(timer):
     	#called every time the timer changes value, returns the new timer value: if it's 0, returns TIME_OUT
-        audio_interface.audio_output([DIRECTORY_PATH + NUMBERS[timer]])
+        audio_interface.output(DIRECTORY_PATH , [NUMBERS[timer]])
         if (timer == 0):
             return TIME_OUT
+            
+            

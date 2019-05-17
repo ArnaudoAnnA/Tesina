@@ -18,7 +18,7 @@ SENSORPOSITION_ARMDX	= config.SENSORPOSITION_ARMDX
 
 #selecting exercise
 output_interface.output_audio([audio_files.ID_EXERCISE_SETTINGS_BEGIN])
-settingExercise = audio_set_number.Thread_get_number_from_user()
+	settingExercise = audio_set_number.Thread_get_number_from_user()
 settingExercise.start()
 
 settingExercise.join() #while the other threads work, I wait for the result
@@ -48,7 +48,7 @@ def acquisition_phase(id_exercise, unset_timer):
 
 def record_sensors_data(id_exercise, semaphore):
 """function that starts one thread for each sensor. Each thread will read data from sensor and write it on a csv file.
-Threads are controlled by a semaphore"""
+	Threads are controlled by a semaphore"""
 
 	#init sensors
 	threadSensor1 = sensor_functions.Thread_sensor_to_csv(config.Device_Address1, config.SENSORPOSITION_LEGSX, movement_class)

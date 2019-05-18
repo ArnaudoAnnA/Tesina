@@ -1,3 +1,5 @@
+
+
 # coding=utf-8
 import sqlite3
 import config
@@ -67,4 +69,58 @@ class TableExercises:
         return row   
         
     def get_column_index(self, column_name):
-        return self.COLUMNS.index(column_name)   
+        return self.COLUMNS.index(column_name) 
+    
+    def get_maximum_exercise_id(self):
+
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT MAX({}) FROM {}"
+            cursor.execute(query.format(self.COLUMN_ID_EXERCISE, self.TABLE_NAME))
+            row = cursor.fetchone()
+
+        except sqlite3.Error as e:
+            return e
+        except Exception as e:
+            return e
+
+        cursor.close()
+        return row  
+
+
+
+    def get_minimum_exercise_id(self):
+
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT MIN({}) FROM {}"
+            cursor.execute(query.format(self.COLUMN_ID_EXERCISE, self.TABLE_NAME))
+            row = cursor.fetchone()
+
+        except sqlite3.Error as e:
+            return e
+        except Exception as e:
+            return e
+        
+        cursor.close()
+        return row  
+
+
+
+    def get_exercise_name(self, id_exercise):
+        if(id_exercise < 0):
+            return "Error: index not valid"
+        
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT {} FROM {} WHERE {} = {}"
+            cursor.execute(query.format(self.COLUMN_NAME, self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise))  
+            row = cursor.fetchone()  
+
+        except sqlite3.Error as e:
+            return e
+        except Exception as e:
+            return e
+        
+        cursor.close()
+        return row

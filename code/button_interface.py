@@ -12,23 +12,29 @@ import threading
 import audio_timer
 import vocal_synthesizer as output_interface
 import config
-from abc import ABC, abstractmethod #abstract classes
+from abc import ABCMeta, abstractmethod #abstract classes
+from simple_counter import Simple_counter
 
 #constants
 LEFT_BUTTON_PIN 	= config.LEFT_BUTTON_PIN
 CENTRAL_BUTTON_PIN 	= config.CENTRAL_BUTTON_PIN
 RIGHT_BUTTON_PIN 	= config.RIGHT_BUTTON_PIN
+MAX_EXERCISE_ID		= config.MAX_EXERCISE_ID
 
 
 class Button_interface:
-    """ class that uses an timer object (improprially) to allow user to select a number using buttons.
-        Inital state parameter must be an object that inherits from State abstract interface (described in this module)"""	
+    """ class that allows user to select a number or scroll a list using buttons.
+        Inital state parameter must be an object that inherits from State abstract class (described in this module)"""	
 	
     def __init__(self, inital_state):
         
+        self.initial_state = initial_state      #to keep track of the first state of the state machine
         self.state = initial_state
-        self.number_object = audio_timer.Timer(0)
+        self.return_value = None
         self.confirm = False
+
+        #init vocal sinthesizer
+        output_interface.init()
         
         GPIO.setmode(GPIO.BCM)                                              #specifico quale configurazione di pin intendo usare
         
@@ -78,12 +84,12 @@ class Button_interface:
         
         
 #----THREAD VERSION------------------------------------------------------------------------------------	
-class Thread_get_number_from_user(Get_number_from_user, threading.Thread):
+class Button_interface_thread(Get_number_from_user, threading.Thread):
     """class that makes the method "set_pins_and_start" executed in a new thread"""	
 
-    def __init__(self):
+    def __init__(self, inital state):
         threading.Thread.__init__(self)
-        Get_number_from_user.__init__(self)
+        Button_interface.__init__(self)
         
     def run(self):
         set_pins_and_start()
@@ -113,32 +119,8 @@ class State(ABC):
         """when user clicks on the left button that method of the current state is called. """
         pass
    
+
    
-#-------STATE ALL-OFF(for state design pattern)---------------------------------------------------------------------       
-class All_off_state(State):
-    """that class is the state of the program before first click on centre button.
-    The first click on the centre button start the procedure of selecting number via buttons.
-    So, in this phase, if a right or a left button is pressed, I pass"""
-    
-    def __init__(self):
-        super().__init__()
-        
-        
-    
-    def central_button_click(self, context):
-        """OVERRIDE METHOD from abstract super class.
-        Pression on centre button makes the procedure of setting number to start."""
-        
-        output_interface.output(audio_files.DIRECTORY_PATH, [audio_files.NUMBER_SETTINGS_GUIDE])    #I give in output istructions to the user
-        context.number_object = audio_timer.Timer(0)                                                                #I create a new timer object (that I will use impropially)
-        context.state = Setting_number_state()                                                                  #I switch the state
-        
-        
-    
-    #if left or right button is pressed, I do nothing
-    def right_button_click(self, context): pass
-    def left_button_click(self, context): pass
-    
 #-------STATE SETTING_NUMBER(for state design pattern)---------------------------------------------------------------------    
 class Setting_number_state(State):
     """that class is the state of the program when user uses left and right button to decrease or increase the number.
@@ -148,7 +130,8 @@ class Setting_number_state(State):
     -   if user clicks on central button, the state machine switches to the confirm-phase """
     
     def __init__(self):
-        super().__init__()
+        self.counter = Simple_counter(0, MAX_EXERCISE_ID)
+        output_interface.output(NUMBER_SETTING_GUIDE) 
         
         
     
@@ -156,26 +139,68 @@ class Setting_number_state(State):
         """OVERRIDE METHOD from abstract super class.
         If user clicks on central button, the state machine switches to the confirm-phase"""
         
-        output_interface.output(audio_files.DIRECTORY_PATH, [audio_files.CONFIRM])                  #asking user if he want to confirm the number 
-        context.state = Confirm_request_state()   #I switch the state
+        output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
+        context.return_value = self.counter.get_value()
+        context.state = Confirm_request_state()             #I switch the state
         
         
     
     def right_button_click(self, context): 
         """OVERRIDE METHOD from abstract super class.
-        if user clicks on right button, the number increase of one unit and then the audio interface tells the new number
-        (audio_timer object will automatically give new value output on the audio interfaces when it changes)"""
-        
-        context.number_object.increase(+1)
+        if user clicks on right button, the number increase of one unit and then the audio interface tells the new number"""
+        self.counter.increase()
+        output_interface.output(self.counter.get_value())
         
         
             
     def left_button_click(self, context):
         """OVERRIDE METHOD from abstract super class.
-        if user clicks on left button, the number increase of one unit and then the audio interface tells the new number
-        (audio_timer object will automatically give new value output on the audio interfaces when it changes)"""
-        if(context.number_object.value>0):  
-            context.number_object.increase(-1)
+        if user clicks on left button, the number increase of one unit and then the audio interface tells the new number"""
+        self.counter.decrease()
+        output_interface.output(self.counter.get_value())
+            
+
+#-------STATE SELECTING_FROM_LIST(for state design pattern)---------------------------------------------------------------------    
+class Selecting_from_list_state(State):
+    """that class is the state of the program when user uses left and right button to decrease or increase the number.
+    -   if user clicks on right button, the number increase of one unit and then the audio interface tells the new number
+    -   if user clicks on left button, the number decrease of one unit and then the audio interface tells the new number
+    (NOTE: the class is designed to avoid number goes under 0)
+    -   if user clicks on central button, the state machine switches to the confirm-phase """
+    
+    def __init__(self, list_to_scroll):
+        self.counter = Simple_counter(0, list_to_scroll.length)
+        self.list_to_scroll = list_to_scroll
+        output_interface.output(NUMBER_SETTINGS_GUIDE) 
+        
+        
+    
+   def central_button_click(self, context):
+        """OVERRIDE METHOD from abstract super class.
+        If user clicks on central button, the state machine switches to the confirm-phase"""
+        
+        output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
+        context.return_value = self.counter.get_value()
+        context.state = Confirm_request_state()             #I switch the state
+        
+        
+    
+    def right_button_click(self, context): 
+        """OVERRIDE METHOD from abstract super class.
+        if user clicks on right button, the number increase of one unit and then the audio interface tells the new number"""
+        self.counter.increase()
+        list_element = list_to_scroll[self.counter.get_value()]
+        output_interface.output(list_element)
+        
+        
+            
+    def left_button_click(self, context):
+        """OVERRIDE METHOD from abstract super class.
+        if user clicks on left button, the number increase of one unit and then the audio interface tells the new number"""
+        self.counter.decrease()
+        list_element = list_to_scroll[self.counter.get_value()]
+        output_interface.output(list_element)
+            
         
 #-------STATE CONFIRM-REQUEST(for state design pattern)---------------------------------------------------------------------  
 class Confirm_request_state(State):
@@ -203,9 +228,11 @@ class Confirm_request_state(State):
             
     def left_button_click(self, context):
         """OVERRIDE METHOD from abstract super class.
-        user don't want to confirm current number -> the state returns to all-off and current program restart to allow user to select another number"""
+        user don't want to confirm current number -> the state returns to inital_state to allow user to select another number"""
         
-        output_interface.output(audio_files.DIRECTORY_PATH, [audio_files.DISCARDED_VALUE])
-        context.state = All_off_state()
-        
-                
+        output_interface.output(DISCARDED_VALUE)
+        context.state = context.inital_state 
+
+
+#----------------------------------------------------------------------------------------------------------------------------------------------
+

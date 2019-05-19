@@ -18,6 +18,22 @@ CONFIRM = "Vuoi confermare il numero selezionato? Destra per si, sinistra per no
 
 #setting timer
 TIMER_SETTINGS_BEGIN = "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare"
+# dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
+"""DA TRADURRE IN ITALIANO"""
+time_dictionary =	{
+  10: "ten seconds",
+  30: "thirty seconds",
+  60: "one minute",
+  120: "two minutes",
+  180: "three minutes" ,
+  240: "four minutes",
+  300: "five minutes",
+  360: "six minutes" ,
+  420: "seven minutes",
+  480: "eight minutes",
+  540: "nine minutes",
+  600: "ten minutes"
+}
 
 #registration
 ID_EXERCISE_SETTINGS_BEGIN = "Specificare l'id del nuovo esercizio. premere sul tasto centrale per iniziare"

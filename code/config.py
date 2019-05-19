@@ -52,3 +52,8 @@ REGISTRATION_TIME_BEFORE_START 	= 5   #cuntdown before start of acquisition
 RIGHT_BUTTON_PIN                = 21
 CENTRAL_BUTTON_PIN              = 20
 LEFT_BUTTON_PIN                 = 16
+
+#VOCAL SYNTHESIZER
+VS_RATE     = 'default'       #words per minute
+VS_VOICE    = 'en-scottish'        #id      
+VS_VOLUME   = 1.0             #from 0.0 to 1.0

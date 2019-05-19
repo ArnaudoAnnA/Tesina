@@ -64,7 +64,8 @@ class TheBrain:
 
     #function that parse a movement from list to a dataframe
     def movement_to_dataframe(movement):
-    	return movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
+    	movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
+    	return movement
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):

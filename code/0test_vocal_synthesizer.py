@@ -6,7 +6,7 @@ import vocal_synthesizer as vs
 #test = vs.Vocal_synthesizer()
 #test.say("funziona")
 
-engine = pyttsx.init('sapi5')
+engine = pyttsx.init()
 voices = engine.getProperty('voices')
 engine.setProperty('rate', 'default')
 

@@ -207,21 +207,22 @@ class Sensor_to_csv_thread(Read_sensor, threading.Thread):
 
 
 
-class Sensor_to_IA_thread(Read_sensor, threading.Thread):
+class Sensor_to_ai_thread(Read_sensor, threading.Thread):
     """Specialized class for:
     -       reading data from a sensor
     -       use IA algoritm to retrive percentage of correctness
     -       notify the user interface that a result is avaiable to be given in output"""
     ia_object = None
 
-    def __init__(self, device_address, device_position, ia_object, id_exercise):
+    def __init__(self, device_address, device_position, ai_object, id_exercise, exercise_correctness_observer):
         Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
-        self.ia_object = ia_object
+        self.ai_object = ai_object
+        self.exercise_correctness_observer = exercise_correctness_observer
 
     def run(self, semaphore):
         self.read_data_and_callback(semaphore, send_data_to_ia)
 
-    def send_data_to_ia(self):
-        percentage = ia_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
-        ia_object.observer.ia_result_notify(self.device_position, percentage)
+    def send_data_to_ai(self):
+        percentage = ai_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
+        exercise_correctness_observer.notify(percentage, ai_object.sensor_position) 
         

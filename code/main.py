@@ -1,13 +1,4 @@
-# -*- coding: utf-8 -*-
-#Python 2
+#coding: utf-8
 
-armsx_ai = ai.TheBrain(SENSORPOSITION_ARMSX)
-#armdx_ai = ai.TheBrain(SENSORPOSITION_ARMDX)
-legsx_ai = ai.TheBrain(SENSORPOSITION_LEGSX)
-#legdx_ai = ai.TheBrain(SENSORPOSITION_LEGDX)
+import main_functions
 
-
-armsx_ai.deserialize()
-#armdx_ai.deserialize()
-legsx_ai.deserialize()
-#legdx_ai.deserialize()

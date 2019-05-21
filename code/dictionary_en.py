@@ -42,9 +42,8 @@ dictionary = {
     "REGISTRATION_ENDED" : "registrazione terminata",
 
     #feedback 
-    "ERROR_FEEDBACK" : "errore sensore", #sostituire, in seguito, al numero del sensore la sua posizione
-    "EXERCISE_DONE_WITH" : "esercizio eseguito con",
-    "PERCENTAGE_OF_CORRECTNESS" : "per cento di correttezza",
+    "ERROR_FEEDBACK" : "errore", #sostituire, in seguito, al numero del sensore la sua posizione
+    "EXERCISE_DONE_WITH" : "esercizio eseguito con {} per cento di correttezza",
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "nessun esercizio disponibile",

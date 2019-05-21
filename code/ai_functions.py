@@ -17,16 +17,12 @@ ID_EXERCISE     = config.ID_EXERCISE
     
 class TheBrain:
 
-    #RandomForest instantiation
-    rfc                 = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0) 
-    sensor_position     = None
-    serialized_path     = None
-    observer            = audio_feedback_esercizio.Live_exercise_correction
-
     #constructor
     def __init__(self, sensor_position):
         self.sensor_position = sensor_position
         self.serialized_path = AI_PATH + sensor_position + ".pkl"
+        #RandomForest instantiation
+        selg.rfc = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0)
 
             
     #function that trains the AI using an input csv 
@@ -64,7 +60,8 @@ class TheBrain:
 
     #function that parse a movement from list to a dataframe
     def movement_to_dataframe(movement):
-    	return movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
+    	movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
+    	return movement
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):

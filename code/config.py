@@ -1,6 +1,7 @@
 # coding=utf-8
 import smbus
 
+
 #Recorder constants
 LENFIFO                         = 10				#FIFO LENGTH
 MEASUREMENT_EACH_SECOND         = 25				#DATA ACQUISITION RATE (n per second)
@@ -29,7 +30,6 @@ MAX_DEPTH                       = 3        			#depth of the trees
 #HEADER_FEATURES                 = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
 HEADER                          = HEADER_FEATURES + [ID_EXERCISE]"""
 
-
 #sensors addess
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
 ARMSX_ADDRESS                   = 0x68  			# MPU6050 ARM device address
@@ -46,9 +46,16 @@ SENSORPOSITION_ARMDX            = "armdx"
 
 #registration constants
 REGISTRATION_TIME_BEFORE_START 	= 5   #cuntdown before start of acquisition
-
+MAX_EXERCISE_ID = 50
 
 #interface pins addresses
 RIGHT_BUTTON_PIN                = 21
 CENTRAL_BUTTON_PIN              = 20
 LEFT_BUTTON_PIN                 = 16
+
+#VOCAL SYNTHESIZER
+VS_RATE     = 'default'       #words per minute
+VS_VOICE    = 'en-scottish'        #id      
+VS_VOLUME   = 1.0             #from 0.0 to 1.0
+
+

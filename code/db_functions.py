@@ -1,5 +1,4 @@
 
-
 # coding=utf-8
 import sqlite3
 import config
@@ -27,7 +26,7 @@ class TableExercises:
     COLUMN_ID_EXERCISE  = "id_exercise"
     COLUMN_NAME         = "name"
     COLUMN_DESCRIPTION  = "description"
-    COLUMN_AUDIO        = "audio"
+    
     #table columns list
     COLUMNS             = [COLUMN_ID_EXERCISE, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_AUDIO]
 
@@ -112,7 +111,7 @@ class TableExercises:
         try:
             cursor = self.conn.cursor()
             query = "SELECT {} FROM {} WHERE {} = {}"
-            cursor.execute(query.format(self.COLUMN_NAME, self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise))  
+            cursor.execute(query, self.COLUMN_NAME, self.TABLE_NAME, self.COLUMN_ID_EXERCISE, id_exercise)  
             row = cursor.fetchone()  
 
         except sqlite3.Error as e:
@@ -122,3 +121,21 @@ class TableExercises:
         
         cursor.close()
         return row
+    
+    
+    def add_new_exercise(id_exercise, name, description):
+        if(id_exercise < 0):
+            return "Error: index not valid"
+        
+        try:
+            cursor = self.conn.cursor()
+            query = "INSERT INTO ?(?, ?, ?) VALUES (?, ?, ?)"
+            cursor.execute(query, self.TABLE_NAME, self.COLUMN_ID_EXERCISE, self.COLUMN_NAME, self.COLUMN_DESCRIPTION, id_exercise, name, description)  
+            #testare valore di ritorno
+        except sqlite3.Error as e:
+            return e
+        except Exception as e:
+            return e
+        
+        cursor.close()
+        

@@ -22,7 +22,7 @@ class TheBrain:
         self.sensor_position = sensor_position
         self.serialized_path = AI_PATH + sensor_position + ".pkl"
         #RandomForest instantiation
-        selg.rfc = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0)
+        self.rfc = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0)
 
             
     #function that trains the AI using an input csv 

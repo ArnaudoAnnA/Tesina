@@ -52,7 +52,7 @@ class TableExercises:
         return row
     
     
-    def check_id_exercise(self, id_exercise):
+    def id_already_present(self, id_exercise):
         """return true if there is already an exercise with the id_exercise in the table"""
         bool_already_used = False
         
@@ -61,6 +61,7 @@ class TableExercises:
         colindex_id_exercise = self.get_column_index(self.COLUMN_ID_EXERCISE)
         if(row[colindex_id_exercise] == id_exercise):
             bool_already_udes = True
+        
         
     def get_all_exercises(self):
         try:

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #  Python 2
-#  ITALIAN VERSION
+#  ENGLISH VERSION
 #-----------------------------------------------------------------------
 #  constant list containing .wav file list
 # 

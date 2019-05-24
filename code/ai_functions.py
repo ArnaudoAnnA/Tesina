@@ -59,13 +59,13 @@ class TheBrain:
         self.rfc = jbl.load(self.serialized_path)
 
     #function that parse a movement from list to a dataframe
-    def movement_to_dataframe(movement):
+    def movement_to_dataframe(self, movement):
     	movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
     	return movement
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
     def movement_recognizer(self, movement):
-        df_movement = self.movement_to_dataframe()
+        df_movement = self.movement_to_dataframe(movement)
         predicted_movement = self.rfc.predict(df_movement)
         predicted_probability = self.rfc.predict_proba(df_movement)
         return (predicted_movement[0], predicted_probability[0])
@@ -75,5 +75,4 @@ class TheBrain:
         df_movement = self.movement_to_dataframe()
         predicted_probability = self.rfc.predict_proba(df_movement)
         return predicted_probability[0][id_exercise] * 100
-
 

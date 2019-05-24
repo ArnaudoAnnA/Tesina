@@ -10,8 +10,6 @@ DB_NAME     = config.DB_NAME
 
 #DB main class
 class Database:
-    conn            = None
-    table_exercises = None
 
     #constructor, instances TableExercises
     def __init__(self):  

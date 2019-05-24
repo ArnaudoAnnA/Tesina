@@ -2,10 +2,10 @@
 #  Python 2
 #  ITALIAN VERSION
 #-----------------------------------------------------------------------
-#  constant list containing .wav file list
+#  la lista costante contiene l'elenco dei file .wav
 # 
-#  ALERT: every file must be .wav 
-#         every file must have absolute path
+#  ALERT: tutti i vale devono essere .wav 
+#         tutti i file devono avere il path assoluto
 #-----------------------------------------------------------------------
 
 import config
@@ -13,13 +13,13 @@ import config
 dictionary = {
 
     #setting number
-    "DISCARDED_VALUE" : "value discarded",
-    "NUMBER_SETTINGS_GUIDE" : "to select following element press right button or press left button to select previous",
+    "DISCARDED_VALUE" : "valore scartato",
+    "NUMBER_SETTINGS_GUIDE" : "per selezionare gli elementi seguenti premere il tasto destro, per i percedenti premere il tasto sinistro",
     "CONFIRM" : "Vuoi confermare il numero selezionato? Destra per si, sinistra per no",
 
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
-    # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
+    # dizionario che associa un id progressivo con il numero di secondi in cui l'esercizio verrà eseguito (sia in valore numerico che in stringa)
     "time_dictionary" :	{
       10: "ten seconds",
       30: "thirty seconds",

@@ -59,14 +59,14 @@ class TableExercises:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {}"
             cursor.execute(query.format(self.TABLE_NAME))
-            row = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
+            rows = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
             
         except sqlite3.Error as e:
             return e
         except Exception as e:
             return e
         cursor.close()
-        return row   
+        return rows 
         
     def get_column_index(self, column_name):
         return self.COLUMNS.index(column_name) 

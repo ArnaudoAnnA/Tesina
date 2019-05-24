@@ -131,7 +131,7 @@ class TableExercises:
             cursor = self.conn.cursor()
             query = "INSERT INTO ?(?, ?, ?) VALUES (?, ?, ?)"
             cursor.execute(query, self.TABLE_NAME, self.COLUMN_ID_EXERCISE, self.COLUMN_NAME, self.COLUMN_DESCRIPTION, id_exercise, name, description)  
-            #testare valore di ritorno
+            
         except sqlite3.Error as e:
             return e
         except Exception as e:

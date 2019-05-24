@@ -68,7 +68,7 @@ class Button_interface:
         GPIO.add_event_detect(RIGHT_BUTTON_PIN, GPIO.FALLING)
         GPIO.add_event_callback(RIGHT_BUTTON_PIN, self.right_button_click )
 
-        while(self.finish != True):     #FINISH POINT OF MODULE: when user has confirmed that function ends
+        while(self.finish != True):
             pass
             
 
@@ -182,9 +182,10 @@ class Selecting_from_list_state(State):
         """OVERRIDE METHOD from abstract super class.
         If user clicks on central button, the state machine switches to the confirm-phase"""
         
-        output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
-        context.return_value = self.counter.get_value()
-        context.state = Confirm_request_state()             #I switch the state
+        print "ciao"
+        #output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
+        #context.return_value = self.counter.get_value()
+        #context.state = Confirm_request_state()             #I switch the state
         
         
     
@@ -240,4 +241,3 @@ class Confirm_request_state(State):
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------
-

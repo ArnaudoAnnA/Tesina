@@ -3,6 +3,15 @@
 import config
 import dictionary_en as dicitonary      #to change lang import a different module
 
+# returns the values of the dict correctly oredered
+def dict_values_sorted(dictionary):
+    tuples = dictionary.items()
+    tuples.sort()
+    ret = []
+    for item in tuples:
+        ret.append(item[1])
+    return ret
+
 dictionary = {
 
     #setting number

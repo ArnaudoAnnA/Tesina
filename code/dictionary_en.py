@@ -51,8 +51,8 @@ dictionary = {
 
 
     #generals
-    "SECONDS" : "secondi",
-    "GO" : "via",
+    "SECONDS" : "seconds",
+    "GO" : "go",
     "SENSOR_POSITION" : {
           config.SENSORPOSITION_LEGSX : "left leg",
           config.SENSORPOSITION_LEGDX : "right leg",

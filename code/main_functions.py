@@ -108,7 +108,6 @@ def select_new_exercise_id():
 	get_number = bi.Button_interface(setting_number_state)
 	
 	return set_number.return_value
-	
 
 def record_exercise(id_exercise, seconds):
 	#preparing threads

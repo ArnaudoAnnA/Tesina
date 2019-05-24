@@ -21,18 +21,18 @@ dictionary = {
     "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
     # dizionario che associa un id progressivo con il numero di secondi in cui l'esercizio verrà eseguito (sia in valore numerico che in stringa)
     "time_dictionary" :	{
-      10: "ten seconds",
-      30: "thirty seconds",
-      60: "one minute",
-      120: "two minutes",
-      180: "three minutes" ,
-      240: "four minutes",
-      300: "five minutes",
-      360: "six minutes" ,
-      420: "seven minutes",
-      480: "eight minutes",
-      540: "nine minutes",
-      600: "ten minutes"
+      10: "10 secondi",
+      30: "30 secondi",
+      60: "60 secondi",
+      120: "120 secondi",
+      180: "180 secondi" ,
+      240: "240 secondi",
+      300: "300 secondi",
+      360: "360 secondi" ,
+      420: "420 secondi",
+      480: "480 secondi",
+      540: "540 secondi",
+      600: "600 secondi"
     },
 
     #registration

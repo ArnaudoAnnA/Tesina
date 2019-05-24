@@ -6,6 +6,8 @@ import config
 import thread_semaphore as ts
 import ai_functions as ai
 import sensor_functions as sf
+import db_functions as db
+import button_interface as bi
 import vocal_syinthesizer as output_interface
 import audio_cuntdown
 from exercise_correctness_observer import Exercise_correcness_observer
@@ -38,6 +40,26 @@ def init_ai():
         AI_sensor_legsx.unserialize()
         AI_sensor_armsx.unserialize()
 
+	
+def select_exercise():
+	#getting all avaiable exercises
+	db_exercises = db.Database()
+	table_exercises = db_exercises.table_exercises
+	exercises = table_exercises.get_all_exercises()
+	
+	#getting a list with all exercises names (to be passed as a list to scroll by buttons)
+	name_column_index = table_exercises.get_column_index()
+	exercises_names = [ exercise[name_column_index] for exercise in exercises ]
+	
+	#starting function that manage button interface to allow user to select an exercise
+	select_from_list_state = bi.Select_from_list_state(exercises_names)
+	get_exercise = bi.Button_interface(select_from_list_state)
+	
+	#retriving the selected exercise
+	selected_index = get_exercise.return_value
+	selected_exercise = exercises[selected_index]
+	
+	return selected_exercise	#I return the id of the selected exercise tuple
 
 
 def do_exercise(id_exercise, seconds):       
@@ -79,7 +101,14 @@ def do_exercise(id_exercise, seconds):
         #final report
         output_interface.output(observer.get_correctness_average())
 
-
+	
+def select_new_exercise_id():
+	#starting function that allow user to select a number using buttons
+	setting_number_state = bi.Setting_number_state()
+	get_number = bi.Button_interface(setting_number_state)
+	
+	return set_number.return_value
+	
 
 def record_exercise(id_exercise, seconds):
 	#preparing threads

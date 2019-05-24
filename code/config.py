@@ -23,12 +23,12 @@ DB_NAME                         = "brian.db"
 #AI constants 
 #COMMENTATA PERCHE' DA ERRORE DI COMPILAZIONE -> METTERE A POSTO
 #header representing the recorded data row, or csv columns
-"""
+
 ID_EXERCISE                     = "id_exercise"		#name of the exercise id column
 N_ESTIMATORS                    = 100      			#number of the trees
 MAX_DEPTH                       = 3        			#depth of the trees
-#HEADER_FEATURES                 = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
-HEADER                          = HEADER_FEATURES + [ID_EXERCISE]"""
+HEADER_FEATURES                 = ['Ax_' + str(i) for i in xrange(1, LENFIFO+1)]+['Ay_' + str(i) for i in xrange(1, LENFIFO+1)]+['Az_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gx_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gy_' + str(i) for i in xrange(1, LENFIFO+1)]+['Gz_' + str(i) for i in xrange(1, LENFIFO+1)] # data heading
+HEADER                          = HEADER_FEATURES + [ID_EXERCISE]
 
 #sensors addess
 #defaul address for i2c is 0x68 but if we connect the AD0 pin to VCC it changes to 0x69
@@ -57,5 +57,4 @@ LEFT_BUTTON_PIN                 = 16
 VS_RATE     = 'default'       #words per minute
 VS_VOICE    = 'en-scottish'        #id      
 VS_VOLUME   = 1.0             #from 0.0 to 1.0
-
 

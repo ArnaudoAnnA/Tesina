@@ -68,7 +68,7 @@ class Button_interface:
         GPIO.add_event_detect(RIGHT_BUTTON_PIN, GPIO.FALLING)
         GPIO.add_event_callback(RIGHT_BUTTON_PIN, self.right_button_click )
 
-        while(self.finish != True):
+        while(self.finish != True):     #FINISH POINT OF MODULE: when user has confirmed that function ends
             pass
             
 

@@ -109,6 +109,22 @@ def select_new_exercise_id():
 	
 	return set_number.return_value
 
+
+def select_seconds():
+	#getting a list with all options
+	list_seconds = lang.dictionary["TIME_DICTIONARY"]
+        list_seconds = lang.dict_values_sorted(list_seconds)
+	
+	#starting function that manage button interface to allow user to select from the list
+	select_from_list_state = bi.Select_from_list_state(list_seconds)
+	get_seconds = bi.Button_interface(select_from_list_state)
+	
+	#retriving the selected option
+	seconds = get_seconds.return_value
+	
+	return seconds
+
+
 def record_exercise(id_exercise, seconds):
 	#preparing threads
 	thread_legsx = Thread(target = sf.record_sensor_data, args = (id_exercise, seconds, SENSORPOSITION_LEGSX, LEGSX_ADDRESS))

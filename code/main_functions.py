@@ -40,6 +40,19 @@ def init_ai():
         AI_sensor_legsx.unserialize()
         AI_sensor_armsx.unserialize()
 
+def select_seconds():
+	#getting a list with all options
+	list_seconds = lang.dictionary["TIME_DICTIONARY"]
+        list_seconds = lang.dict_values_sorted(list_seconds)
+	
+	#starting function that manage button interface to allow user to select from the list
+	select_from_list_state = bi.Select_from_list_state(list_seconds)
+	get_seconds = bi.Button_interface(select_from_list_state)
+	
+	#retriving the selected option
+	seconds = get_seconds.return_value
+	
+	return seconds
 	
 def select_exercise():
 	#getting all avaiable exercises
@@ -60,6 +73,15 @@ def select_exercise():
 	selected_exercise = exercises[selected_index]
 	
 	return selected_exercise	#I return the id of the selected exercise tuple
+
+
+def select_new_exercise_id():
+	#starting function that allow user to select a number using buttons
+	setting_number_state = bi.Setting_number_state()
+	get_number = bi.Button_interface(setting_number_state)
+	
+	return set_number.return_value
+
 
 
 def do_exercise(id_exercise, seconds):       
@@ -100,29 +122,6 @@ def do_exercise(id_exercise, seconds):
 
         #final report
         output_interface.output(observer.get_correctness_average())
-
-	
-def select_new_exercise_id():
-	#starting function that allow user to select a number using buttons
-	setting_number_state = bi.Setting_number_state()
-	get_number = bi.Button_interface(setting_number_state)
-	
-	return set_number.return_value
-
-
-def select_seconds():
-	#getting a list with all options
-	list_seconds = lang.dictionary["TIME_DICTIONARY"]
-        list_seconds = lang.dict_values_sorted(list_seconds)
-	
-	#starting function that manage button interface to allow user to select from the list
-	select_from_list_state = bi.Select_from_list_state(list_seconds)
-	get_seconds = bi.Button_interface(select_from_list_state)
-	
-	#retriving the selected option
-	seconds = get_seconds.return_value
-	
-	return seconds
 
 
 def record_exercise(id_exercise, seconds):

@@ -14,11 +14,11 @@ dictionary = {
 
     #setting number
     "DISCARDED_VALUE" : "value discarded",
-    "NUMBER_SETTINGS_GUIDE" : "to select following element press right button or press left button to select previous",
+    "NUMBER_SETTINGS_GUIDE" : "use right or left arrow to go forward or back",
     "CONFIRM" : "Do you want confirm the selected number? Yes: Right, No: Left",
 
     #setting timer
-    "TIMER_SETTINGS_BEGIN" : "Specify the number of sensonds about the duration of the exercise. Click the central botton to start",
+    "TIMER_SETTINGS_BEGIN" : "Specify the number of sensonds about the duration of the exercise.",
     # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
     "time_dictionary" :	{
       10: "ten seconds",
@@ -36,7 +36,7 @@ dictionary = {
     },
 
     #registration
-    "ID_EXERCISE_SETTINGS_BEGIN" : "Specify id of the new exercise. Click the central botton to start",
+    "ID_EXERCISE_SETTINGS_BEGIN" : "Specify id of the new exercise.",
     "SENDING_DATA" : "Sending data in progress...",
     "REGISTRATION_WILL_START_IN" : "The registration will be sent after",
     "REGISTRATION_ENDED" : "end registration",

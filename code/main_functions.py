@@ -9,6 +9,7 @@ import sensor_functions as sf
 import db_functions as db
 import button_interface as bi
 import vocal_syinthesizer as output_interface
+import lang
 import audio_cuntdown
 from exercise_correctness_observer import Exercise_correcness_observer
 
@@ -94,8 +95,8 @@ def do_exercise(id_exercise, seconds):
 	#The observer stores the result and then calls a method to give it output.
 	#So the observer will store data from all threads and, when threads exit, will know the average correctness of the exercise.
         observer = Exercise_correcness_observer() #the object where I will store all the percentage of correctness returned by ai
-	thread_legsx = Sensor_to_ai_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, AI_sensor_legsx, id_exercise, observer)
-	thread_armsx = Sensor_to_ai_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, AI_sensor_armsx, id_exercise, observer)
+	thread_legsx = sf.Sensor_to_ai_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, AI_sensor_legsx, id_exercise, observer)
+	thread_armsx = sf.Sensor_to_ai_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, AI_sensor_armsx, id_exercise, observer)
 
 
 	#threads will start when semaphore unloks
@@ -104,9 +105,10 @@ def do_exercise(id_exercise, seconds):
         thread_armsx.start(semaphore)
 
 
-	#cuntdown before start 
+	#cuntdown before start
+	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+START_CUNTDOWN+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
         audio_cuntdown.start(START_CUNTDOWN)
-	vs.say(lang.dictionary["GO"])
+	output_interface.output(lang.dictionary["GO"])	# "go"
 
 	#unlocking threads
         ts.semaphore.unlock()
@@ -126,29 +128,30 @@ def do_exercise(id_exercise, seconds):
 
 def record_exercise(id_exercise, seconds):
 	#preparing threads
-	thread_legsx = Thread(target = sf.record_sensor_data, args = (id_exercise, seconds, SENSORPOSITION_LEGSX, LEGSX_ADDRESS))
-	thread_armsx = Thread(target = sf.record_sensor_data, args = (id_exercise, seconds, SENSORPOSITION_ARMSX, ARMSX_ADDRESS))
+	thread_legsx = sf.Sensor_to_csv_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, id_exercise)
+	thread_armsx = sf.Sensor_to_csv_thread(ARMSX_ADDRESS, SENSORPOSITION_ARMSX, id_exercise)
 
 	#threads will start when semaphore unloks
 	semaphore = ts.Semaphore()
 	thread_legsx.start(semaphore)
         thread_armsx.start(semaphore)
-
 	
 	#cuntdown before start 
+	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+START_CUNTDOWN+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
 	audio_cuntdown.start(START_CUNTDOWN)
-	vs.say(lang.dictionary["GO"])
+	output_interface.output(lang.dictionary["GO"])	# "go"
 
 	#unlocking threads
         ts.semaphore.unlock()
 
 	#cuntdown during the registration of the exercise
-	cuntdown(seconds)
+	audio_cuntdown.start(seconds)
 
 	#stopping threads
 	ts.semaphore.lock()
         thread_legsx.join()
         thread_armsx.join()
+	output_interface.output(lang.dictionary["REGISTRATION_ENDED"]	# "registration ended"
 
 	#QUI SI POTREBBE CHIEDERE CONFERMA ALL'UTENTE SE VUOLE SALVARE L'ESERCIZIO (OPPURE LO HA FATTO MALISSIMO E QUINDI NON LO VUOLE SALVARE)
 

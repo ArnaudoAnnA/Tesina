@@ -47,6 +47,7 @@ def select_seconds():
         list_seconds = lang.dict_values_sorted(list_seconds)
 	
 	#starting function that manage button interface to allow user to select from the list
+	output_interface.output(lang.dictionary["TIMER_SETTINGS_BEGIN"]) 
 	select_from_list_state = bi.Select_from_list_state(list_seconds)
 	get_seconds = bi.Button_interface(select_from_list_state)
 	
@@ -66,6 +67,7 @@ def select_exercise():
 	exercises_names = [ exercise[name_column_index] for exercise in exercises ]
 	
 	#starting function that manage button interface to allow user to select an exercise
+	ouput_interface.output(lang.dictionary["SELECT_THE_EXERCISE"])
 	select_from_list_state = bi.Select_from_list_state(exercises_names)
 	get_exercise = bi.Button_interface(select_from_list_state)
 	
@@ -78,6 +80,7 @@ def select_exercise():
 
 def select_new_exercise_id():
 	#starting function that allow user to select a number using buttons
+	ouput_interface.output(lang.dictionary["ID_EXERCISE_SETTINGS_BEGIN"])
 	setting_number_state = bi.Setting_number_state()
 	get_number = bi.Button_interface(setting_number_state)
 	

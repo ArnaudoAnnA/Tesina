@@ -38,7 +38,7 @@ dictionary = {
     #registration
     "ID_EXERCISE_SETTINGS_BEGIN" : "Specify id of the new exercise. Click the central botton to start",
     "SENDING_DATA" : "Sending data in progress...",
-    "REGISTRATION_WILL_START_IN" : "The registration will be sent after...",
+    "REGISTRATION_WILL_START_IN" : "The registration will be sent after",
     "REGISTRATION_ENDED" : "end registration",
 
     #feedback 

@@ -20,7 +20,7 @@ dictionary = {
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
     # dizionario che associa un id progressivo con il numero di secondi in cui l'esercizio verrà eseguito (sia in valore numerico che in stringa)
-    "time_dictionary" :	{
+    "TIME_DICTIONARY" :	{
       10: "10 secondi",
       30: "30 secondi",
       60: "60 secondi",

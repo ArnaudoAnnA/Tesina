@@ -7,14 +7,14 @@ import thread_semaphore as ts
 import ai_functions as ai
 import sensor_functions as sf
 import db_functions as db
-import button_interface as bi
+import _button_interface_for_test as bi
 import _test_output as output_interface
 import lang
 import audio_cuntdown
-from exercise_correctness_observer import Exercise_correcness_observer
+from exercise_correctness_observer import Exercise_correctness_observer
 
 
-START_COUNTDOWN			= config.START_COUNTDOWN
+CUNTDOWN_BEFORE_START		= config.CUNTDOWN_BEFORE_START
 SENSORPOSITION_LEGSX	        = config.SENSORPOSITION_LEGSX
 SENSORPOSITION_ARMSX	        = config.SENSORPOSITION_ARMSX
 ARMSX_ADDRESS			= config.ARMSX_ADDRESS
@@ -48,7 +48,7 @@ def select_seconds():
 	
 	#starting function that manage button interface to allow user to select from the list
 	output_interface.output(lang.dictionary["TIMER_SETTINGS_BEGIN"]) 
-	select_from_list_state = bi.Select_from_list_state(list_seconds)
+	select_from_list_state = bi.Selecting_from_list_state(list_seconds)
 	get_seconds = bi.Button_interface(select_from_list_state)
 	
 	#retriving the selected option
@@ -109,8 +109,8 @@ def do_exercise(id_exercise, seconds):
 
 
 	#cuntdown before start
-	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+START_CUNTDOWN+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
-        audio_cuntdown.start(START_CUNTDOWN)
+	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+CUNTDOWN_BEFORE_START+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
+        audio_cuntdown.start(CUNTDOWN_BEFORE_START)
 	output_interface.output(lang.dictionary["GO"])	# "go"
 
 	#unlocking threads
@@ -140,8 +140,8 @@ def record_exercise(id_exercise, seconds):
         thread_armsx.start(semaphore)
 	
 	#cuntdown before start 
-	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+START_CUNTDOWN+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
-	audio_cuntdown.start(START_CUNTDOWN)
+	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+CUNTDOWN_BEFORE_START+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
+	audio_cuntdown.start(CUNTDOWN_BEFORE_START)
 	output_interface.output(lang.dictionary["GO"])	# "go"
 
 	#unlocking threads

@@ -20,7 +20,7 @@ dictionary = {
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "Specify the number of sensonds about the duration of the exercise.",
     # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
-    "time_dictionary" :	{
+    "TIME_DICTIONARY" :	{
       10: "ten seconds",
       30: "thirty seconds",
       60: "one minute",

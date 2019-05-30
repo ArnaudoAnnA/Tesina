@@ -3,16 +3,17 @@
 
 
 import config
-import vocalsynthesizer as output_interface
+import _test_output as output_interface
 import lang
 
 
 #constants
-MINIMUM_PERCENTAGE = config.MINIMUM_PERCENTAGE
+MINIMUM_PERCENTAGE = config.MINIMUM_CORRECNTESS_PERCENTAGE
+
 
 
 #audio
-ERROR = lang.dictionary["ERROR"]
+ERROR = lang.dictionary["ERROR_FEEDBACK"]
 
 
 class Exercise_correctness_observer:

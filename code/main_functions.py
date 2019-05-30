@@ -8,7 +8,7 @@ import ai_functions as ai
 import sensor_functions as sf
 import db_functions as db
 import button_interface as bi
-import vocal_syinthesizer as output_interface
+import _test_output as output_interface
 import lang
 import audio_cuntdown
 from exercise_correctness_observer import Exercise_correcness_observer
@@ -28,7 +28,7 @@ AI_sensor_armsx = None
 
 
 
-def init_sensor_vocal_syntetizer():
+def init_sensor_vocal_synthesizer():
         sf.init_device()
 	vs.init_vocal_synthesizer()
 
@@ -154,7 +154,7 @@ def record_exercise(id_exercise, seconds):
 	ts.semaphore.lock()
         thread_legsx.join()
         thread_armsx.join()
-	output_interface.output(lang.dictionary["REGISTRATION_ENDED"]	# "registration ended"
+	output_interface.output(lang.dictionary["REGISTRATION_ENDED"])	# "registration ended"
 
 	#QUI SI POTREBBE CHIEDERE CONFERMA ALL'UTENTE SE VUOLE SALVARE L'ESERCIZIO (OPPURE LO HA FATTO MALISSIMO E QUINDI NON LO VUOLE SALVARE)
 

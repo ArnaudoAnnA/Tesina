@@ -1,7 +1,7 @@
 #coding: utf-8
 
 import main_functions as mf
-import db_functions ad db
+import db_functions as db
 
 #REGISTRATION PHASE
 
@@ -15,7 +15,7 @@ table_exercises = db_exercises.table_exercises
 if(!table_exercises.id_already_present(EXERCISE_ID)):
   table_exercises.add_new_exercise(EXERCISE_ID, EXERCISE_NAME, EXERCISE_DESCRIPTION)
 """
-While(True):
+while(True):
     new_exercise_id = mf.select_new_exercise_id()
     seconds = mf.select_seconds()
     mf.record_exercise(new_exercise_id, seconds)  

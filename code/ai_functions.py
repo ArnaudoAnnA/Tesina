@@ -75,5 +75,5 @@ class TheBrain:
     def get_percentage_of_correctness(self, id_exercise, np_movement):
         predicted_probability = self.rfc.predict_proba(np_movement)
         index = numpy.where(self.rfc.classes_ == id_exercise)
-        return predicted_probability[0][index] * 100
+        return predicted_probability[index] * 100
 

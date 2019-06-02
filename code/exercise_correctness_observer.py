@@ -14,7 +14,7 @@ MINIMUM_PERCENTAGE = config.MINIMUM_CORRECNTESS_PERCENTAGE
 
 #audio
 ERROR = lang.dictionary["ERROR_FEEDBACK"]
-
+SENSORS_POSITIONS = lang.dictionary["SENSORS_POSITIONS"]
 
 class Exercise_correctness_observer:
     """class that is notified when an ai object get a result.
@@ -37,7 +37,7 @@ class Exercise_correctness_observer:
         self.n_result += 1 
 
         if(percentage<MINIMUM_PERCENTAGE):
-            output_interface.output(ERROR + " " + sensor_position)
+            output_interface.output(ERROR + " " + SENSORS_POSITIONS[sensor_position])
 
             
     def get_correctness_average(self):

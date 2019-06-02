@@ -74,6 +74,7 @@ class TheBrain:
     #function that, given an exercise id and a movement, rerurns its percentage of correctness in 0-100 format
     def get_percentage_of_correctness(self, id_exercise, np_movement):
         predicted_probability = self.rfc.predict_proba(np_movement)
-        index = numpy.where(self.rfc.classes_ == id_exercise)
+        index = numpy.where(self.rfc.classes_ == id_exercise)[0][0]
+        print(predicted_probability, index)
         return predicted_probability[index] * 100
 

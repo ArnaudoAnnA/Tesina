@@ -10,7 +10,7 @@ import config
 import RPi.GPIO as GPIO
 import threading
 import lang
-import output_test as output_interface
+import _test_output as output_interface
 from abc import ABCMeta, abstractmethod #abstract classes
 from simple_counter import Simple_counter
 
@@ -18,6 +18,7 @@ from simple_counter import Simple_counter
 LEFT_BUTTON_PIN     = config.LEFT_BUTTON_PIN
 CENTRAL_BUTTON_PIN  = config.CENTRAL_BUTTON_PIN
 RIGHT_BUTTON_PIN    = config.RIGHT_BUTTON_PIN
+
 MAX_EXERCISE_ID     = config.MAX_EXERCISE_ID
 
 NUMBER_SETTINGS_GUIDE = lang.dictionary["NUMBER_SETTINGS_GUIDE"]
@@ -141,7 +142,6 @@ class Setting_number_state(State):
         """OVERRIDE METHOD from abstract super class.
         If user clicks on central button, the state machine switches to the confirm-phase"""
         
-        output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
         context.return_value = self.counter.get_value()
         context.state = Confirm_request_state()             #I switch the state
         
@@ -182,10 +182,8 @@ class Selecting_from_list_state(State):
         """OVERRIDE METHOD from abstract super class.
         If user clicks on central button, the state machine switches to the confirm-phase"""
         
-        print "ciao"
-        #output_interface.output(CONFIRM)                    #asking user if he want to confirm the number
-        #context.return_value = self.counter.get_value()
-        #context.state = Confirm_request_state()             #I switch the state
+        context.return_value = self.counter.get_value()
+        context.state = Confirm_request_state()             #I switch the state
         
         
     
@@ -237,7 +235,7 @@ class Confirm_request_state(State):
         user don't want to confirm current number -> the state returns to inital_state to allow user to select another number"""
         
         output_interface.output(DISCARDED_VALUE)
-        context.state = context.inital_state 
+        context.state = context.initial_state 
 
 
 #----------------------------------------------------------------------------------------------------------------------------------------------

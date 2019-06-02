@@ -41,4 +41,8 @@ class Exercise_correctness_observer:
 
             
     def get_correctness_average(self):
-        return self.result_sum / self.n_result
+        average = 0
+        if(self.n_result != 0):
+            average = self.result_sum / self.n_result
+            
+        return average

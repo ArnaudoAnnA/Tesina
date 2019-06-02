@@ -15,7 +15,7 @@ dictionary = {
     #setting number
     "DISCARDED_VALUE" : "valore scartato",
     "NUMBER_SETTINGS_GUIDE" : "per selezionare gli elementi seguenti premere il tasto destro, per i percedenti premere il tasto sinistro",
-    "CONFIRM" : "Vuoi confermare il numero selezionato? Destra per si, sinistra per no",
+    "CONFIRM" : "Vuoi confermare l'elemento selezionato? Destra per si, sinistra per no",
 
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
@@ -48,7 +48,7 @@ dictionary = {
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "nessun esercizio disponibile",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "usare le frecce per selezionare l'esercizio",
+    "SELECT_THE_EXERCISE" : "usare le frecce per selezionare l'esercizio",
 
 
     #generals

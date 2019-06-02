@@ -50,7 +50,7 @@ dictionary = {
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "",
+    "SELECT_THE_EXERCISE" : "",
 
 
     #generals

@@ -12,7 +12,6 @@ class Database:
 
     #constructor, instances TableExercises
     def __init__(self):
-        print("DEBUG: ", DB_PATH, DB_NAME)
         self.conn = sqlite3.connect(DB_PATH + DB_NAME)
         self.table_exercises = TableExercises(self.conn)
     
@@ -78,6 +77,20 @@ class TableExercises:
             cursor = self.conn.cursor()
             query = "SELECT * FROM {}"
             cursor.execute(query.format(self.TABLE_NAME))
+            rows = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
+            
+        except sqlite3.Error as e:
+            return -1
+        except Exception as e:
+            return -2
+        cursor.close()
+        return rows 
+
+    def get_all_exercises_ids(self):
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT {} FROM {}"
+            cursor.execute(query.format(self.COLUMN_ID_EXERCISE, self.TABLE_NAME))
             rows = list(cursor.fetchall()) #fetchall() method to fetch all rows from the database table
             
         except sqlite3.Error as e:

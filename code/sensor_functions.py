@@ -67,8 +67,9 @@ def MPU_Init(Device_Address):
     bus.write_byte_data(Device_Address, INT_ENABLE, 1)
 
 def init_device():
-    MPU_Init(ARMSX_ADDRESS)
     MPU_Init(LEGSX_ADDRESS)
+    #MPU_Init(ARMSX_ADDRESS)
+    
 
 def read_raw_data(addr, Device_Address):
     #Accel and Gyro value are 16-bit
@@ -124,13 +125,16 @@ def append_sensor_data(sensorFifo, sensor):
     sensorFifo[4].append(sensor[4])
     sensorFifo[5].append(sensor[5])
     
-def toList_Fifo(fifo):
+def toList_fifo(fifo):
     ret = []
 
     for i in xrange(0, len(fifo)):
         ret = ret + list(fifo[i])
   
     return ret
+
+def to_np_array_fifo(fifo):
+    return np.array(fifo)
     
 class Read_sensor:
     """Class that represent a sensor and give methods to read data from that sensor."""     
@@ -157,7 +161,7 @@ class Read_sensor:
 
         semaphore.wait_for_unlock()
         
-        while(semaphore.isUnlocked()):
+        while(semaphore.is_unlocked()):
 
             oldnow = time.time()
             #reading the data from the sensor
@@ -171,7 +175,8 @@ class Read_sensor:
                 callback_when_data_ready()
             #setting next instant
             times=times+1
-            time.sleep(1.0 / MEASUREMENT_EACH_SECOND - (time.time() - oldnow))
+            #print((1.0 / MEASUREMENT_EACH_SECOND) - (time.time() - oldnow))
+            time.sleep((1.0 / MEASUREMENT_EACH_SECOND) - (time.time() - oldnow))
             print ('times: ', times) 
         
         print(self.device_position, "DEBUG:  finished")
@@ -187,23 +192,25 @@ class Sensor_to_csv_thread(Read_sensor, threading.Thread):
     csvfile = None
     writer = None
 
-    def __init__(self, device_address, device_position, id_exercise):
-        Read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+    def __init__(self, device_address, device_position, id_exercise, semaphore):
+        Read_sensor.__init__(self, device_address, device_position, id_exercise)
         threading.Thread.__init__(self)
 
         #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
         absolute_path = CSV_FILE_PATH+device_position+'.csv'
         self.csvfile = open(absolute_path, 'ab')        
         self.writer = csv.writer(self.csvfile)
+        self.semaphore = semaphore
 
 
-    def run(self, semaphore):
-        self.read_data_and_callback(semaphore, self.write_row_on_csv)
+    def run(self):
+        self.read_data_and_callback(self.semaphore, self.write_row_on_csv)
         self.csvfile.close()
 
 
     def write_row_on_csv(self):
-        self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
+        self.window_misurations_list = toList_fifo(self.window_misurations_fifo)
+        self.writer.writerow(self.window_misurations_list + [self.id_exercise])
 
 
 
@@ -212,17 +219,20 @@ class Sensor_to_ai_thread(Read_sensor, threading.Thread):
     -       reading data from a sensor
     -       use IA algoritm to retrive percentage of correctness
     -       notify the user interface that a result is avaiable to be given in output"""
-    ia_object = None
 
-    def __init__(self, device_address, device_position, ai_object, id_exercise, exercise_correctness_observer):
-        Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+    def __init__(self, device_address, device_position, ai_object, id_exercise, semaphore, exercise_correctness_observer):
+        Read_sensor.__init__(self, device_address, device_position, id_exercise)
+        threading.Thread.__init__(self)
         self.ai_object = ai_object
         self.exercise_correctness_observer = exercise_correctness_observer
+        self.semaphore = semaphore
 
-    def run(self, semaphore):
-        self.read_data_and_callback(semaphore, send_data_to_ia)
+    def run(self):
+        self.read_data_and_callback(self.semaphore, self.send_data_to_ai)
 
     def send_data_to_ai(self):
-        percentage = ai_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
-        exercise_correctness_observer.notify(percentage, ai_object.sensor_position) 
+        self.window_misurations_list = to_np_array_fifo(self.window_misurations_fifo)
+        self.window_misurations_list = self.window_misurations_list.reshape((1,-1)) #making an array of one array
+        percentage = self.ai_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_list)            
+        self.exercise_correctness_observer.notify(percentage, self.ai_object.sensor_position) 
         

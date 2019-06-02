@@ -15,10 +15,10 @@ dictionary = {
     #setting number
     "DISCARDED_VALUE" : "value discarded",
     "NUMBER_SETTINGS_GUIDE" : "use right or left arrow to go forward or back",
-    "CONFIRM" : "Do you want confirm the selected number? Yes: Right, No: Left",
+    "CONFIRM" : "Do you want confirm the selected item? Yes: Right, No: Left",
 
     #setting timer
-    "TIMER_SETTINGS_BEGIN" : "Specify the number of sensonds about the duration of the exercise.",
+    "TIMER_SETTINGS_BEGIN" : "Specify the number of senconds about the duration of the exercise.",
     # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
     "TIME_DICTIONARY" :	{
       10: "ten seconds",
@@ -38,7 +38,7 @@ dictionary = {
     #registration
     "ID_EXERCISE_SETTINGS_BEGIN" : "Specify id of the new exercise.",
     "SENDING_DATA" : "Sending data in progress...",
-    "REGISTRATION_WILL_START_IN" : "The registration will be sent after",
+    "REGISTRATION_WILL_START_IN" : "The registration will start in",
     "REGISTRATION_ENDED" : "end registration",
 
     #feedback 
@@ -47,7 +47,7 @@ dictionary = {
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "no exercises available",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "use arrows to select the exercise",
+    "SELECT_THE_EXERCISE" : "use arrows to select the exercise",
 
 
     #generals

@@ -4,17 +4,17 @@ import smbus
 
 #Recorder constants
 LENFIFO                         = 10				#FIFO LENGTH
-MEASUREMENT_EACH_SECOND         = 25				#DATA ACQUISITION RATE (n per second)
+MEASUREMENT_EACH_SECOND         = 4				#DATA ACQUISITION RATE (n per second)
 OVERLAP                         = 4					#NUMBER OF ELEMENTS OVERLAPPED EVERY FIFO
 NDATA_EACH_SENSOR               = 6					#number of datas sent from each sensor
 
 
 #folder structure
 HOME_PATH                       = "/home/pi/Downloads/Tesina-master/"
-AI_PATH                         = HOME_PATH+"/files/pkl/"
+AI_PATH                         = HOME_PATH+"files/pkl/"
 DB_PATH                         = HOME_PATH+"files/db/"
-CSV_PATH                        = HOME_PATH+"files/csv/"
-CSV_FILE_PATH                   = "file://"+CSV_PATH
+CSV_FILE_PATH                   = HOME_PATH+"files/csv/"
+#CSV_FILE_PATH                  = "file://"+CSV_PATH    COMMENTATO PERCHE' NON FUNZIONA
 
 
 #DB constants
@@ -47,7 +47,7 @@ SENSORPOSITION_ARMSX            = "armsx"
 SENSORPOSITION_ARMDX            = "armdx"
 
 #registration constants
-REGISTRATION_TIME_BEFORE_START 	= 5   #cuntdown before start of acquisition
+CUNTDOWN_BEFORE_START 	= 5   #cuntdown before start of acquisition
 MAX_EXERCISE_ID = 50
 
 #interface pins addresses

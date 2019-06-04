@@ -26,18 +26,20 @@ AI_sensor_legsx = None
 AI_sensor_armsx = None
 
 
-def init_sensor_vocal_synthesizer():
+def init_sensors():
         sf.init_device()
-	output_interface.init_vocal_synthesizer()
+
+def init_vocal_synthesizer():
+        output_interface.init_vocal_synthesizer()
 
 def init_ai():
 	global AI_sensor_legsx
 	global AI_sensor_armsx
 
         AI_sensor_legsx = ai.TheBrain(SENSORPOSITION_LEGSX)
-        #AI_sensor_armsx = ai.TheBrain(SENSORPOSITION_ARMSX)
+        AI_sensor_armsx = ai.TheBrain(SENSORPOSITION_ARMSX)
         AI_sensor_legsx.deserialize()
-        #AI_sensor_armsx.deserialize()
+        AI_sensor_armsx.deserialize()
 
 def select_seconds():
 	#getting a list with all options
@@ -51,7 +53,8 @@ def select_seconds():
 	get_seconds.set_pins_and_start()
 	
 	#retriving the selected option
-	seconds = get_seconds.return_value
+	index = get_seconds.return_value
+	seconds = lang.dictionary["TIME_DICTIONARY"].keys()[index]
 	
 	return seconds
 	
@@ -75,8 +78,9 @@ def select_exercise():
 	#retriving the selected exercise
 	selected_index = get_exercise.return_value
 	selected_exercise = exercises[selected_index]
+	selected_exercise_id = selected_exercise[table_exercises.get_column_index(table_exercises.COLUMN_ID_EXERCISE)]
 	
-	return selected_exercise	#I return the id of the selected exercise tuple
+	return selected_exercise_id	#I return the id of the selected exercise tuple
 
 
 def select_new_exercise_id():
@@ -102,12 +106,12 @@ def do_exercise(id_exercise, seconds):
         semaphore = ts.Semaphore()
         observer = Exercise_correctness_observer() #the object where I will store all the percentage of correctness returned by ai
 	thread_legsx = sf.Sensor_to_ai_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, AI_sensor_legsx, id_exercise, semaphore, observer)
-	#thread_armsx = sf.Sensor_to_ai_thread(ARMSX_ADDRESS, SENSORPOSITION_ARMSX, AI_sensor_armsx, id_exercise, semaphore, observer)
+	thread_armsx = sf.Sensor_to_ai_thread(ARMSX_ADDRESS, SENSORPOSITION_ARMSX, AI_sensor_armsx, id_exercise, semaphore, observer)
 
 
 	#threads will start when semaphore unloks
         thread_legsx.start()
-        #thread_armsx.start()
+        thread_armsx.start()
 
 
 	#cuntdown before start
@@ -133,13 +137,14 @@ def do_exercise(id_exercise, seconds):
 
 def record_exercise(id_exercise, seconds):
 	#preparing threads
+        print("DEBUG:  "+str(seconds))
         semaphore = ts.Semaphore()
 	thread_legsx = sf.Sensor_to_csv_thread(LEGSX_ADDRESS, SENSORPOSITION_LEGSX, id_exercise, semaphore)
-	#thread_armsx = sf.Sensor_to_csv_thread(ARMSX_ADDRESS, SENSORPOSITION_ARMSX, id_exercise, semaphore)
+	thread_armsx = sf.Sensor_to_csv_thread(ARMSX_ADDRESS, SENSORPOSITION_ARMSX, id_exercise, semaphore)
 
 	#threads will start when semaphore unloks
 	thread_legsx.start()
-        #thread_armsx.start()
+        thread_armsx.start()
 	
 	#cuntdown before start 
 	output_interface.output(lang.dictionary["REGISTRATION_WILL_START_IN"]+" "+str(CUNTDOWN_BEFORE_START)+" "+lang.dictionary["SECONDS"])	# "REGISTRATION WILL START IN X SECONDS"
@@ -155,7 +160,7 @@ def record_exercise(id_exercise, seconds):
 	#stopping threads
 	semaphore.lock()
         thread_legsx.join()
-        #thread_armsx.join()
+        thread_armsx.join()
 	output_interface.output(lang.dictionary["REGISTRATION_ENDED"])	# "registration ended"
 
 	#QUI SI POTREBBE CHIEDERE CONFERMA ALL'UTENTE SE VUOLE SALVARE L'ESERCIZIO (OPPURE LO HA FATTO MALISSIMO E QUINDI NON LO VUOLE SALVARE)

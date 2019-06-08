@@ -10,23 +10,23 @@ VS_VOICE        = config.VS_VOICE
 VS_VOLUME       = config.VS_VOLUME
 
 
-object = None
-to_be_read = None
+thread = None
 
 def init():
-        global object
-        object = Vocal_syntesizer()
+        global thread
+        thread = Vocal_syntesizer()
+        thread.start()
 
 
 def output(string):
         """function that outputs the string given by audio through the vocal synthesizer"""
-        global object
-        global to_be_read
-        if(object == None) :
+        global thread
+        if(thread == None) :
                 init()
-        to_be_read = string
-        object.start()          #text to speech start in a separate thread to avoid slowing 
-
+        
+        thread.to_be_said = string      #text to speech start in a separate thread to avoid slowing 
+        if(thread.engine.isBusy()):
+                thread.engine.stop()
 
 class Vocal_syntesizer(threading.Thread):
 
@@ -36,10 +36,12 @@ class Vocal_syntesizer(threading.Thread):
                 self.engine.setProperty('rate', VS_RATE)
                 self.engine.setProperty('voice', VS_VOICE)
                 self.engine.setProperty('volume', VS_VOLUME)
+                self.to_be_said = None
 
         def run(self):
                 """function that outputs the string given by audio through the vocal synthesizer"""
-                global to_be_read
-                self.engine.say(to_be_read)
-                self.engine.runAndWait()        
-                #thread ends when the last instruction of this method is executed
+                while(True):
+                        if(self.to_be_said != None):
+                                self.engine.say(self.to_be_said)
+                                self.to_be_said = None
+                                self.engine.runAndWait()

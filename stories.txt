@@ -30,3 +30,4 @@ PRIORITA':  1
                 6) Selezione Esercizio
                     1- Interfaccia audio output all'utente
                     2- Software Pulsanti nella selezione degli esercizi
+                    

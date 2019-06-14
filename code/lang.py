@@ -3,6 +3,15 @@
 import config
 import dictionary_en as dicitonary      #to change lang import a different module
 
+# returns the values of the dict correctly oredered
+def dict_values_sorted(dictionary):
+    tuples = dictionary.items()
+    tuples.sort()
+    ret = []
+    for item in tuples:
+        ret.append(item[1])
+    return ret
+
 dictionary = {
 
     #setting number
@@ -13,7 +22,8 @@ dictionary = {
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "",
     # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
-    "TIME_DICTIONARY " :{
+    "TIME_DICTIONARY" :{
+      0  : "",
       10 : "",
       30 : "",
       60: "",
@@ -36,23 +46,25 @@ dictionary = {
 
     #feedback 
     "ERROR_FEEDBACK" : "", #sostituire, in seguito, al numero del sensore la sua posizione
+    "CORRECT" : "",
     "EXERCISE_DONE_WITH" : "",
     "PERCENTAGE_OF_CORRECTNESS" : "",
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "",
+    "SELECT_THE_EXERCISE" : "",
 
 
     #generals
+    "YES" : "",
+    "NO" : "",
     "SECONDS" : "",
     "GO" : "",
-    "SENSORS_POSITIONS" : {
-          config.SENSORPOSITION_LEGSX : "",
-          config.SENSORPOSITION_LEGDX : "",
-          config.SENSORPOSITION_ARMSX : "",
-          config.SENSORPOSITION_ARMDX : "",
-        }
+    #sensor positions
+    config.SENSORPOSITION_LEGSX : "",
+    config.SENSORPOSITION_LEGDX : "",
+    config.SENSORPOSITION_ARMSX : "",
+    config.SENSORPOSITION_ARMDX : ""
 }
   
 

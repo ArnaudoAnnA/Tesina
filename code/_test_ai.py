@@ -30,5 +30,20 @@ print("2 ai deserialized")
 (leg_res, leg_res_p) = leg.movement_recognizer(movement_leg)
 (arm_res, arm_res_p) = arm.movement_recognizer(movement_arm)
 
+"""
 print("LEG: [movement class] " + str(leg_res) + " [affidability] " + str(leg_res_p[leg_res-1]*100) + "%")
 print("ARM: [movement class] " + str(arm_res) + " [affidability] " + str(arm_res_p[arm_res-1]*100) + "%")
+"""
+
+"""
+(leg_res, leg_res_p) = leg.movement_recognizer(movement_leg)
+(arm_res, arm_res_p) = arm.movement_recognizer(movement_arm)
+
+print("LEG: [movement class] " + str(leg_res) + " [affidability] " + str(leg_res_p[leg_res-1]*100) + "%")
+print("ARM: [movement class] " + str(arm_res) + " [affidability] " + str(arm_res_p[arm_res-1]*100) + "%")
+"""
+
+np_movement = np.array(movement_leg)
+np_movement = np_movement.reshape((1, -1))
+percentage = leg.get_percentage_of_correctness(1, np_movement)  
+print(percentage)

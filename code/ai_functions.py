@@ -4,6 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.externals import joblib as jbl
 import sensor_functions
 import config
+import numpy
 
 LENFIFO         = config.LENFIFO
 CSV_FILE_PATH   = config.CSV_FILE_PATH
@@ -23,6 +24,7 @@ class TheBrain:
         self.serialized_path = AI_PATH + sensor_position + ".pkl"
         #RandomForest instantiation
         self.rfc = RandomForestClassifier(max_depth = MAX_DEPTH, n_estimators = N_ESTIMATORS, random_state = 0)
+        self.classes = None
 
             
     #function that trains the AI using an input csv 
@@ -42,7 +44,7 @@ class TheBrain:
         #y variable of the function (category) 
         y_train = data[ID_EXERCISE].values 
         #ai training
-        self.rfc.fit(x_train, y_train) 
+        self.rfc.fit(x_train, y_train)     
 
     #function that serializes the object
     def serialize(self):
@@ -59,21 +61,21 @@ class TheBrain:
         self.rfc = jbl.load(self.serialized_path)
 
     #function that parse a movement from list to a dataframe
-    def movement_to_dataframe(movement):
+    def movement_to_dataframe(self, movement):
     	movement = pd.DataFrame(data = [movement], columns = HEADER_FEATURES)
     	return movement
 
     #function that, given a row of LENFIFO sensor data, returns the recognized movement class and the percentage of correctness of all possible movements
-    def movement_recognizer(self, movement):
-        df_movement = self.movement_to_dataframe()
-        predicted_movement = self.rfc.predict(df_movement)
-        predicted_probability = self.rfc.predict_proba(df_movement)
+    def movement_recognizer(self, np_movement):
+        predicted_movement = self.rfc.predict(np_movement)
+        predicted_probability = self.rfc.predict_proba(np_movement)
         return (predicted_movement[0], predicted_probability[0])
 
     #function that, given an exercise id and a movement, rerurns its percentage of correctness in 0-100 format
-    def get_percentage_of_correctness(self, id_exercise, movement):
-        df_movement = self.movement_to_dataframe()
-        predicted_probability = self.rfc.predict_proba(df_movement)
-        return predicted_probability[0][id_exercise] * 100
-
+    def get_percentage_of_correctness(self, id_exercise, np_movement):
+        predicted_probability = self.rfc.predict_proba(np_movement)
+        #print "esercizio:" + str(id_exercise) + str(self.rfc.classes_)
+        index = numpy.where(self.rfc.classes_ == id_exercise)[0][0]
+        #print(predicted_probability, index)
+        return predicted_probability[0][index] * 100
 

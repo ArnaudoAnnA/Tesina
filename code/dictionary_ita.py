@@ -2,10 +2,10 @@
 #  Python 2
 #  ITALIAN VERSION
 #-----------------------------------------------------------------------
-#  constant list containing .wav file list
+#  la lista costante contiene l'elenco dei file .wav
 # 
-#  ALERT: every file must be .wav 
-#         every file must have absolute path
+#  ALERT: tutti i vale devono essere .wav 
+#         tutti i file devono avere il path assoluto
 #-----------------------------------------------------------------------
 
 import config
@@ -13,26 +13,27 @@ import config
 dictionary = {
 
     #setting number
-    "DISCARDED_VALUE" : "value discarded",
-    "NUMBER_SETTINGS_GUIDE" : "to select following element press right button or press left button to select previous",
-    "CONFIRM" : "Vuoi confermare il numero selezionato? Destra per si, sinistra per no",
+    "DISCARDED_VALUE" : "valore scartato",
+    "NUMBER_SETTINGS_GUIDE" : "per selezionare gli elementi seguenti premere il tasto destro, per i percedenti premere il tasto sinistro",
+    "CONFIRM" : "Vuoi confermare",
 
     #setting timer
     "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
-    # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
-    "time_dictionary" :	{
-      10: "ten seconds",
-      30: "thirty seconds",
-      60: "one minute",
-      120: "two minutes",
-      180: "three minutes" ,
-      240: "four minutes",
-      300: "five minutes",
-      360: "six minutes" ,
-      420: "seven minutes",
-      480: "eight minutes",
-      540: "nine minutes",
-      600: "ten minutes"
+    # dizionario che associa un id progressivo con il numero di secondi in cui l'esercizio verrà eseguito (sia in valore numerico che in stringa)
+    "TIME_DICTIONARY" :	{
+      0 : "zero secondi",
+      10: "10 secondi",
+      30: "30 secondi",
+      60: "60 secondi",
+      120: "120 secondi",
+      180: "180 secondi" ,
+      240: "240 secondi",
+      300: "300 secondi",
+      360: "360 secondi" ,
+      420: "420 secondi",
+      480: "480 secondi",
+      540: "540 secondi",
+      600: "600 secondi"
     },
 
     #registration
@@ -43,21 +44,23 @@ dictionary = {
 
     #feedback 
     "ERROR_FEEDBACK" : "errore sensore", #sostituire, in seguito, al numero del sensore la sua posizione
+    "CORRECT" : "corretto",
     "EXERCISE_DONE_WITH" : "esercizio eseguito con",
     "PERCENTAGE_OF_CORRECTNESS" : "per cento di correttezza",
 
     #exercise selection
     "NO_AVAIABLE_EXERCISE" : "nessun esercizio disponibile",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "usare le frecce per selezionare l'esercizio",
+    "SELECT_THE_EXERCISE" : "usare le frecce per selezionare l'esercizio",
 
 
     #generals
+    "YES" : "sì",
+    "NO" : "no",
     "SECONDS" : "secondi",
     "GO" : "via",
-    "SENSOR_POSITION" : {
-          config.SENSORPOSITION_LEGSX : "gamba sinistra",
-          config.SENSORPOSITION_LEGDX : "gamba destra",
-          config.SENSORPOSITION_ARMSX : "braccio sinistro",
-          config.SENSORPOSITION_ARMDX : "braccio destro",
-        }
+    #sensor positions
+    config.SENSORPOSITION_LEGSX : "gamba sinistra",
+    config.SENSORPOSITION_LEGDX : "gamba destra",
+    config.SENSORPOSITION_ARMSX : "braccio sinistro",
+    config.SENSORPOSITION_ARMDX : "braccio destro"
 }

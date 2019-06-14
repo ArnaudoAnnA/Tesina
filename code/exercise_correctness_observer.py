@@ -1,14 +1,18 @@
 #coding: utf-8
 
+
+
 import config
-import vocalsynthesizer as output_interface
+import vocal_synthesizer as output_interface
 import lang
 
-#constants
-MINIMUM_PERCENTAGE = config.MINIMUM_PERCENTAGE
 
-#audio
-ERROR = lang.dictionary["ERROR"]
+#constants
+MINIMUM_PERCENTAGE      = config.MINIMUM_CORRECNTESS_PERCENTAGE
+
+
+ERROR                   = lang.dictionary["ERROR_FEEDBACK"]
+CORRECT                 = lang.dictionary["CORRECT"]
 
 class Exercise_correctness_observer:
     """class that is notified when an ai object get a result.
@@ -25,12 +29,20 @@ class Exercise_correctness_observer:
         self.result_sum = 0
         self.n_result = 0
 
+
     def notify(self, percentage, sensor_position):
         self.result_sum += percentage
         self.n_result += 1 
-        
+
         if(percentage<MINIMUM_PERCENTAGE):
-            output_interface.output(ERROR + " " + sensor_position)
+            output_interface.output(ERROR + " " + lang.dictionary[sensor_position])
+        else:
+            output_interface.output(CORRECT + " " + lang.dictionary[sensor_position])
+          
             
     def get_correctness_average(self):
-        return self.result_sum / self.n_result
+        average = 0
+        if(self.n_result != 0):
+            average = self.result_sum / self.n_result
+            
+        return average

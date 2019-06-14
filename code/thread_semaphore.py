@@ -10,7 +10,7 @@ class Semaphore:
   def lock(self):
     self.semaphore.clear()
 
-  def is_unLocked(self):
+  def is_unlocked(self):
     return self.semaphore.isSet()
 
   def unlock(self):

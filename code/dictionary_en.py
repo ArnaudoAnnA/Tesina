@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #  Python 2
-#  ITALIAN VERSION
+#  ENGLISH VERSION
 #-----------------------------------------------------------------------
 #  constant list containing .wav file list
 # 
@@ -14,13 +14,14 @@ dictionary = {
 
     #setting number
     "DISCARDED_VALUE" : "value discarded",
-    "NUMBER_SETTINGS_GUIDE" : "to select following element press right button or press left button to select previous",
-    "CONFIRM" : "Vuoi confermare il numero selezionato? Destra per si, sinistra per no",
+    "NUMBER_SETTINGS_GUIDE" : "use right or left arrow to go forward or back",
+    "CONFIRM" : "Do you want confirm",
 
     #setting timer
-    "TIMER_SETTINGS_BEGIN" : "Specificare il numero di secondi di durata dell'esercizio. premere sul tasto centrale per iniziare",
+    "TIMER_SETTINGS_BEGIN" : "how long do you want to exercise?",
     # dictionary that associates a progressive id with the number of seconds the exercise will be executed (in both numerical and string value)
-    "time_dictionary" :	{
+    "TIME_DICTIONARY" :	{
+      0 : "zero seconds",
       10: "ten seconds",
       30: "thirty seconds",
       60: "one minute",
@@ -36,27 +37,30 @@ dictionary = {
     },
 
     #registration
-    "ID_EXERCISE_SETTINGS_BEGIN" : "Specificare l'id del nuovo esercizio. premere sul tasto centrale per iniziare",
-    "SENDING_DATA" : "invio dati in corso",
-    "REGISTRATION_WILL_START_IN" : "la registrazione sarà avviata tra",
-    "REGISTRATION_ENDED" : "registrazione terminata",
+    "ID_EXERCISE_SETTINGS_BEGIN" : "Specify id of the new exercise.",
+    "SENDING_DATA" : "Sending data in progress",
+    "REGISTRATION_WILL_START_IN" : "The registration will start in",
+    "REGISTRATION_ENDED" : "end registration",
 
     #feedback 
-    "ERROR_FEEDBACK" : "errore", #sostituire, in seguito, al numero del sensore la sua posizione
-    "EXERCISE_DONE_WITH" : "esercizio eseguito con {} per cento di correttezza",
-
+    "ERROR_FEEDBACK" : "error", #replace, then the number of the senosor, its position
+    "CORRECT" : "correct",
+    "EXERCISE_DONE_WITH" : "exercise done with ",
+    "PERCENTAGE_OF_CORRECTNESS" : " percentage of correctness",
+    
     #exercise selection
-    "NO_AVAIABLE_EXERCISE" : "nessun esercizio disponibile",
-    "USE_THE_ARROWS_TO_SELECT_THE_EXERCISE" : "usare le frecce per selezionare l'esercizio",
+    "NO_AVAIABLE_EXERCISE" : "no exercises available",
+    "SELECT_THE_EXERCISE" : "use the pushbutton to select the exercise",
 
 
     #generals
-    "SECONDS" : "secondi",
-    "GO" : "via",
-    "SENSOR_POSITION" : {
-          config.SENSORPOSITION_LEGSX : "gamba sinistra",
-          config.SENSORPOSITION_LEGDX : "gamba destra",
-          config.SENSORPOSITION_ARMSX : "braccio sinistro",
-          config.SENSORPOSITION_ARMDX : "braccio destro",
-        }
+    "YES" : "yes",
+    "NO" : "no",
+    "SECONDS" : "seconds",
+    "GO" : "go",
+    #sensor positions
+    config.SENSORPOSITION_LEGSX : "left leg",
+    config.SENSORPOSITION_LEGDX : "right leg",
+    config.SENSORPOSITION_ARMSX : "left arm",
+    config.SENSORPOSITION_ARMDX : "right arm"
 }

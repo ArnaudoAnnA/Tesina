@@ -4,7 +4,7 @@
 #   funzioni:
 #   -   MPU_init            -> inizializzazione sensore
 #   -   read_raw_data       -> leggere un singolo dato da un sensore in un dato istante
-#   -   init_Fifo           -> (da rivedere, non rispetta architettura multithread) inizializza liste
+#   -   init_fifo           -> (da rivedere, non rispetta architettura multithread) inizializza liste
 #   -   read_sensor_data    -> legge tutti i dati provenienti da un MPU in un dato istante
 #   -   parse_sensor_data   -> parsifica i dati ricevuti da un MPU
 #   -   append_sensor_data  -> aggiunge alla coda fifo i dati ricevuti da un MPU
@@ -13,7 +13,7 @@
 
 #-------------------------------------------------------------------------------------------------------------
 
-#based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto.
+#partially based on Matteo Dutto's Movement Recorder https://github.com/MatteoDutto.
 import smbus     #import SMBus module of I2C
 import time
 import collections
@@ -67,8 +67,9 @@ def MPU_Init(Device_Address):
     bus.write_byte_data(Device_Address, INT_ENABLE, 1)
 
 def init_device():
-    MPU_Init(ARMSX_ADDRESS)
     MPU_Init(LEGSX_ADDRESS)
+    MPU_Init(ARMSX_ADDRESS)
+    
 
 def read_raw_data(addr, Device_Address):
     #Accel and Gyro value are 16-bit
@@ -83,15 +84,15 @@ def read_raw_data(addr, Device_Address):
         value = value - 65536
     return value
 
-#Creates 6 FIFO, one for each data recived from the MPU6050
-def init_Fifo(lenFifo, sensorFifo): #sensorFifo 0=ax 1=ay 2=az 3=mx 4=my 5=mz
-    sensorFifo[0] = collections.deque(lenFifo * [0], lenFifo)
-    sensorFifo[1] = collections.deque(lenFifo * [0], lenFifo)
-    sensorFifo[2] = collections.deque(lenFifo * [0], lenFifo)
-    sensorFifo[3] = collections.deque(lenFifo * [0], lenFifo)
-    sensorFifo[4] = collections.deque(lenFifo * [0], lenFifo)
-    sensorFifo[5] = collections.deque(lenFifo * [0], lenFifo)
-    return sensorFifo
+#Creates 6 fifo, one for each data recived from the MPU6050
+def init_fifo(LENFIFO, sensorfifo): #sensorfifo 0=ax 1=ay 2=az 3=mx 4=my 5=mz
+    sensorfifo[0] = collections.deque(LENFIFO * [0], LENFIFO)
+    sensorfifo[1] = collections.deque(LENFIFO * [0], LENFIFO)
+    sensorfifo[2] = collections.deque(LENFIFO * [0], LENFIFO)
+    sensorfifo[3] = collections.deque(LENFIFO * [0], LENFIFO)
+    sensorfifo[4] = collections.deque(LENFIFO * [0], LENFIFO)
+    sensorfifo[5] = collections.deque(LENFIFO * [0], LENFIFO)
+    return sensorfifo
 
 #Read Accelerometer raw value
 def read_sensor_data(sensor, Device_Address): #sensor 0=ax 1=ay 2=az 3=mx 4=my 5=mz
@@ -115,22 +116,25 @@ def parse_sensor_data(sensor): #sensor 0=ax 1=ay 2=az 3=mx 4=my 5=mz
     sensor[5] = sensor[5] / GYRO_PARSE_NUMBER
     return sensor
 
-#adds an element on each one of the 6 FIFO, automatically deleting the last
-def append_sensor_data(sensorFifo, sensor):
-    sensorFifo[0].append(sensor[0])
-    sensorFifo[1].append(sensor[1])
-    sensorFifo[2].append(sensor[2])
-    sensorFifo[3].append(sensor[3])
-    sensorFifo[4].append(sensor[4])
-    sensorFifo[5].append(sensor[5])
+#adds an element on each one of the 6 fifo, automatically deleting the last
+def append_sensor_data(sensorfifo, sensor):
+    sensorfifo[0].append(sensor[0])
+    sensorfifo[1].append(sensor[1])
+    sensorfifo[2].append(sensor[2])
+    sensorfifo[3].append(sensor[3])
+    sensorfifo[4].append(sensor[4])
+    sensorfifo[5].append(sensor[5])
     
-def toList_Fifo(fifo):
+def toList_fifo(fifo):
     ret = []
 
     for i in xrange(0, len(fifo)):
         ret = ret + list(fifo[i])
   
     return ret
+
+def to_np_array_fifo(fifo):
+    return np.array(fifo)
     
 class Read_sensor:
     """Class that represent a sensor and give methods to read data from that sensor."""     
@@ -147,34 +151,36 @@ class Read_sensor:
         self.data_one_misuration = [0] * NDATA_EACH_SENSOR
         #lista che contiene i dati registrati dal sensore in una finestra di tempo          
         self.window_misurations_fifo = [0] * NDATA_EACH_SENSOR      
-        init_Fifo(LENFIFO, self.window_misurations_fifo)
+        init_fifo(LENFIFO, self.window_misurations_fifo)
     
     
     def read_data_and_callback(self, semaphore, callback_when_data_ready):
         """read data from the current sensor and call a callback function each time data is ready. 
                 It works while the semaphore is unlocked"""
         times= 0
-
+        measuration_gap = 1.0 / MEASUREMENT_EACH_SECOND
         semaphore.wait_for_unlock()
         
-        while(semaphore.isUnlocked()):
-
+        while(semaphore.is_unlocked()):
             oldnow = time.time()
             #reading the data from the sensor
             self.data_one_misuration = read_sensor_data(self.data_one_misuration, self.device_address)
             #parsing the data in an useful format
             self.data_one_misuration = parse_sensor_data(self.data_one_misuration)
-            #adding the sensor data to the head of the FIFO, automatically deleting the one in the tail
+            #adding the sensor data to the head of the fifo, automatically deleting the one in the tail
             append_sensor_data(self.window_misurations_fifo, self.data_one_misuration)
             #writing the fifo if it has the correct overlap or is the last recording
             if times % (LENFIFO-OVERLAP) == 0:
                 callback_when_data_ready()
             #setting next instant
             times=times+1
-            time.sleep(1.0 / MEASUREMENT_EACH_SECOND - (time.time() - oldnow))
+            delay = time.time() - float(oldnow)
+            print(measuration_gap - delay)
+            if (delay >= 0.0 and delay < measuration_gap):
+                time.sleep(measuration_gap - delay)
             print ('times: ', times) 
         
-        print(self.device_position, "DEBUG:  finished")
+        #print(self.device_position, "DEBUG:  finished")
 
 
 
@@ -187,23 +193,24 @@ class Sensor_to_csv_thread(Read_sensor, threading.Thread):
     csvfile = None
     writer = None
 
-    def __init__(self, device_address, device_position, id_exercise):
-        Read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+    def __init__(self, device_address, device_position, id_exercise, semaphore):
+        Read_sensor.__init__(self, device_address, device_position, id_exercise)
         threading.Thread.__init__(self)
 
-        #il file dove verrà salvato l'esercizio ha un nome che rappresenta la posizione del sensore
         absolute_path = CSV_FILE_PATH+device_position+'.csv'
         self.csvfile = open(absolute_path, 'ab')        
         self.writer = csv.writer(self.csvfile)
+        self.semaphore = semaphore
 
 
-    def run(self, semaphore):
-        self.read_data_and_callback(semaphore, self.write_row_on_csv)
+    def run(self):
+        self.read_data_and_callback(self.semaphore, self.write_row_on_csv)
         self.csvfile.close()
 
 
     def write_row_on_csv(self):
-        self.writer.writerow(toList_Fifo(self.window_misurations_fifo) + [self.id_exercise])
+        self.window_misurations_list = toList_fifo(self.window_misurations_fifo)
+        self.writer.writerow(self.window_misurations_list + [self.id_exercise])
 
 
 
@@ -212,17 +219,21 @@ class Sensor_to_ai_thread(Read_sensor, threading.Thread):
     -       reading data from a sensor
     -       use IA algoritm to retrive percentage of correctness
     -       notify the user interface that a result is avaiable to be given in output"""
-    ia_object = None
 
-    def __init__(self, device_address, device_position, ai_object, id_exercise, exercise_correctness_observer):
-        Thread_read_sensor.__init__(self, device_address, device_position, recordings, id_exercise)
+    def __init__(self, device_address, device_position, ai_object, id_exercise, semaphore, exercise_correctness_observer):
+        Read_sensor.__init__(self, device_address, device_position, id_exercise)
+        threading.Thread.__init__(self)
         self.ai_object = ai_object
         self.exercise_correctness_observer = exercise_correctness_observer
+        self.semaphore = semaphore
 
-    def run(self, semaphore):
-        self.read_data_and_callback(semaphore, send_data_to_ia)
+    def run(self):
+        self.read_data_and_callback(self.semaphore, self.send_data_to_ai)
 
     def send_data_to_ai(self):
-        percentage = ai_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_fifo)            
-        exercise_correctness_observer.notify(percentage, ai_object.sensor_position) 
+        self.window_misurations_list = to_np_array_fifo(self.window_misurations_fifo)
+        self.window_misurations_list = self.window_misurations_list.reshape((1,-1)) #making an array of one array
+        #print(self.id_exercise, self.window_misurations_list)
+        percentage = self.ai_object.get_percentage_of_correctness(self.id_exercise, self.window_misurations_list)            
+        self.exercise_correctness_observer.notify(percentage, self.ai_object.sensor_position) 
         
